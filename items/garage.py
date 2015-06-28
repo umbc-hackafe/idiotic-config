@@ -10,3 +10,6 @@ Trigger("Garage Door Opener",
 
 Toggle("Garage Door",
         tags=("garage", "external_door"))
+
+Toggle("Garage Projector Screen",
+       tags=("garage",))
