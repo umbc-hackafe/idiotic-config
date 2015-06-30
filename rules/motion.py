@@ -30,14 +30,14 @@ for sensor, light in mapping:
 @bind(Command(items.bathroom_door))
 @augment(Delay(Command(items.bathroom_door, "OFF"),
                period=10,
-               cancel=Command(items.bathroom_door, "ON"),
-               consume=Command(items.bathroom_door, "OFF")))
+               cancel=Command(items.bathroom_door, "ON")))
 def bathroom_rule(evt):
-    if evt.new:
-        bathroom_light.on()
+    if evt.command == "on":
+        items.bathroom_light.on()
     else:
-        hall_motion.trigger()
-        bathroom_light.off()
+        items.hallway_motion.on()
+        items.hallway_motion.off()
+        items.bathroom_light.off()
 
 @bind(Schedule(scheduler.every().day.at("8:00")))
 def enter_sun_mode(evt):
