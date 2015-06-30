@@ -17,5 +17,5 @@ Toggle("Kitchen Stove Light",
 Toggle("Kitchen Door",
        tags=("kitchen", "exterior_door", "occupancy"))
 
-Trigger("Kitchen Motion",
+Toggle("Kitchen Motion",
        tags=("kitchen", "motion", "occupancy"))

@@ -4,7 +4,7 @@ from idiotic import modules, scheduler
 Toggle("Office Light",
        tags=("office", "light"))
 
-Trigger("Office Motion",
+Toggle("Office Motion",
         tags=("office", "motion", "occupancy"))
 
 Toggle("Office Door",

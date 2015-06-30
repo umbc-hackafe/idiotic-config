@@ -10,10 +10,10 @@ Toggle("Bedroom Mood Light",
 Toggle("Bedroom Fan",
        tags=("bedroom", "fan", "climate"))
 
-Trigger("Bedroom Motion",
+Toggle("Bedroom Motion",
         tags=("bedroom", "motion", "occupancy"))
 
-Trigger("Bedroom Door",
+Toggle("Bedroom Door",
         tags=("bedroom", "hallway", "door", "occupancy"))
 
 Number("Bedroom Temperature",

@@ -5,7 +5,7 @@ Toggle("Hallway Light",
        tags=("hallway", "light"),
        bindings={"x10": {"code": "b2"}})
 
-Trigger("Hallway Motion",
+Toggle("Hallway Motion",
         tags=("hallway", "motion", "occupancy"))
 
 Number("Hallway Temperature",

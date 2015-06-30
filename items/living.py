@@ -11,7 +11,7 @@ Toggle("Living Room AC",
        tags=("living_room", "ac", "climate"))
 Toggle("Front Door",
        tags=("living_room", "exterior_door", "occupancy"))
-Trigger("Living Room Motion",
+Toggle("Living Room Motion",
         tags=("living_room", "motion", "occupancy"))
 Number("Living Room Temperature",
        tags=("living_room", "temperature", "climate"))
