@@ -7,14 +7,14 @@ Toggle("Music Room Light",
 Toggle("Music Room Lamp",
        tags=("music_room", "light"))
 
-Trigger("Music Room Motion",
+Toggle("Music Room Motion",
         tags=("music_room", "motion", "occupancy"))
 
 Toggle("Music Room Door",
        tags=("music_room", "hallway", "door", "occupancy"))
 
 Number("Music Room Temperature",
-       tags=("music_room", "temperature", "climate"),
+       tags=("music_room", "temperature", "climate"))
 
 Number("Music Room Humidity",
        tags=("music_room", "humidity", "climate"))

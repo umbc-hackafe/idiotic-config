@@ -1,4 +1,5 @@
 from idiotic.rule import bind, Command, Change, Schedule, augment, Delay, DeDup
+from idiotic.scene import Scene
 from idiotic import items, scheduler, modules, scenes
 
 class Daylight(Scene):
@@ -14,7 +15,7 @@ class Daylight(Scene):
 
 mapping = [(items.kitchen_motion, items.kitchen_light),
            (items.living_room_motion, items.living_room_lamp),
-           (items.hall_motion, items.hall_light),
+           (items.hallway_motion, items.hallway_light),
            (items.laundry_room_motion, items.laundry_room_light)]
 
 # This might not actually work with triggers rather than toggles for sensors

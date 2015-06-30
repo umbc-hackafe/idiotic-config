@@ -7,7 +7,7 @@ Toggle("Kitchen Light",
 Toggle("Kitchen Counter Light",
        tags=("kitchen", "light"),
        bindings={"x10": {"code": "a4"}})
-Toggle("Kithcen Table Light",
+Toggle("Kitchen Table Light",
        tags=("kitchen", "light"),
        bindings={"x10": {"code": "a3"}})
 Toggle("Kitchen Stove Light",

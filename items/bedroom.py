@@ -17,7 +17,7 @@ Toggle("Bedroom Door",
         tags=("bedroom", "hallway", "door", "occupancy"))
 
 Number("Bedroom Temperature",
-       tags=("bedroom", "temperature", "climate"),
+       tags=("bedroom", "temperature", "climate"))
 
 Number("Bedroom Humidity",
        tags=("bedroom", "humidity", "climate"))
