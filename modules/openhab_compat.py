@@ -2,7 +2,7 @@ import idiotic
 
 def configure(config, api):
     api.serve(cmd, '/CMD', get_args="get")
-    api.serve(state, "/items/{}/state", get_data=True)
+    api.serve(state, "/rest/items/{}/state", get_data=True)
 
 def cmd(get, source=None):
     if get and len({k:v for k,v in get.items() if not k.startswith('__')}) == 1:
