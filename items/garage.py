@@ -6,9 +6,9 @@ Toggle("Garage Lights",
        tags=("garage", "light"))
 
 Toggle("Garage Door Opener",
-       bindings={"http": "push": [
+       bindings={"http": {"push": [
            ("on", "thegreatandpowerfultrixie:8081/door?action=trigger"),
-            ("off", "thegreatandpowerfultrixie:8081/door?action=close")]},
+           ("off", "thegreatandpowerfultrixie:8081/door?action=close")]}},
        tags=("garage", "external_door"))
 
 Toggle("Garage Door",
@@ -17,8 +17,8 @@ Toggle("Garage Door",
 
 Motor("Garage Projector Screen",
       constrained=True,
-      bindings={"http": "push": [
+      bindings={"http": {"push": [
           ("forward", "thegreatandpowerfultrixie:8081/projector?action=down"),
           ("reverse", "thegreatandpowerfultrixie:8081/projector?action=up"),
-          ("stop", "thegreatandpowerfultrixie:8081/projector?action=stop")]},
+          ("stop", "thegreatandpowerfultrixie:8081/projector?action=stop")]}},
       tags=("garage",))
