@@ -14,7 +14,9 @@ Toggle("Music Room Door",
        tags=("music_room", "hallway", "door", "occupancy"))
 
 Number("Music Room Temperature",
+       #bindings={"http": {"pull": "cheerilee:8081/temp"}},
        tags=("music_room", "temperature", "climate"))
 
 Number("Music Room Humidity",
+       #bindings={"http": {"pull": "cheerilee:8081/hum"}},
        tags=("music_room", "humidity", "climate"))

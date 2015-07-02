@@ -17,9 +17,11 @@ Toggle("Bedroom Door",
         tags=("bedroom", "hallway", "door", "occupancy"))
 
 Number("Bedroom Temperature",
+       bindings={"http": {"pull": "rarity:8081/temp"}},
        tags=("bedroom", "temperature", "climate"))
 
 Number("Bedroom Humidity",
+       bindings={"http": {"pull": "rarity:8081/hum"}},
        tags=("bedroom", "humidity", "climate"))
 
 Toggle("Bedroom AC",

@@ -14,6 +14,8 @@ Toggle("Entertainment Room Motion",
         tags=("entertainment_room", "motion", "occupancy"))
 
 Number("Entertainment Room Temperature",
+       #bindings={"http": {"pull": "CHANGEME:8081/temp"}},
        tags=("entertainment_room", "temperature", "climate"))
 Number("Entertainment Room Humidity",
+       #bindings={"http": {"pull": "CHANGEME:8081/hum"}},
        tags=("entertainment_room", "humidity", "climate"))

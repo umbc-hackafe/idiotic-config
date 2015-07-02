@@ -13,7 +13,10 @@ Toggle("Front Door",
        tags=("living_room", "exterior_door", "occupancy"))
 Toggle("Living Room Motion",
         tags=("living_room", "motion", "occupancy"))
+
 Number("Living Room Temperature",
+       bindings={"http": {"pull": "luna:8081/temp"}},
        tags=("living_room", "temperature", "climate"))
 Number("Living Room Humidity",
+       bindings={"http": {"pull": "luna:8081/hum"}},
        tags=("living_room", "humidity", "climate"))

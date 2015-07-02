@@ -14,7 +14,9 @@ Number("Office Temperature",
        tags=("office", "temperature", "climate"))
 
 Number("Office Humidity",
+       #bindings={"http": {"pull": "dash:8081/temp"}},
        tags=("office", "humidity", "climate"))
 
 Toggle("Office AC",
+       #bindings={"http": {"pull": "dash:8081/hum"}},
        tags=("office", "ac", "climate"))

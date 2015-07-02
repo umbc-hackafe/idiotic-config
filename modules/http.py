@@ -7,7 +7,7 @@
 
 import logging
 import requests
-from idiotic import dispatcher, event
+from idiotic import dispatcher, event, scheduler
 
 MODULE_NAME = "http"
 

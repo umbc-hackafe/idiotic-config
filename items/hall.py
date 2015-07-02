@@ -9,6 +9,8 @@ Toggle("Hallway Motion",
         tags=("hallway", "motion", "occupancy"))
 
 Number("Hallway Temperature",
+       bindings={"http": {"pull": "scootaloo:8081/temp"}},
        tags=("hallway", "temperature", "climate"))
 Number("Hallway Humidity",
+       bindings={"http": {"pull": "scootaloo:8081/hum"}},
        tags=("hallway", "humidity", "climate"))
