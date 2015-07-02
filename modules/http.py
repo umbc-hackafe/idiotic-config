@@ -32,27 +32,95 @@ METHODS = {
 def configure(config, api):
     pass
 
-def bind_item(item, actions, options={}):
-    # {"<command>": ("GET", "google.com/{command}")
-    if isinstance(actions, str):
-        # always request same url for every command, default to GET
-        item.bind_on_command(functools.partial(_binding, "GET", actions, options))
-    elif isinstance(actions, dict):
-        # request a different url for every command
-        for command, action in actions.items():
-            if isinstance(action, str):
-                # default to GET
-                item.bind_on_command(functools.partial(_binding, "GET", action, options), command=command)
-            else:
-                # specific HTTP method
-                method, url = action
-                item.bind_on_command(functools.partial(_binding, method, action, options), command=command)
-    elif isinstance(actions, tuple) or isinstance(actions, list):
-        # same url for every command, specific HTTP method
-        method, url = action
-        item.bind_on_command(functools.partial(_binding, method, action, options), command=command)
+def __singular_bind(item, kind, tup):
+    if kind == "push":
+        if isinstance(tup, str):
+            url = tup
+            command = None
+            method = "GET"
+            options = {}
+        elif len(tup) is 4:
+            command, url, method, options = tup
+        elif len(tup) is 3:
+            command, url, method = tup
+            options = {}
+        elif len(tup) is 2:
+            command, url = tup
+            method = "GET"
+            options = {}
+        else:
+            raise ArgumentError("Invalid binding tuple for push: {}".format(tup))
+
+        if command == "*" or command is None:
+            item.bind_on_command(functools.partial(_binding, method, url, options),)
+        else:
+            item.bind_on_command(functools.partial(_binding, method, url, options), command=command)
+    elif kind == "pull":
+        if isinstance(tup, str):
+            url = tup
+            interval = 60
+            method = "GET"
+            options = {}
+        elif len(tup) is 4:
+            interval, url, method, options = tup
+        elif len(tup) is 3:
+            interval, url, method = tup
+            options = {}
+        elif len(tup) is 2:
+            interval, url = tup
+            method = "GET"
+            options = {}
+        else:
+            raise ArgumentError("Invalid binding tuple for pull: {}".format(tup))
+
+        call = functools.partial(_schedule, item, method, url, options)
+
+        if isinstance(interval, int):
+            scheduler.every(interval).seconds.do(call)
+        elif type(interval) is scheduler.Job:
+            interval.do(call)
+
+def bind_item(item, push=[], pull=[], **kwargs):
+    """Binds HTTP to an item.
+
+    If 'method' is omitted, 'GET' is assumed.
+
+    'url' will be formatted with keywords 'command', referring to the
+    command that triggered the binding, 'item', referring to the name
+    of the item, and 'state', referring to the state of the item at
+    the time of the command.
+
+    For 'push' settings, use None for all commands. For 'pull'
+    settings, <frequency> may be an integral number of seconds or a
+    schedule Job.
+
+    Valid forms for 'push':
+    [(None|'<command>', '<url>', '<method>'), ...]
+    [(None|'<command>', '<url>'), ...]
+    (None|'<command>', '<url>', '<method>')
+    (None|'<command>', '<url>')
+    '<url>'
+
+    Valid forms for 'pull':
+    [(<update frequency in seconds>, '<url>', '<method>'), ...]
+    [(<frequency>, '<url>'), ...]
+    (<frequency>, '<url>', '<method>')
+    (<frequency>, '<url>')
+    '<url>'
+
+    """
+
+    if isinstance(push, (tuple, str)):
+        __singular_bind(item, "push", push)
     else:
-        raise ValueError("Invalid http binding configuration; expected dict, tuple, or str; got {}".format(type(actions)))
+        for tup in push:
+            __singular_bind(item, push, tup)
+
+    if isinstance(pull, (tuple, str):
+        __singular_bind(item, "pull", pull)
+    else:
+        for tup in pull:
+            __singular_bind(item, "pull", pull)
 
 def _binding(method_name, url, options, event):
     method = METHODS[method_name.upper()]
@@ -62,3 +130,10 @@ def _binding(method_name, url, options, event):
                       item=getattr(event.item, "name", ""),
                       state=getattr(event.item, state, None)),
            **options)
+
+def _schedule(item, method_name, url, options):
+    method = METHODS[method_name.upper()]
+    item._set_state_from_context(
+        method(url.format(item=getattr(event.item, "name", ""),
+                          state=getattr(event.item, state, None))),
+        source="module.http")
