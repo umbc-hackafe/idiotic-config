@@ -38,7 +38,4 @@ def state(item, data="", source=None):
                 item.state = data
             except AttributeError:
                 raise AttributeError("Item {} does not exist".format(item_name))
-        else:
-            raise ValueError("POST request body must not be empty")
-    else:
-        raise ValueError("No item specified")
+    return str(item.state)
