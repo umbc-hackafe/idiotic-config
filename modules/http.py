@@ -29,8 +29,11 @@ METHODS = {
     "DELETE": delete
 }
 
+default_protocol = "http"
+
 def configure(config, api):
-    pass
+    if "default_protocol" in config:
+        default_protocol = config["default_protocol"]
 
 def __singular_bind(item, kind, tup):
     if kind == "push":
@@ -50,6 +53,9 @@ def __singular_bind(item, kind, tup):
             options = {}
         else:
             raise ArgumentError("Invalid binding tuple for push: {}".format(tup))
+
+        if '://' not in url:
+            url = default_protocol + '://' + url
 
         if command == "*" or command is None:
             item.bind_on_command(lambda e: _binding(method, url, options, e))
@@ -74,6 +80,9 @@ def __singular_bind(item, kind, tup):
             raise ArgumentError("Invalid binding tuple for pull: {}".format(tup))
 
         call = lambda: _schedule(item, method, url, options)
+
+        if '://' not in url:
+            url = default_protocol + '://' + url
 
         if isinstance(interval, int):
             scheduler.every(interval).seconds.do(call)
