@@ -52,9 +52,9 @@ def __singular_bind(item, kind, tup):
             raise ArgumentError("Invalid binding tuple for push: {}".format(tup))
 
         if command == "*" or command is None:
-            item.bind_on_command(functools.partial(_binding, method, url, options),)
+            item.bind_on_command(lambda e: _binding(method, url, options, e))
         else:
-            item.bind_on_command(functools.partial(_binding, method, url, options), command=command)
+            item.bind_on_command(lambda e: _binding(method, url, options, e), command=command)
     elif kind == "pull":
         if isinstance(tup, str):
             url = tup
@@ -73,7 +73,7 @@ def __singular_bind(item, kind, tup):
         else:
             raise ArgumentError("Invalid binding tuple for pull: {}".format(tup))
 
-        call = functools.partial(_schedule, item, method, url, options)
+        call = lambda: _schedule(item, method, url, options)
 
         if isinstance(interval, int):
             scheduler.every(interval).seconds.do(call)
@@ -116,7 +116,7 @@ def bind_item(item, push=[], pull=[], **kwargs):
         for tup in push:
             __singular_bind(item, push, tup)
 
-    if isinstance(pull, (tuple, str):
+    if isinstance(pull, (tuple, str)):
         __singular_bind(item, "pull", pull)
     else:
         for tup in pull:
