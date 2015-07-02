@@ -12,7 +12,7 @@ def cmd(get, source=None):
             if k.startswith('__'):
                 continue
             try:
-                item = getattr(idiotic.items, k)
+                item = getattr(idiotic.items, idiotic._mangle_name(k))
                 cmd = v
                 break
             except:
@@ -31,7 +31,7 @@ def cmd(get, source=None):
 def state(item, data="", source=None):
     if item and len(item) == 1:
         if data:
-            item_name = items.items()[0]
+            item_name = idiotic._mangle_name(items.items()[0])
             try:
                 item = getattr(idiotic.items, item_name)
                 item._set_state_from_context(data, source=source)
