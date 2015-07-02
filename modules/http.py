@@ -143,6 +143,6 @@ def _binding(method_name, url, options, event):
 def _schedule(item, method_name, url, options):
     method = METHODS[method_name.upper()]
     item._set_state_from_context(
-        method(url.format(item=getattr(event.item, "name", ""),
-                          state=getattr(event.item, state, None))),
+        method(url.format(item=getattr(item, "name", ""),
+                          state=getattr(item, "state", None))),
         source="module.http")
