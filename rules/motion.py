@@ -4,12 +4,12 @@ from idiotic import items, scheduler, modules, scenes
 
 class Daylight(Scene):
     def entered(self):
-        for item in items.with_tag('nightlight'):
+        for item in items.with_tags(['nightlight']):
             item.off()
             item.disable()
 
     def exited(self):
-        for item in items.with_tag('nightlight'):
+        for item in items.with_tags(['nightlight']):
             item.enable()
             item.on()
 
