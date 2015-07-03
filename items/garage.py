@@ -18,7 +18,7 @@ Toggle("Garage Door",
 Motor("Garage Projector Screen",
       constrained=True,
       bindings={"http": {"push": [
-          ("forward", "thegreatandpowerfultrixie:8081/projector?action=down"),
-          ("reverse", "thegreatandpowerfultrixie:8081/projector?action=up"),
-          ("stop", "thegreatandpowerfultrixie:8081/projector?action=stop")]}},
+          ("forward", "thegreatandpowerfultrixie:8081/screen?action=down"),
+          ("reverse", "thegreatandpowerfultrixie:8081/screen?action=up"),
+          ("stop", "thegreatandpowerfultrixie:8081/screen?action=stop")]}},
       tags=("garage",))
