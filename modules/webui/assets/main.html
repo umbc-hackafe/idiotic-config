@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block controls %}
+{% for item in items %}
+<form id="controls_form_{{ item.name }}" class="controls-form">
+  <div>
+    <span id="label_{{ item.name }}">{{ item.desc }}</span>
+    {% if item.state != None %}
+    <span data-item="{{ item.name }}" class="state" id="state_{{ item.name }}">{{ item.state }}</span>
+    {% endif %}
+    {% for input in item.inputs %}
+    {% if input.type == "text" %}
+    <input type="text" id="command_{{ item.name }}_{{ input.command }}" class="command" data-item="{{ item.name }}" data-command="{{ input.command }}"  data-use-val="true" data-event="change"/>
+    {% elif input.type == "button" %}
+    <input type="button" id="command_{{ item.name }}_{{ input.command }}" class="command" data-item="{{ item.name }}" data-command="{{ input.command }}" data-use-val="false" data-event="click" value="{{ input.command|title }}"/>
+    {% elif input.type == "number" %}
+    <input type="number" id="command_{{ item.name }}_{{ input.command }}" class="command" data-item="{{ item.name }}" data-command="{{ input.command }}" data-use-val="true" data-event="change"/>
+    {% elif input.type == "checkbox" %}
+    <input type="checkbox" id="command_{{ item.name }}_{{ input.command }}" class="command" data-item="{{ item.name }}" data-command="{{ input.command }}" data-use-val="true" data-event="click"/>
+    {% endif %}
+    {% endfor %}
+    {% if item.show_disable %}
+    <label>Disabled <input type="checkbox" id="disable_{{ item.name }}" class="disable" data-item="{{ item.name }}" value="true"{% if item.disabled %}checked="checked"{% endif %}/>
+    </label>
+    {% endif %}
+  </div>
+</form>
+{% endfor %}
+{% endblock %}

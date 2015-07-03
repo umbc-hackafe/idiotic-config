@@ -1,0 +1,15 @@
+<!DOCTYPE html public>
+<html>
+  <head>
+    <title>{% block title %}idiotic{% endblock %}</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ root }}main.js"></script>
+  </head>
+  <body>
+    <h1>{% block header %}{{ title }}{% endblock %}</h1>
+    {% if url != base %}<a href="../">Up</a>{% endif %}
+    <h2>Items</h2>
+    {% block controls %}
+    {% endblock %}
+  </body>
+</html>
