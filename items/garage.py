@@ -12,7 +12,7 @@ Toggle("Garage Door Opener",
        tags=("garage", "external_door"))
 
 Toggle("Garage Door",
-       bindings={"http": {"pull": (15, "thegreatandpowerfultrixie:8081/door")}},
+       bindings={"http": {"pull": (15, "thegreatandpowerfultrixie:8081/door?action=get")}},
        tags=("garage", "external_door"))
 
 Motor("Garage Projector Screen",
