@@ -95,6 +95,8 @@ def __singular_bind(item, kind, tup):
             scheduler.every(interval).seconds.do(call)
         elif type(interval) is scheduler.Job:
             interval.do(call)
+    else:
+        log.error("Invalid http binding type {}".format(kind))
 
 def bind_item(item, push=[], pull=[], **kwargs):
     """Binds HTTP to an item.
@@ -130,7 +132,7 @@ def bind_item(item, push=[], pull=[], **kwargs):
         __singular_bind(item, "push", push)
     else:
         for tup in push:
-            __singular_bind(item, push, tup)
+            __singular_bind(item, "push", tup)
 
     if isinstance(pull, (tuple, str)):
         __singular_bind(item, "pull", pull)
@@ -142,16 +144,16 @@ def _binding(method_name, url, options, event):
     method = METHODS[method_name.upper()]
     # command name, item name, and item current state will be
     # formatted into the URL by name
-    fmt_ur = url.format(command=str(event.command),
+    fmt_url = url.format(command=str(event.command),
                item=getattr(event.item, "name", ""),
-               state=getattr(event.item, state, None))
+               state=getattr(event.item, "state", None))
     try:
         res = yield from method(fmt_url, **options)
         if res.status != 200:
             log.warning("Request returned {} retrieving {} for item {}".format(
                 res.status, fmt_url, event.item))
     except OSError:
-        log.warning("Network error retrieving {} for item {}.".format(fmt_url, item))
+        log.warning("Network error retrieving {} for item {}.".format(fmt_url, event.item))
 
 def _schedule(item, method_name, url, options):
     method = METHODS[method_name.upper()]
