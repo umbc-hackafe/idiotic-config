@@ -2,7 +2,7 @@ from idiotic.item import Toggle, Trigger, Number, Group
 from idiotic import modules, scheduler
 
 Toggle("Living Room Lamp",
-       tags=("living_room", "light"),
+       tags=("living_room", "light", "nightlight"),
        bindings={"x10": {"code": "a6"}})
 Toggle("Turtle Light",
        tags=("living_room", "light"),
