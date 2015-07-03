@@ -21,11 +21,11 @@
     {% endif %}
     {% for input in item.inputs %}
     {% if input.type == "text" %}
-    <input type="text" id="command_{{ item.name }}_{{ input.command }}" class="command" data-item="{{ item.name }}" data-command="{{ input.command }}"  data-use-val="true" data-event="change"/>
+    <input type="text" id="command_{{ item.name }}_{{ input.command }}" class="command" data-item="{{ item.name }}" data-command="{{ input.command }}"  data-use-val="true" data-event="change"{% if item.state != None %} value="{{ item.state }}"{% endif %}/>
     {% elif input.type == "button" %}
     <input type="button" id="command_{{ item.name }}_{{ input.command }}" class="command" data-item="{{ item.name }}" data-command="{{ input.command }}" data-use-val="false" data-event="click" value="{{ input.command|title }}"/>
     {% elif input.type == "number" %}
-    <input type="number" id="command_{{ item.name }}_{{ input.command }}" class="command" data-item="{{ item.name }}" data-command="{{ input.command }}" data-use-val="true" data-event="change"/>
+    <input type="number" id="command_{{ item.name }}_{{ input.command }}" class="command" data-item="{{ item.name }}" data-command="{{ input.command }}" data-use-val="true" data-event="change"{% if item.state != None %} value="{{ item.state }}"{% endif %}/>
     {% elif input.type == "checkbox" %}
     <input type="checkbox" id="command_{{ item.name }}_{{ input.command }}" class="command" data-item="{{ item.name }}" data-command="{{ input.command }}" data-use-val="true" data-event="click"/>
     {% endif %}
