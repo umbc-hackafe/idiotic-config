@@ -1,6 +1,6 @@
 import idiotic
 
-def configure(config, api):
+def configure(config, api, assets):
     api.serve(cmd, '/CMD', get_args="get")
     api.serve(state, "/rest/items/{}/state", get_data=True)
 

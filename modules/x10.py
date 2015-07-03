@@ -21,7 +21,7 @@ class X10Event(event.BaseEvent):
         self.unit = unit
         self.command = command
 
-def configure(config, api):
+def configure(config, api, assets):
     global host
     if "host" in config:
         host = config["host"]

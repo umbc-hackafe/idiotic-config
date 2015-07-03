@@ -31,7 +31,7 @@ METHODS = {
 
 default_protocol = "http"
 
-def configure(config, api):
+def configure(config, api, assets):
     if "default_protocol" in config:
         default_protocol = config["default_protocol"]
 
