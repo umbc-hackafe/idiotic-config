@@ -135,14 +135,27 @@ def _binding(method_name, url, options, event):
     method = METHODS[method_name.upper()]
     # command name, item name, and item current state will be
     # formatted into the URL by name
-    method(url.format(command=str(event.command),
-                      item=getattr(event.item, "name", ""),
-                      state=getattr(event.item, state, None)),
-           **options)
+    fmt_ur = url.format(command=str(event.command),
+               item=getattr(event.item, "name", ""),
+               state=getattr(event.item, state, None))
+    try:
+        res = method(fmt_url, **options)
+        if res.status_code != 200:
+            log.warning("Request returned {} retrieving {} for item {}".format(
+                res.status_code, fmt_url, item))
+    except OSError:
+        log.warning("Network error retrieving {} for item {}.".format(fmt_url, item))
 
 def _schedule(item, method_name, url, options):
     method = METHODS[method_name.upper()]
-    item._set_state_from_context(
-        method(url.format(item=getattr(item, "name", ""),
-                          state=getattr(item, "state", None))),
-        source="module.http")
+    fmt_url = url.format(item=getattr(item, "name", ""),
+                         state=getattr(item, "state", None))
+    try:
+        res = method(fmt_url, **options)
+        if res.status_code == 200:
+            item._set_state_from_context(res.text, source="module.http")
+        else:
+            log.warning("Request returned {} retrieving {} for item {}".format(
+                res.status_code, fmt_url, item))
+    except OSError:
+        log.warning("Network error retrieving {} for item {}.".format(fmt_url, item))
