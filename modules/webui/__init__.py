@@ -6,7 +6,7 @@ import jinja2
 import logging
 import requests
 import functools
-from idiotic import dispatcher, event, items, _mangle_name, _join_url
+from idiotic import dispatcher, event, items, scenes, _mangle_name, _join_url
 from idiotic.item import Toggle, Trigger, Number, Motor
 
 MODULE_NAME = "webui"
@@ -38,6 +38,7 @@ def configure(config, api, assets):
     api.serve(functools.partial(_main_page, include_tags, exclude_tags,
                                 include_items, exclude_items),
               '/', content_type="text/html")
+    api.serve(scene, '/scene/<name>/<command>')
     api.serve(_main_js, '/main.js', content_type="text/javascript")
     traverse(api, '/', config.get("subpages", {}))
 
@@ -56,6 +57,17 @@ def traverse(api, path, tree):
                   _join_url(path, key),
                   content_type="text/html")
         traverse(api, _join_url(path, key), val.get("subpages", {}))
+
+def scene(name, command=None, **kwargs):
+    scene = getattr(scenes, name)
+    if command == "enter":
+        scene.enter()
+    elif command == "exit":
+        scene.exit()
+    elif command is not None:
+        raise NameError("Command '{}' does not exist on scene {}".format(
+            command, scene))
+    return scene.active
 
 def _main_page(include_tags, exclude_tags, include_items, exclude_items, *_, **__):
     args = dict(template_args)
@@ -95,6 +107,15 @@ def _main_page(include_tags, exclude_tags, include_items, exclude_items, *_, **_
             item_dict["inputs"] = []
 
         args["items"].append(item_dict)
+
+    args["scenes"] = []
+    for scene in sorted(scenes.all(), key=lambda i:i.name):
+        scene_dict = {"desc": scene.name,
+                      "name": _mangle_name(scene.name),
+                      "active": bool(scene)
+        }
+        args["scenes"].append(scene_dict)
+
     return env.get_template('main.html').render(**args)
 
 def _main_js(*_, **__):

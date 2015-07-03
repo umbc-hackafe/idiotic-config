@@ -8,6 +8,10 @@ function do_command(item, command, val) {
     $.get("/CMD", data);
 }
 
+function do_scene(scene, action) {
+    $.get("/scene/" + scene + "/" + (action?action:""));
+}
+
 $(function() {
     $(".command").each(function() {
 	var elm = $(this);
@@ -17,6 +21,13 @@ $(function() {
 	    } else {
 		do_command(elm.data("item"), elm.data("command"));
 	    }
+	});
+    });
+
+    $(".scene-control").each(function() {
+	var elm = $(this);
+	elm.click(function(evt) {
+	    do_scene(elm.data("scene"), elm.data("action"));
 	});
     });
 });

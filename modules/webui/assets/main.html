@@ -1,5 +1,17 @@
 {% extends 'base.html' %}
 {% block controls %}
+{% if scenes %}<h2>Scenes</h2>{% endif %}
+{% for scene in scenes %}
+<form id="scene_form_{{ scene.name }}" class="scene-form">
+  <div>
+    <span id="label_scene_{{ scene.name }}">{{ scene.desc }}</span>
+    <input type="button" id="scene_enter_{{ scene.name }}" value="Enter" class="scene-control scene-enter" data-scene="{{ scene.name }}" data-action="enter"/>
+    <input type="button" id="scene_exit_{{ scene.name }}" value="Exit" class="scene-control scene-exit" data-scene="{{ scene.name }}" data-action="exit"/>
+  </div>
+</form>
+{% endfor %}
+
+{% if items %}<h2>Items</h2>{% endif %}
 {% for item in items %}
 <form id="controls_form_{{ item.name }}" class="controls-form">
   <div>
