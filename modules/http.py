@@ -5,20 +5,27 @@
    http://opensource.org/licenses/MIT
 """
 
+import aiohttp
 import logging
-import requests
+import asyncio
+import functools
 from idiotic import dispatcher, event, scheduler
 
 MODULE_NAME = "http"
 
 log = logging.getLogger("module.http")
 
-request = requests.request
-get = requests.get
-post = requests.post
-put = requests.put
-head = requests.head
-delete = requests.delete
+@asyncio.coroutine
+def request(method, url, **kwargs):
+    res = yield from aiohttp.request(method, url)
+    return res
+
+get = functools.partial(request, "GET")
+post = functools.partial(request, "POST")
+put = functools.partial(request, "PUT")
+post = functools.partial(request, "POST")
+head = functools.partial(request, "HEAD")
+delete = functools.partial(request, "DELETE")
 
 METHODS = {
     "REQUEST": request,
@@ -139,10 +146,10 @@ def _binding(method_name, url, options, event):
                item=getattr(event.item, "name", ""),
                state=getattr(event.item, state, None))
     try:
-        res = method(fmt_url, **options)
-        if res.status_code != 200:
+        res = yield from method(fmt_url, **options)
+        if res.status != 200:
             log.warning("Request returned {} retrieving {} for item {}".format(
-                res.status_code, fmt_url, item))
+                res.status, fmt_url, event.item))
     except OSError:
         log.warning("Network error retrieving {} for item {}.".format(fmt_url, item))
 
@@ -151,11 +158,12 @@ def _schedule(item, method_name, url, options):
     fmt_url = url.format(item=getattr(item, "name", ""),
                          state=getattr(item, "state", None))
     try:
-        res = method(fmt_url, **options)
-        if res.status_code == 200:
-            item._set_state_from_context(res.text, source="module.http")
+        res = yield from method(fmt_url, **options)
+        if res.status == 200:
+            text = yield from res.read()
+            item._set_state_from_context(text, source="module.http")
         else:
             log.warning("Request returned {} retrieving {} for item {}".format(
-                res.status_code, fmt_url, item))
+                res.status, fmt_url, item))
     except OSError:
         log.warning("Network error retrieving {} for item {}.".format(fmt_url, item))
