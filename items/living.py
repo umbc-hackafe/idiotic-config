@@ -15,7 +15,7 @@ Toggle("Living Room Motion",
         tags=("living_room", "motion", "occupancy"))
 Toggle("Alert Beacon",
        tags=("living_room", "light", "notification"),
-       bindings={"x10": {"code": "a10"}})
+       bindings={"x10": {"code": "a11"}})
 
 Number("Living Room Temperature",
        bindings={"http": {"pull": "luna:8081/temp"}},
