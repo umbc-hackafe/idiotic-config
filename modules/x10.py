@@ -26,8 +26,6 @@ def configure(config, api, assets):
     if "host" in config:
         host = config["host"]
 
-    print(config)
-
     api.serve(on, '/on/<house>/<unit>')
     api.serve(off, '/off/<house>/<unit>')
     api.serve(bright, '/bright/<house>/<unit>')
