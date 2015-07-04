@@ -6,4 +6,4 @@ Toggle("Outside Side Light",
        bindings={"x10": {"code": "a8"}})
 Toggle("Outside Front Light",
        tags=("outside", "light", "nightlight"),
-       bindings={"x10": {"code": "a9"})
+       bindings={"x10": {"code": "a9"}})
