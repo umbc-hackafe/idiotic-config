@@ -15,14 +15,17 @@ class LivingRoomMedia(Scene):
             item.on()
 
 class GarageMedia(Scene):
-    control = ((items.garage_lights, ("off", "on")),
-               (items.garage_projector_screen, ("forward", "reverse")))
+    prev_garage_lights_state = False
+    prev_garage_door_state = False
 
     def entered(self):
+        prev_garage_lights_state = items.garage_lights.state
+        prev_garage_door_state = items.garage_door.state
         items.garage_door_opener.off()
-        for item, (act, _) in self.control:
-            item.command(act)
+        items.garage_projector_screen.forward()
+        items.garage_lights.off()
 
     def exited(self):
-        for item, (_, act) in self.control:
-            item.command(act)
+        items.garage_door.command("on" if prev_garage_door_state else "off")
+        items.garage_lights.command("on" if prev_garage_lights_state else "off")
+        items.garage_projector_screen.reverse()
