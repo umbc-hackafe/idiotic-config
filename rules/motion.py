@@ -22,15 +22,15 @@ mapping = [(items.kitchen_motion, items.kitchen_light),
 # at the very least, it's not very elegant otherwise...
 for sensor, light in mapping:
     @bind(Command(sensor))
-    @augment(Delay(Command(sensor, "OFF"), period=300,
-             cancel=Command(sensor, "ON")))
+    @augment(Delay(Command(sensor, "off"), period=300,
+             cancel=Command(sensor, "on")))
     def rule(evt):
         light.command(evt.command)
 
 @bind(Command(items.bathroom_door))
-@augment(Delay(Command(items.bathroom_door, "OFF"),
+@augment(Delay(Command(items.bathroom_door, "off"),
                period=10,
-               cancel=Command(items.bathroom_door, "ON")))
+               cancel=Command(items.bathroom_door, "on")))
 def bathroom_rule(evt):
     if evt.command == "on":
         items.bathroom_light.on()
