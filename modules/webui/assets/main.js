@@ -9,7 +9,7 @@ function do_command(item, command, val) {
 }
 
 function do_scene(scene, action) {
-    $.get("/scene/" + scene + "/" + (action?action:""));
+    $.get("/api/scene/" + scene + "/command/" + (action?action:""));
 }
 
 $(function() {

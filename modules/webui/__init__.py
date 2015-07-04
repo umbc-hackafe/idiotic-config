@@ -38,7 +38,6 @@ def configure(config, api, assets):
     api.serve(functools.partial(_main_page, include_tags, exclude_tags,
                                 include_items, exclude_items),
               '/', content_type="text/html")
-    api.serve(scene, '/scene/<name>/<command>')
     api.serve(_main_js, '/main.js', content_type="text/javascript")
     traverse(api, '/', config.get("subpages", {}))
 
