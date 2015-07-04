@@ -9,4 +9,4 @@ Toggle("Laundry Room Motion",
         tags=("laundry_room", "motion", "occupancy"))
 
 Toggle("Laundry Room Door",
-       tags=("laundry_room", "exterior_door", "occupancy"))
+       tags=("laundry_room", "exterior_door", "occupancy", "nyi"))

@@ -8,9 +8,9 @@ Toggle("Turtle Light",
        tags=("living_room", "light"),
        bindings={"x10": {"code": "a5"}})
 Toggle("Living Room AC",
-       tags=("living_room", "ac", "climate"))
+       tags=("living_room", "ac", "climate", "nyi"))
 Toggle("Front Door",
-       tags=("living_room", "exterior_door", "occupancy"))
+       tags=("living_room", "exterior_door", "occupancy", "nyi"))
 Toggle("Living Room Motion",
         tags=("living_room", "motion", "occupancy"))
 Toggle("Alert Beacon",

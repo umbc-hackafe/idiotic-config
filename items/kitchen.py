@@ -15,7 +15,7 @@ Toggle("Kitchen Stove Light",
        bindings={"x10": {"code": "a7"}})
 
 Toggle("Kitchen Door",
-       tags=("kitchen", "exterior_door", "occupancy"))
+       tags=("kitchen", "exterior_door", "occupancy", "nyi"))
 
 Toggle("Kitchen Motion",
-       tags=("kitchen", "motion", "occupancy"))
+       tags=("kitchen", "motion", "occupancy", "nyi"))
