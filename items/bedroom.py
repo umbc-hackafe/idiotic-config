@@ -2,19 +2,19 @@ from idiotic.item import Toggle, Trigger, Number, Group
 from idiotic import modules, scheduler
 
 Toggle("Bedroom Light",
-       tags=("bedroom", "light"))
+       tags=("bedroom", "light", "nyi"))
 
 Toggle("Bedroom Mood Light",
-       tags=("bedroom", "light"))
+       tags=("bedroom", "light", "nyi"))
 
 Toggle("Bedroom Fan",
-       tags=("bedroom", "fan", "climate"))
+       tags=("bedroom", "fan", "climate", "nyi"))
 
 Toggle("Bedroom Motion",
-        tags=("bedroom", "motion", "occupancy"))
+        tags=("bedroom", "motion", "occupancy", "nyi"))
 
 Toggle("Bedroom Door",
-        tags=("bedroom", "hallway", "door", "occupancy"))
+        tags=("bedroom", "hallway", "door", "occupancy", "nyi"))
 
 Number("Bedroom Temperature",
        bindings={"http": {"pull": "rarity:8081/temp"}},
@@ -25,4 +25,4 @@ Number("Bedroom Humidity",
        tags=("bedroom", "humidity", "climate"))
 
 Toggle("Bedroom AC",
-       tags=("bedroom", "ac", "climate"))
+       tags=("bedroom", "ac", "climate", "nyi"))
