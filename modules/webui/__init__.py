@@ -121,7 +121,7 @@ def _main_js(*_, **__):
     return env.get_template('main.js').render()
 
 def _include_item(item, include_tags, exclude_tags, include_items, exclude_items):
-    return (not include_tags or set(item.tags) & include_tags) and \
-        (not exclude_tags or not set(item.tags) & exclude_tags) or \
-        (not include_items or item.name in include_items) and \
-        (not exclude_items or not item.name in exclude_items)
+    return ((not include_tags or set(item.tags) & include_tags) or
+            (item.name in include_items)) and \
+            (not exclude_tags or not set(item.tags) & exclude_tags) and \
+            (not exclude_items or not item.name in exclude_items)
