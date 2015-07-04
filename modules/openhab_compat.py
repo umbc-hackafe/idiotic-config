@@ -29,9 +29,9 @@ def cmd(get, source=None):
         raise ValueError("Must have exactly one 'item=command' argument")
 
 def state(item, data="", source=None):
-    if item and len(item) == 1:
+    if item:
         if data:
-            item_name = idiotic._mangle_name(items.items()[0])
+            item_name = idiotic._mangle_name(items.items())
             try:
                 item = getattr(idiotic.items, item_name)
                 item._set_state_from_context(data, source=source)
