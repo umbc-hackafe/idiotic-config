@@ -3,7 +3,7 @@ from idiotic import modules, scheduler
 
 Toggle("Bathroom Light",
        tags=("bathroom", "light"),
-       bindings={"x10": {"code": "a3"}})
+       bindings={"x10": {"code": "b3"}})
 
 Toggle("Bathroom Door",
        tags=("bathroom", "door"))
