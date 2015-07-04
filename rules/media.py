@@ -19,6 +19,7 @@ class GarageMedia(Scene):
                (items.garage_projector_screen, ("forward", "reverse")))
 
     def entered(self):
+        items.garage_door_opener.off()
         for item, (act, _) in self.control:
             item.command(act)
 
