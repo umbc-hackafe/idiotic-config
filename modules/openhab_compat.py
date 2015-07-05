@@ -2,7 +2,8 @@ import idiotic
 
 def configure(config, api, assets):
     api.serve(cmd, '/CMD', get_args="get")
-    api.serve(state, "/rest/items/{}/state", get_data=True)
+    api.serve(state, "/rest/items/<item_name>/state", get_data=True,
+              methods=['GET', 'POST', 'PUT'])
 
 def cmd(get, source=None):
     if get and len({k:v for k,v in get.items() if not k.startswith('__')}) == 1:
@@ -28,14 +29,15 @@ def cmd(get, source=None):
     else:
         raise ValueError("Must have exactly one 'item=command' argument")
 
-def state(item, data="", source=None):
-    if item:
-        if data:
-            item_name = idiotic._mangle_name(items.items())
-            try:
-                item = getattr(idiotic.items, item_name)
+def state(item_name, data="", source=None):
+    if item_name:
+        item_name = idiotic._mangle_name(item_name)
+        try:
+            item = getattr(idiotic.items, item_name)
+            if data:
                 item._set_state_from_context(data, source=source)
                 item.state = data
-            except AttributeError:
-                raise AttributeError("Item {} does not exist".format(item_name))
-    return str(item.state)
+            return str(item.state)
+        except AttributeError:
+            raise AttributeError("Item {} does not exist".format(item_name))
+    raise ValueError("No item specified")
