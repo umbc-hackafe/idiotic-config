@@ -7,7 +7,7 @@ MAX_NIGHT_BRIGHTNESS = 5
 @bind(Change(items.brightness))
 def brightness_change(evt):
     if evt.old is None:
-        continue
+        return
 
     if evt.old < MIN_DAY_BRIGHTNESS < evt.new:
         scenes.daylight.enter()
