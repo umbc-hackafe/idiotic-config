@@ -14,6 +14,7 @@ class Daylight(Scene):
             item.on()
 
 mapping = [(items.kitchen_motion, items.kitchen_light),
+           (items.kitchen_motion, items.kitchen_table_light),
            (items.living_room_motion, items.living_room_lamp),
            (items.hallway_motion, items.hallway_light),
            (items.laundry_room_motion, items.laundry_room_light)]
