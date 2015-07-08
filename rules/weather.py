@@ -1,7 +1,7 @@
 from idiotic.rule import bind, Command, Change, Schedule, augment, Delay, DeDup
 from idiotic import items, scheduler, modules, scenes
 
-MIN_DAY_BRIGTHNESS = 15
+MIN_DAY_BRIGHTNESS = 15
 MAX_NIGHT_BRIGHTNESS = 5
 
 @bind(Change(items.brightness))
