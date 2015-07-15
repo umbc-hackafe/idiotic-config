@@ -19,4 +19,4 @@ def bind_item(item, device, **kwargs):
 
 def binding(device, evt):
     if evt.command in ("on", "off"):
-        subprocess.Popen(["/usr/bin/air", device, "set", evt.command, "temp", "73"])
+        subprocess.Popen(["/usr/local/bin/air", device, "set", evt.command, "temp", "73"])
