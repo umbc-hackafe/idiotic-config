@@ -22,3 +22,7 @@ Motor("Garage Projector Screen",
           ("reverse", "thegreatandpowerfultrixie:8081/screen?action=up"),
           ("stop", "thegreatandpowerfultrixie:8081/screen?action=stop")]}},
       tags=("garage",))
+
+Toggle("Garage AC",
+       tags=("garage", "ac", "climate"),
+       bindings={"modlet": {"device": "garage"}})

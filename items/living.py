@@ -8,7 +8,8 @@ Toggle("Turtle Light",
        tags=("living_room", "light"),
        bindings={"x10": {"code": "a5"}})
 Toggle("Living Room AC",
-       tags=("living_room", "ac", "climate", "nyi"))
+       tags=("living_room", "ac", "climate"),
+       bindings={"modlet": {"device": "living"}})
 Toggle("Front Door",
        tags=("living_room", "exterior_door", "occupancy", "nyi"))
 Toggle("Living Room Motion",
