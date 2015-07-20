@@ -6,7 +6,7 @@ import jinja2
 import logging
 import requests
 import functools
-from idiotic import dispatcher, event, items, scenes, _mangle_name, _join_url
+from idiotic import dispatcher, event, items, scenes, utils
 from idiotic.item import Toggle, Trigger, Number, Motor
 
 MODULE_NAME = "webui"
@@ -53,9 +53,9 @@ def traverse(api, path, tree):
 
         api.serve(functools.partial(_main_page, include_tags,
                                     exclude_tags, include_items, exclude_items),
-                  _join_url(path, key),
+                  utils.join_url(path, key),
                   content_type="text/html")
-        traverse(api, _join_url(path, key), val.get("subpages", {}))
+        traverse(api, utils.join_url(path, key), val.get("subpages", {}))
 
 def scene(name, command=None, **kwargs):
     scene = getattr(scenes, name)
@@ -78,7 +78,7 @@ def _main_page(include_tags, exclude_tags, include_items, exclude_items, *_, **_
 
         item_dict = {
             "desc": item.name,
-            "name": _mangle_name(item.name),
+            "name": utils.mangle_name(item.name),
             "show_disable": "webui.show_disable" in item.tags,
             "state": getattr(item, "state", None)}
 
@@ -110,7 +110,7 @@ def _main_page(include_tags, exclude_tags, include_items, exclude_items, *_, **_
     args["scenes"] = []
     for scene in sorted(scenes.all(), key=lambda i:i.name):
         scene_dict = {"desc": scene.name,
-                      "name": _mangle_name(scene.name),
+                      "name": utils.mangle_name(scene.name),
                       "active": bool(scene)
         }
         args["scenes"].append(scene_dict)
