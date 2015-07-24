@@ -13,22 +13,22 @@ class Daylight(Scene):
             item.enable()
             item.on()
 
-mapping = [(items.kitchen_motion, items.kitchen_light),
-           (items.kitchen_motion, items.kitchen_table_light),
-           (items.living_room_motion, items.living_room_lamp),
-           (items.hallway_motion, items.hallway_light),
-           (items.laundry_room_motion, items.laundry_room_light)]
+mapping = [(items.kitchen_motion, items.kitchen_light, 600),
+           (items.kitchen_motion, items.kitchen_table_light, 600),
+           (items.living_room_motion, items.living_room_lamp, 300),
+           (items.hallway_motion, items.hallway_light, 120),
+           (items.laundry_room_motion, items.laundry_room_light, 180)]
 
 # This might not actually work with triggers rather than toggles for sensors
 # at the very least, it's not very elegant otherwise...
-for sensor, light in mapping:
-    def closure(sensor, light):
+for sensor, light, period in mapping:
+    def closure(sensor, light, period):
         @bind(Command(sensor))
-        @augment(Delay(Command(sensor, "off"), period=300,
+        @augment(Delay(Command(sensor, "off"), period=period,
                        cancel=Command(sensor, "on")))
         def rule(evt):
             light.command(evt.command)
-    closure(sensor, light)
+    closure(sensor, light, period)
 
 @bind(Command(items.bathroom_door))
 @augment(Delay(Command(items.bathroom_door, "off"),
