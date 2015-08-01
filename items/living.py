@@ -21,6 +21,12 @@ Toggle("Lava Lamp",
        tags=("living_room", "light"),
        bindings={"x10": {"code": "a12"}})
 
+Toggle("Living Room Projector",
+       tags=("living_room", "media", "display"),
+       bindings={"http": {"push": [
+           ("on", "luna:8081/projector_on"),
+           ("off", "luna:8081/projector_off")]}})
+
 Number("Living Room Temperature",
        bindings={"http": {"pull": "luna:8081/temp"}},
        tags=("living_room", "temperature", "climate"))
