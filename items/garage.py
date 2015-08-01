@@ -5,6 +5,10 @@ Toggle("Garage Lights",
        bindings={"x10": {"code": "c2"}},
        tags=("garage", "light"))
 
+Toggle("Garage Counter Lights",
+       bindings={"x10": {"code": "c3"}},
+       tags=("garage", "light"))
+
 Toggle("Garage Door Opener",
        bindings={"http": {"push": [
            ("on", "thegreatandpowerfultrixie:8081/door?action=trigger"),
