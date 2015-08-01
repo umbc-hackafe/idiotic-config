@@ -14,7 +14,7 @@ class LivingRoomMedia(Scene):
         for item in self.control:
             item.enable()
             item.on()
-        items.living._room_projector.off()
+        items.living_room_projector.off()
 
 @bind(Change(items.living_room_projector))
 def media_activate(evt):
