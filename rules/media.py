@@ -18,7 +18,7 @@ class LivingRoomMedia(Scene):
 
 @bind(Change(items.living_room_projector))
 def media_activate(evt):
-    if evt.new == 'on':
+    if evt.new:
         scenes.livingroommedia.enter()
     else:
         scenes.livingroommedia.exit()
