@@ -5,7 +5,7 @@ from idiotic import items, scheduler, modules, scenes
 class LivingRoomMedia(Scene):
     control = (items.living_room_lamp, items.kitchen_table_light)
     def entered(self):
-        items.living_room_projector.on()
+        items.living_room_projector.on(source='living_room_media')
         for item in self.control:
             item.off()
             item.disable()
@@ -14,10 +14,13 @@ class LivingRoomMedia(Scene):
         for item in self.control:
             item.enable()
             item.on()
-        items.living_room_projector.off()
+        items.living_room_projector.off(source='living_room_media')
 
 @bind(Change(items.living_room_projector))
 def media_activate(evt):
+    if evt.source == 'living_room_media':
+        return
+
     if evt.new:
         scenes.livingroommedia.enter()
     else:
