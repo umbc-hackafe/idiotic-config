@@ -1,18 +1,9 @@
 {% extends 'base.html' %}
 {% block controls %}
-{% if scenes %}<h2>Scenes</h2>{% endif %}
-{% for scene in scenes %}
-<form id="scene_form_{{ scene.name }}" class="scene-form">
-  <div>
-    <span id="label_scene_{{ scene.name }}">{{ scene.desc }}</span>
-    <input type="button" id="scene_enter_{{ scene.name }}" value="Enter" class="scene-control scene-enter" data-scene="{{ scene.name }}" data-action="enter"/>
-    <input type="button" id="scene_exit_{{ scene.name }}" value="Exit" class="scene-control scene-exit" data-scene="{{ scene.name }}" data-action="exit"/>
-  </div>
-</form>
-{% endfor %}
 
-{% if items %}<h2>Items</h2>{% endif %}
-{% for item in items %}
+{% for section in sections %}
+<h2>{{ section.title }}</h2>
+{% for item in section.item_list %}
 <form id="controls_form_{{ item.name }}" class="controls-form">
   <div>
     <span id="label_{{ item.name }}">{{ item.desc }}</span>
@@ -21,13 +12,16 @@
     {% endif %}
     {% for input in item.inputs %}
     {% if input.type == "text" %}
-    <input type="text" id="command_{{ item.name }}_{{ input.command }}" class="command" data-item="{{ item.name }}" data-command="{{ input.command }}"  data-use-val="true" data-event="change"{% if item.state != None %} value="{{ item.state }}"{% endif %}/>
+    <input {% if item.disabled %}disabled="disabled"{% endif %} type="text" id="command_{{ item.name }}_{{ input.command }}" class="command" data-item="{{ item.name }}" data-command="{{ input.command }}"  data-use-val="true" data-event="change"{% if item.state != None %} value="{{ item.state }}"{% endif %}/>
     {% elif input.type == "button" %}
-    <input type="button" id="command_{{ item.name }}_{{ input.command }}" class="command" data-item="{{ item.name }}" data-command="{{ input.command }}" data-use-val="false" data-event="click" value="{{ input.command|title }}"/>
+    <input {% if item.disabled %}disabled="disabled"{% endif %} type="button" id="command_{{ item.name }}_{{ input.command }}" class="command" data-item="{{ item.name }}" data-command="{{ input.command }}" data-use-val="false" data-event="click" value="{{ input.command|title }}"/>
     {% elif input.type == "number" %}
-    <input type="number" id="command_{{ item.name }}_{{ input.command }}" class="command" data-item="{{ item.name }}" data-command="{{ input.command }}" data-use-val="true" data-event="change"{% if item.state != None %} value="{{ item.state }}"{% endif %}/>
+    <input {% if item.disabled %}disabled="disabled"{% endif %} type="number" id="command_{{ item.name }}_{{ input.command }}" class="command" data-item="{{ item.name }}" data-command="{{ input.command }}" data-use-val="true" data-event="change"{% if item.state != None %} value="{{ item.state }}"{% endif %}/>
     {% elif input.type == "checkbox" %}
-    <input type="checkbox" id="command_{{ item.name }}_{{ input.command }}" class="command" data-item="{{ item.name }}" data-command="{{ input.command }}" data-use-val="true" data-event="click"/>
+    <input {% if item.disabled %}disabled="disabled"{% endif %} type="checkbox" id="command_{{ item.name }}_{{ input.command }}" class="command" data-item="{{ item.name }}" data-command="{{ input.command }}" data-use-val="true" data-event="click"/>
+    {% elif input.type == "scene" %}
+    <input type="button" id="scene_enter_{{ item.name }}" value="Enter" class="scene-control scene-enter" data-scene="{{ item.name }}" data-action="enter"/>
+    <input type="button" id="scene_exit_{{ item.name }}" value="Exit" class="scene-control scene-exit" data-scene="{{ item.name }}" data-action="exit"/>
     {% endif %}
     {% endfor %}
     {% if item.show_disable %}
@@ -36,5 +30,6 @@
     {% endif %}
   </div>
 </form>
+{% endfor %}
 {% endfor %}
 {% endblock %}
