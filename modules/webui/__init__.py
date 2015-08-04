@@ -150,7 +150,7 @@ def _sparkline(item, *args, **kwargs):
 
         _, values = zip(*history.last(min(10, len(history))))
 
-        graph = pygal.Line()
+        graph = pygal.Line(interpolate='cubic', style=pygal.style.LightStyle)
         graph.add("Last 10", values)
         return graph.render_sparkline().decode('UTF-8')
     else:
