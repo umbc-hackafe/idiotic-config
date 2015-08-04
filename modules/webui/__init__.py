@@ -14,6 +14,14 @@ MODULE_NAME = "webui"
 
 LOG = logging.getLogger("module.webui")
 
+USE_GRAPHS = False
+
+try:
+    import pygal
+    USE_GRAPHS = True
+except:
+    LOG.warning("Could not import pygal; graphs are disabled")
+
 SECT_INCLUDE = ("include_tags",
                 "exclude_tags",
                 "include_items",
@@ -37,6 +45,7 @@ def configure(config, api, assets):
     env = jinja2.Environment(loader=jinja2.FileSystemLoader(asset_path))
 
     api.serve(_main_js, '/main.js', content_type="text/javascript")
+    api.serve(_sparkline, '/sparkline/<item>.svg', content_type="image/svg+xml")
 
     traverse(api, "/", config)
 
@@ -90,6 +99,7 @@ def _main_page(sections, *_, **__):
                 "desc": item.name,
                 "name": utils.mangle_name(item.name),
                 "show_disable": "webui.show_disable" in item.tags,
+                "show_sparkline": "webui.show_sparkline" in item.tags,
                 "state": getattr(item, "state", getattr(item, "active", None)),
                 "disabled": not getattr(item, "enabled", False)
             }
@@ -126,6 +136,25 @@ def _main_page(sections, *_, **__):
 
 def _main_js(*_, **__):
     return env.get_template('main.js').render()
+
+def __empty_svg():
+    return """<?xml version="1.0" encoding="UTF-8" standalone="no"?> <svg
+xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1 1"
+width="1" height="1" id="svg_pixel"> </svg>"""
+
+def _sparkline(item, *args, **kwargs):
+    if USE_GRAPHS:
+        history = items[item].state_history
+        if not history:
+            return __empty_svg()
+
+        _, values = zip(*history.last(min(10, len(history))))
+
+        graph = pygal.Line()
+        graph.add("Last 10", values)
+        return graph.render_sparkline().decode('UTF-8')
+    else:
+        return __empty_svg()
 
 def _include_item(item, include_tags, exclude_tags, include_items, exclude_items):
     return ((not include_tags or set(item.tags) & include_tags) or

@@ -22,8 +22,8 @@ Toggle("Bedroom Door",
 
 Number("Bedroom Temperature",
        bindings={"http": {"pull": "rarity:8081/temp"}},
-       tags=("bedroom", "temperature", "climate"))
+       tags=("bedroom", "temperature", "climate", "webui.show_sparkline"))
 
 Number("Bedroom Humidity",
        bindings={"http": {"pull": "rarity:8081/hum"}},
-       tags=("bedroom", "humidity", "climate"))
+       tags=("bedroom", "humidity", "climate", "webui.show_sparkline"))

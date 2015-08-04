@@ -28,6 +28,9 @@
     <label>Disabled <input type="checkbox" id="disable_{{ item.name }}" class="disable" data-item="{{ item.name }}" value="true"{% if item.disabled %}checked="checked"{% endif %}/>
     </label>
     {% endif %}
+    {% if item.show_sparkline %}
+    <img src="sparkline/{{ item.name }}.svg"/>
+    {% endif %}
   </div>
 </form>
 {% endfor %}

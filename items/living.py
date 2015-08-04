@@ -29,7 +29,7 @@ Toggle("Living Room Projector",
 
 Number("Living Room Temperature",
        bindings={"http": {"pull": "luna:8081/temp"}},
-       tags=("living_room", "temperature", "climate"))
+       tags=("living_room", "temperature", "climate", "webui.show_sparkline"))
 Number("Living Room Humidity",
        bindings={"http": {"pull": "luna:8081/hum"}},
-       tags=("living_room", "humidity", "climate"))
+       tags=("living_room", "humidity", "climate", "webui.show_sparkline"))
