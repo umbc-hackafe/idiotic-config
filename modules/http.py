@@ -86,10 +86,10 @@ def __singular_bind(item, kind, tup):
         else:
             raise ArgumentError("Invalid binding tuple for pull: {}".format(tup))
 
-        call = functools.partial(_schedule, item, method, url, options)
-
         if '://' not in url:
             url = default_protocol + '://' + url
+
+        call = functools.partial(_schedule, item, method, url, options)
 
         if isinstance(interval, int):
             scheduler.every(interval).seconds.do(call)
@@ -159,6 +159,7 @@ def _schedule(item, method_name, url, options):
     method = METHODS[method_name.upper()]
     fmt_url = url.format(item=getattr(item, "name", ""),
                          state=getattr(item, "state", None))
+    res = None
     try:
         res = yield from method(fmt_url, **options)
         if res.status == 200:
@@ -169,3 +170,6 @@ def _schedule(item, method_name, url, options):
                 res.status, fmt_url, item))
     except OSError:
         log.warning("Network error retrieving {} for item {}.".format(fmt_url, item))
+    finally:
+        if res:
+            res.close()
