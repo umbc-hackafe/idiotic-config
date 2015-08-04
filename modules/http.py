@@ -13,7 +13,7 @@ from idiotic import dispatcher, event, scheduler
 
 MODULE_NAME = "http"
 
-log = logging.getLogger("module.http")
+LOG = logging.getLogger("module.http")
 
 @asyncio.coroutine
 def request(method, url, **kwargs):
@@ -96,7 +96,7 @@ def __singular_bind(item, kind, tup):
         elif type(interval) is scheduler.Job:
             interval.do(call)
     else:
-        log.error("Invalid http binding type {}".format(kind))
+        LOG.error("Invalid http binding type {}".format(kind))
 
 def bind_item(item, push=[], pull=[], **kwargs):
     """Binds HTTP to an item.
@@ -150,10 +150,10 @@ def _binding(method_name, url, options, event):
     try:
         res = yield from method(fmt_url, **options)
         if res.status != 200:
-            log.warning("Request returned {} retrieving {} for item {}".format(
+            LOG.warning("Request returned {} retrieving {} for item {}".format(
                 res.status, fmt_url, event.item))
     except OSError:
-        log.warning("Network error retrieving {} for item {}.".format(fmt_url, event.item))
+        LOG.warning("Network error retrieving {} for item {}.".format(fmt_url, event.item))
 
 def _schedule(item, method_name, url, options):
     method = METHODS[method_name.upper()]
@@ -166,10 +166,10 @@ def _schedule(item, method_name, url, options):
             text = yield from res.read()
             item._set_state_from_context(text, source="module.http")
         else:
-            log.warning("Request returned {} retrieving {} for item {}".format(
+            LOG.warning("Request returned {} retrieving {} for item {}".format(
                 res.status, fmt_url, item))
     except OSError:
-        log.warning("Network error retrieving {} for item {}.".format(fmt_url, item))
+        LOG.warning("Network error retrieving {} for item {}.".format(fmt_url, item))
     finally:
         if res:
             res.close()
