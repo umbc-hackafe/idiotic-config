@@ -16,11 +16,6 @@ MODULE_NAME = "http"
 
 LOG = logging.getLogger("module.http")
 
-@asyncio.coroutine
-def request(method, url, **kwargs):
-    res = yield from aiohttp.request(method, url)
-    return res
-
 METHODS = {
     "REQUEST": request,
     "GET": get,
