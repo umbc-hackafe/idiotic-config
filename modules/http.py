@@ -164,6 +164,7 @@ def _schedule(item, method_name, url, options):
         res = yield from method(fmt_url, **options)
         if res.status == 200:
             text = yield from res.read()
+            LOG.debug("Got response retrieving '{}'".format(url))
             item._set_state_from_context(text, source="module.http")
         else:
             LOG.warning("Request returned {} retrieving {} for item {}".format(
