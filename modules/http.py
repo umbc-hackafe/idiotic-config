@@ -6,6 +6,7 @@
 """
 
 import aiohttp
+from aiohttp import request, get, post, put, head, delete
 import logging
 import asyncio
 import functools
@@ -19,13 +20,6 @@ LOG = logging.getLogger("module.http")
 def request(method, url, **kwargs):
     res = yield from aiohttp.request(method, url)
     return res
-
-get = functools.partial(request, "GET")
-post = functools.partial(request, "POST")
-put = functools.partial(request, "PUT")
-post = functools.partial(request, "POST")
-head = functools.partial(request, "HEAD")
-delete = functools.partial(request, "DELETE")
 
 METHODS = {
     "REQUEST": request,
