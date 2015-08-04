@@ -65,9 +65,11 @@ def __singular_bind(item, kind, tup):
             url = default_protocol + '://' + url
 
         if command == "*" or command is None:
-            item.bind_on_command(functools.partial(_binding, method, url, options, e), kind="after")
+            item.bind_on_command(functools.partial(_binding, method, url, options),
+                                 kind="after")
         else:
-            item.bind_on_command(functools.partial(_binding, method, url, options, e), command=command, kind="after")
+            item.bind_on_command(functools.partial(_binding, method, url, options),
+                                 command=command, kind="after")
     elif kind == "pull":
         if isinstance(tup, str):
             url = tup
