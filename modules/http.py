@@ -65,9 +65,9 @@ def __singular_bind(item, kind, tup):
             url = default_protocol + '://' + url
 
         if command == "*" or command is None:
-            item.bind_on_command(lambda e: _binding(method, url, options, e), kind="after")
+            item.bind_on_command(functools.partial(_binding, method, url, options, e), kind="after")
         else:
-            item.bind_on_command(lambda e: _binding(method, url, options, e), command=command, kind="after")
+            item.bind_on_command(functools.partial(_binding, method, url, options, e), command=command, kind="after")
     elif kind == "pull":
         if isinstance(tup, str):
             url = tup
@@ -86,7 +86,7 @@ def __singular_bind(item, kind, tup):
         else:
             raise ArgumentError("Invalid binding tuple for pull: {}".format(tup))
 
-        call = lambda: _schedule(item, method, url, options)
+        call = functools.partial(_schedule, item, method, url, options)
 
         if '://' not in url:
             url = default_protocol + '://' + url
