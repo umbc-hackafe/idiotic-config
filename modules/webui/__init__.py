@@ -152,7 +152,7 @@ def _sparkline(item, *args, **kwargs):
 
         graph = pygal.Line(interpolate='cubic', style=pygal.style.LightStyle)
         graph.add("Last 10", values)
-        return graph.render_sparkline().decode('UTF-8')
+        return graph.render_sparkline(height=25).decode('UTF-8')
     else:
         return __empty_svg()
 
