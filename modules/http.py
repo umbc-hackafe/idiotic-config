@@ -37,15 +37,21 @@ def __singular_bind(item, kind, tup):
             url = tup
             command = None
             method = "GET"
+            cb = None
             options = {}
+        elif len(tup) is 5:
+            command, url, method, cb, options = tup
         elif len(tup) is 4:
-            command, url, method, options = tup
+            command, url, method, cb = tup
+            options = {}
         elif len(tup) is 3:
             command, url, method = tup
             options = {}
+            cb = None
         elif len(tup) is 2:
             command, url = tup
             method = "GET"
+            cb = None
             options = {}
         else:
             raise ArgumentError("Invalid binding tuple for push: {}".format(tup))
@@ -54,25 +60,31 @@ def __singular_bind(item, kind, tup):
             url = default_protocol + '://' + url
 
         if command == "*" or command is None:
-            item.bind_on_command(functools.partial(_binding, method, url, options),
+            item.bind_on_command(functools.partial(_binding, method, url, cb, options),
                                  kind="after")
         else:
-            item.bind_on_command(functools.partial(_binding, method, url, options),
+            item.bind_on_command(functools.partial(_binding, method, url, cb, options),
                                  command=command, kind="after")
     elif kind == "pull":
         if isinstance(tup, str):
             url = tup
             interval = 60
             method = "GET"
+            cb = None
             options = {}
+        elif len(tup) is 5:
+            interval, url, method, cb, options = tup
         elif len(tup) is 4:
-            interval, url, method, options = tup
+            interval, url, method, cb = tup
+            options = {}
         elif len(tup) is 3:
             interval, url, method = tup
+            cb = None
             options = {}
         elif len(tup) is 2:
             interval, url = tup
             method = "GET"
+            cb = None
             options = {}
         else:
             raise ArgumentError("Invalid binding tuple for pull: {}".format(tup))
@@ -80,12 +92,10 @@ def __singular_bind(item, kind, tup):
         if '://' not in url:
             url = default_protocol + '://' + url
 
-        call = functools.partial(_schedule, item, method, url, options)
-
         if isinstance(interval, int):
-            scheduler.every(interval).seconds.do(call)
+            scheduler.every(interval).seconds.do(_schedule, item, method, url, cb, options)
         elif type(interval) is scheduler.Job:
-            interval.do(call)
+            interval.do(_schedule, item, method, url, cb, options)
     else:
         LOG.error("Invalid http binding type {}".format(kind))
 
@@ -99,20 +109,30 @@ def bind_item(item, push=[], pull=[], **kwargs):
     of the item, and 'state', referring to the state of the item at
     the time of the command.
 
-    For 'push' settings, use None for all commands. For 'pull'
+    For 'push' settings, use None for all commands. <callback> will be
+    called with the request's results. For 'pull'
     settings, <frequency> may be an integral number of seconds or a
-    schedule Job.
+    schedule Job. <callback> will be called with the request's results,
+    and should return the state to be given to the item.
 
     Valid forms for 'push':
+    [(None|'<command>', '<url>', '<method>', <callback>, {options}), ...]
+    [(None|'<command>', '<url>', '<method>', {options}), ...]
     [(None|'<command>', '<url>', '<method>'), ...]
     [(None|'<command>', '<url>'), ...]
+    (None|'<command>', '<url>', '<method>', <callback>, {options})
+    (None|'<command>', '<url>', '<method>', <callback>)
     (None|'<command>', '<url>', '<method>')
     (None|'<command>', '<url>')
     '<url>'
 
     Valid forms for 'pull':
-    [(<update frequency in seconds>, '<url>', '<method>'), ...]
+    [(<update frequency in seconds>, '<url>', '<method>', <callback>, {options}), ...]
+    [(<frequency>, '<url>', '<method>', <callback>), ...]
+    [(<frequency>, '<url>', '<method>'), ...]
     [(<frequency>, '<url>'), ...]
+    (<frequency>, '<url>', '<method>', <callback>, {options})
+    (<frequency>, '<url>', '<method>', <callback>)
     (<frequency>, '<url>', '<method>')
     (<frequency>, '<url>')
     '<url>'
@@ -132,8 +152,11 @@ def bind_item(item, push=[], pull=[], **kwargs):
             __singular_bind(item, "pull", pull)
 
 @asyncio.coroutine
-def _binding(method_name, url, options, event):
+def _binding(method_name, url, options, cb, event):
+    if method_name is None:
+        method_name = "GET"
     method = METHODS[method_name.upper()]
+
     # command name, item name, and item current state will be
     # formatted into the URL by name
     fmt_url = url.format(command=str(event.command),
@@ -142,7 +165,10 @@ def _binding(method_name, url, options, event):
     res = None
     try:
         res = yield from method(fmt_url, **options)
-        if res.status != 200:
+        if res.status == 200:
+            if cb:
+                cb()
+        else:
             LOG.warning("Request returned {} retrieving {} for item {}".format(
                 res.status, fmt_url, event.item))
     except OSError:
@@ -152,7 +178,9 @@ def _binding(method_name, url, options, event):
             res.close()
 
 @asyncio.coroutine
-def _schedule(item, method_name, url, options):
+def _schedule(item, method_name, url, cb, options):
+    if method_name is None:
+        method_name = "GET"
     method = METHODS[method_name.upper()]
     fmt_url = url.format(item=getattr(item, "name", ""),
                          state=getattr(item, "state", None))
@@ -160,8 +188,10 @@ def _schedule(item, method_name, url, options):
     try:
         res = yield from method(fmt_url, **options)
         if res.status == 200:
-            text = yield from res.read()
-            LOG.debug("Got response retrieving '{}'".format(url))
+            data = yield from res.read()
+            text = data.decode('UTF-8')
+            if cb:
+                text = cb(text)
             item._set_state_from_context(text, source="module.http")
         else:
             LOG.warning("Request returned {} retrieving {} for item {}".format(
