@@ -29,10 +29,10 @@ Toggle("Living Room Projector",
            ("off", "luna:8081/projector_off")]}})
 
 Number("Living Room Temperature",
-       bindings={"http": {"pull": "luna:8081/temp"}},
+       bindings={"http": {"pull": (60, "luna:8081/temp", None, float)}},
        tags=("living_room", "temperature", "climate", "webui.show_sparkline"))
 Number("Living Room Humidity",
-       bindings={"http": {"pull": "luna:8081/hum"}},
+       bindings={"http": {"pull": (60, "luna:8081/hum", None, float)}},
        tags=("living_room", "humidity", "climate", "webui.show_sparkline"))
 
 class LivingRoomSleep(Scene):

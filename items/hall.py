@@ -9,8 +9,8 @@ Toggle("Hallway Motion",
         tags=("hallway", "motion", "occupancy"))
 
 Number("Hallway Temperature",
-       bindings={"http": {"pull": "scootaloo:8081/temp"}},
+       bindings={"http": {"pull": (60, "scootaloo:8081/temp", None, float)}},
        tags=("hallway", "temperature", "climate", "webui.show_sparkline"))
 Number("Hallway Humidity",
-       bindings={"http": {"pull": "scootaloo:8081/hum"}},
+       bindings={"http": {"pull": (60, "scootaloo:8081/hum", None, float)}},
        tags=("hallway", "humidity", "climate", "webui.show_sparkline"))
