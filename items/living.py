@@ -1,4 +1,5 @@
 from idiotic.item import Toggle, Trigger, Number, Group
+from idiotic.scene import Scene
 from idiotic import modules, scheduler
 
 Toggle("Living Room Lamp",
