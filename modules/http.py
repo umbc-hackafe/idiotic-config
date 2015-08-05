@@ -131,6 +131,7 @@ def bind_item(item, push=[], pull=[], **kwargs):
         for tup in pull:
             __singular_bind(item, "pull", pull)
 
+@asyncio.coroutine
 def _binding(method_name, url, options, event):
     method = METHODS[method_name.upper()]
     # command name, item name, and item current state will be
@@ -146,6 +147,7 @@ def _binding(method_name, url, options, event):
     except OSError:
         LOG.warning("Network error retrieving {} for item {}.".format(fmt_url, event.item))
 
+@asyncio.coroutine
 def _schedule(item, method_name, url, options):
     method = METHODS[method_name.upper()]
     fmt_url = url.format(item=getattr(item, "name", ""),
