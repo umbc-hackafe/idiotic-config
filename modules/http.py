@@ -139,6 +139,7 @@ def _binding(method_name, url, options, event):
     fmt_url = url.format(command=str(event.command),
                item=getattr(event.item, "name", ""),
                state=getattr(event.item, "state", None))
+    res = None
     try:
         res = yield from method(fmt_url, **options)
         if res.status != 200:
@@ -146,6 +147,9 @@ def _binding(method_name, url, options, event):
                 res.status, fmt_url, event.item))
     except OSError:
         LOG.warning("Network error retrieving {} for item {}.".format(fmt_url, event.item))
+    finally:
+        if res:
+            res.close()
 
 @asyncio.coroutine
 def _schedule(item, method_name, url, options):
