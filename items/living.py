@@ -1,6 +1,19 @@
 from idiotic.item import Toggle, Trigger, Number, Group
 from idiotic import modules, scheduler
 
+class LivingRoomSleep(Scene):
+    control = (items.living_room_lamp, items.kitchen_table_light)
+    def entered(self):
+        items.living_room_projector.off()
+        for item in self.control:
+            item.off()
+            item.disable()
+
+    def exited(self):
+        for item in self.control:
+            item.enable()
+            item.on()
+
 Toggle("Living Room Lamp",
        tags=("living_room", "light", "nightlight"),
        bindings={"x10": {"code": "a6"}})
