@@ -3,7 +3,7 @@ from idiotic import modules, scheduler
 
 Toggle("Entertainment Room Light",
        bindings={"x10": {"code": "a13"}},
-       tags=("entertainment_room", "light", "nyi"))
+       tags=("entertainment_room", "light"))
 Toggle("Entertainment Room AC",
        tags=("entertainment_room", "ac", "climate"),
        bindings={"modlet": {"device": "noah"}})
