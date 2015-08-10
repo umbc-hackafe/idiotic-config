@@ -31,7 +31,7 @@ for sensor, light, period in mapping:
     closure(sensor, light, period)
 
 @bind(Command(items.entertainment_room__laundry_room_door))
-@augment(Delay(Command(items.entertainment_room__laundry_room_door),
+@augment(Delay(Command(items.entertainment_room__laundry_room_door, "on"),
          period=180,
          cancel=Command(items.entertainment_room__laundry_room_door, "off")))
 def laundry_door(evt):
