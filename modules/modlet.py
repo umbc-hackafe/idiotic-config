@@ -3,9 +3,12 @@
 """
 
 import json
+import time
 import logging
 import requests
 import functools
+from collections import defaultdict
+from idiotic.timer import Timer
 
 MODULE_NAME = "modlet"
 
@@ -18,6 +21,7 @@ LOG = logging.getLogger("module.modlet")
 __user = ""
 __password = ""
 __cookies = {}
+relog_timer = None
 device_table = {}
 default_poll = 60
 units = "C"
@@ -99,10 +103,20 @@ def _login():
 
     res.raise_for_status()
 
-    if "ASPXAUTH" in res.cookies:
-        __cookies.update(res.cookies)
-    else:
-        raise ValueError("Invalid username or password for mymodlet.com")
+    for p in [res] + res.history[::-1]:
+        if ".ASPXAUTH" in p.cookies:
+            __cookies.update(p.cookies)
+            for cookie in p.cookies:
+                # This is stupid. Why can't I get a whole cookie by
+                # name? Blah.
+                if cookie.name == ".ASPXAUTH":
+                    global relog_timer
+                    if not relog_timer:
+                        relog_timer = Timer((cookie.expires - time.time()) // 2, _login)
+                    relog_timer.reschedule()
+                    return
+
+    raise ValueError("Invalid username or password for mymodlet.com")
 
 def _modlet_set(modlet, val):
     set_temp = LOW_TEMP
