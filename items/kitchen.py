@@ -18,4 +18,4 @@ Toggle("Kitchen Door",
        tags=("kitchen", "exterior_door", "occupancy", "nyi"))
 
 Toggle("Kitchen Motion",
-       tags=("kitchen", "motion", "occupancy", "nyi"))
+       tags=("kitchen", "motion", "occupancy"))
