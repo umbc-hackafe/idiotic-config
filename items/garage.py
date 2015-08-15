@@ -29,4 +29,5 @@ Motor("Garage Projector Screen",
 
 Toggle("Garage AC",
        tags=("garage", "ac", "climate"),
-       bindings={"modlet": {"device": "garage"}})
+       bindings={"modlet": {"device": "garage",
+                            "control": True}})

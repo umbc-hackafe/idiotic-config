@@ -6,7 +6,8 @@ Toggle("Entertainment Room Light",
        tags=("entertainment_room", "light"))
 Toggle("Entertainment Room AC",
        tags=("entertainment_room", "ac", "climate"),
-       bindings={"modlet": {"device": "noah"}})
+       bindings={"modlet": {"device": "entertainment",
+                            "control": True}})
 Toggle("Entertainment Room - Living Room Door",
        tags=("entertainment_room", "living_room", "door", "occupancy", "nyi"))
 
