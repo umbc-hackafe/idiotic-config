@@ -45,13 +45,16 @@ def configure(config, api, assets):
         }
 
     if units not in ("F", "C", "K", "R"):
-        pass
+        raise ValueError("Unknown units {}".format(config.get("units")))
 
-def bind_item(item, modlet=None, control=False, thermostat=False,
+def start():
+    _login()
+
+def bind_item(item, device=None, control=False, thermostat=False,
               temperature=False, actions=None):
     """Bind an item to control or receive data from a modlet.
 
-    modlet:      The name of a pre-configured modlet, or a modlet ID
+    device:      The name of a pre-configured modlet, or a modlet ID
     control:     True if the item should control the specified modlet
     thermostat:  True if the item should receive state updates from the
                  modlet's thermostat (Not yet implemented)
@@ -66,7 +69,7 @@ def bind_item(item, modlet=None, control=False, thermostat=False,
 
     """
 
-    modlet = device_table.get(modlet, {"id": modlet})
+    modlet = device_table.get(device, {"id": device})
 
     if not modlet.get("id"):
         raise ValueError("A valid modlet name or ID must be specified.")
