@@ -121,7 +121,7 @@ def _login():
 
     raise ValueError("Invalid username or password for mymodlet.com")
 
-def _modlet_set(modlet, val):
+def _modlet_set(modlet, val, retry=True):
     set_temp = LOW_TEMP
 
     item = modlet.get("temperature_item")
@@ -140,8 +140,12 @@ def _modlet_set(modlet, val):
         if not res.json()["Success"]:
             raise IOError("Setting modlet state failed")
     except ValueError as e:
-        LOG.info("Results: {}".format(res.text))
-        raise IOError("Setting modlet state failed") from e
+        if retry:
+            _login()
+            _modlet_set(modlet, val, retry=False)
+        else:
+            LOG.error("Results: {}".format(res.text[:512]))
+            raise IOError("Setting modlet state failed") from e
 
 def from_c(c, unit=units):
     if unit == "C":
