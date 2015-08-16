@@ -6,4 +6,5 @@ Toggle("Bathroom Light",
        bindings={"x10": {"code": "b3"}})
 
 Toggle("Bathroom Door",
-       tags=("bathroom", "door"))
+       tags=("bathroom", "door"),
+       bindings={"sign": {"message": "Bathroom Occupied", "effects": ["bounce_x"]}})
