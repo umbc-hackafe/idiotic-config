@@ -104,6 +104,11 @@ def bind_item(item, commands=None, state=None):
         for states, message, deletes in state_conf:
             _do_state_bind(item, states, message, deletes)
 
+def new_message(*args, **kwargs):
+    msg = Message(*args, **kwargs)
+    msg.add()
+    return msg
+
 def _do_command_bind(item, commands, message, deletes):
     original_message = message.message
     item.bind_on_command(functools.partial(_command_bind,
