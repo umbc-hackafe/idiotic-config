@@ -7,4 +7,4 @@ Toggle("Bathroom Light",
 
 Toggle("Bathroom Door",
        tags=("bathroom", "door"),
-       bindings={"sign": {"message": "Bathroom Occupied", "effects": ["bounce_x"]}})
+       bindings={"sign": ("on", {"message": "Bathroom Occupied", "effects": ["bounce_x"]}, "off"})
