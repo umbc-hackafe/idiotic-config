@@ -13,11 +13,11 @@ reminders = {}
 
 @bind(Schedule(scheduler.every().thursday.at("18:00")))
 def recycling_reminder(evt):
-    reminders["recycling"] = idiotic.modules.sign.new_message("RECYCLING", effects=["bounce_x", "shake"])
+    reminders["recycling"] = modules.sign.new_message("RECYCLING", effects=["bounce_x", "shake"])
 
 @bind(Schedule(scheduler.every().monday.at("18:00")))
 def trash_reminder(evt):
-    reminders["trash"] = idiotic.modules.sign.new_message("TRASH", effects=["bounce_x", "shake"])
+    reminders["trash"] = modules.sign.new_message("TRASH", effects=["bounce_x", "shake"])
 
 @bind(Schedule(scheduler.every().friday.at("8:00")))
 @bind(Command(items.garbage))
