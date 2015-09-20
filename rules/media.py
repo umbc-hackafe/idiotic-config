@@ -9,7 +9,7 @@ class LivingRoomMedia(Scene):
     def entered(self):
         global sign_placeholder
         items.living_room_projector.on(source='living_room_media')
-        sign_placeholder = modules.sign.new_message('', priority=60, name='placeolder')
+        sign_placeholder = modules.sign.new_message('', priority=1, name='placeolder')
         for item in self.control:
             item.off()
             item.disable()
