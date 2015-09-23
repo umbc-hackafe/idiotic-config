@@ -202,7 +202,7 @@ def __group(times, values, count=500, group=lambda v: sum(v)/len(v)):
         else:
             if temp:
                 ts, vs = zip(*temp)
-                res.append(__avg_time(ts), group(vs))
+                res.append((__avg_time(ts), group(vs)))
             temp = []
 
     return zip(*res)
