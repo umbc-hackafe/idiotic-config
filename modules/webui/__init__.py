@@ -30,6 +30,7 @@ SECT_INCLUDE = ("include_tags",
 
 include_tags = set()
 exclude_tags = set()
+default_graph = False
 asset_path = None
 
 env = None
@@ -38,9 +39,12 @@ template_args = {}
 
 def configure(config, api, assets):
     global include_tags, exclude_tags, asset_path, env, template_args
+    global default_graph
 
     template_args["title"] = config.get("page_title", "idiotic")
     template_args["root"] = api.path
+
+    default_graph = config.get("enable_graph", False)
 
     asset_path = assets
     env = jinja2.Environment(loader=jinja2.FileSystemLoader(asset_path))
@@ -102,10 +106,15 @@ def _main_page(sections, *_, **__):
                 "name": utils.mangle_name(item.name),
                 "show_disable": "webui.show_disable" in item.tags,
                 "show_sparkline": "webui.show_sparkline" in item.tags,
-                "enable_graph": "webui.enable_graph" in item.tags,
+                "enable_graph": default_graph,
                 "state": getattr(item, "state", getattr(item, "active", None)),
                 "disabled": not getattr(item, "enabled", False)
             }
+
+            if "webui.enable_graph" in item.tags:
+                item_dict["enable_graph"] = True
+            elif "webui.disable_graph" in item.tags:
+                item_dict["enable_graph"] = False
 
             if isinstance(item, Number):
                 item_dict["inputs"] = [{"command": "set",
