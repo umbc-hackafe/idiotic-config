@@ -6,6 +6,9 @@
 {% for item in section.item_list %}
 <form id="controls_form_{{ item.name }}" class="controls-form">
   <div>
+    {% if item.enable_graph %}
+    <a class="graph_link" href="graph/{{ item.name }}">Graph</a>
+    {% endif %}
     <span id="label_{{ item.name }}">{{ item.desc }}</span>
     {% if item.state != None %}
     <span data-item="{{ item.name }}" class="state" id="state_{{ item.name }}">{{ item.state }}</span>

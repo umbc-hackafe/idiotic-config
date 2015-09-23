@@ -6,6 +6,7 @@ import jinja2
 import logging
 import requests
 import functools
+import datetime
 from idiotic import dispatcher, event, items, scenes, utils
 from idiotic.item import Toggle, Trigger, Number, Motor
 from idiotic.scene import Scene
@@ -46,6 +47,7 @@ def configure(config, api, assets):
 
     api.serve(_main_js, '/main.js', content_type="text/javascript")
     api.serve(_sparkline, '/sparkline/<item>.svg', content_type="image/svg+xml")
+    api.serve(_graph, '/graph/<item>.svg', content_type="image/svg+xml", get_args=True)
 
     traverse(api, "/", config)
 
@@ -100,6 +102,7 @@ def _main_page(sections, *_, **__):
                 "name": utils.mangle_name(item.name),
                 "show_disable": "webui.show_disable" in item.tags,
                 "show_sparkline": "webui.show_sparkline" in item.tags,
+                "enable_graph": "webui.enable_graph" in item.tags,
                 "state": getattr(item, "state", getattr(item, "active", None)),
                 "disabled": not getattr(item, "enabled", False)
             }
@@ -153,6 +156,25 @@ def _sparkline(item, *args, **kwargs):
         graph = pygal.Line(interpolate='cubic', style=pygal.style.LightStyle)
         graph.add("Last 10", values)
         return graph.render_sparkline(height=25).decode('UTF-8')
+    else:
+        return __empty_svg()
+
+def _graph(item, *args, time=86400, offset=0, count=None, **kwargs):
+    if USE_GRAPHS:
+        history = items[item].state_history
+        if not history:
+            return __empty_svg()
+
+        if count:
+            times, values = zip(*history.last(min(10, len(history))))
+        else:
+            times, values = zip(*history.since(datetime.datetime.now() - datetime.timedelta(seconds=int(time))))
+
+        graph = pygal.Line(interpolate='cubic', style=pygal.style.LightStyle)
+        graph.title = items[item].name
+        graph.add("Value", values)
+        graph.x_labels = (t.strftime("%H:%M:%S") for t in times)
+        return graph.render().decode('UTF-8')
     else:
         return __empty_svg()
 
