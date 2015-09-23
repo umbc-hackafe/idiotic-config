@@ -4,9 +4,9 @@
 
 import jinja2
 import logging
+import datetime
 import requests
 import functools
-import datetime
 from idiotic import dispatcher, event, items, scenes, utils
 from idiotic.item import Toggle, Trigger, Number, Motor
 from idiotic.scene import Scene
