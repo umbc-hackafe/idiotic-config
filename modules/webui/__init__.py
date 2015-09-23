@@ -168,6 +168,45 @@ def _sparkline(item, *args, **kwargs):
     else:
         return __empty_svg()
 
+def __avg_time(datetimes):
+    total = sum(dt.hour * 3600 + dt.minute * 60 + dt.second for dt in datetimes)
+    avg = total / len(datetimes)
+    minutes, seconds = divmod(int(avg), 60)
+    hours, minutes = divmod(minutes, 60)
+    return datetime.datetime.combine(datetime.date(1900, 1, 1), datetime.time(hours, minutes, seconds))
+
+def __group(times, values, count=500, group=lambda v: sum(v)/len(v)):
+    if len(times) != len(values):
+        raise ValueError("times and values must have same length")
+
+    if len(times) < count or len(times) < 2:
+        return times, values
+
+    count = min(count, len(times))
+
+    diff = (times[-1] - times[0]) / count
+
+    divisions = [count + i * diff for i in range(count)] + [times[-1]]
+
+    temp = []
+
+    res = []
+
+    partitions = zip(divisions[0::2], divisions[1::2])
+
+    i = 0
+    for start, end in partitions:
+        while start <= times[i] <= end:
+            temp.append((times[i], values[i]))
+            i += 1
+        else:
+            if temp:
+                ts, vs = zip(*temp)
+                res.append(__avg_time(ts), group(vs))
+            temp = []
+
+    return zip(*res)
+
 def _graph(item, *args, time=86400, offset=0, count=None, **kwargs):
     if USE_GRAPHS:
         history = items[item].state_history
@@ -178,6 +217,8 @@ def _graph(item, *args, time=86400, offset=0, count=None, **kwargs):
             times, values = zip(*history.last(min(10, len(history))))
         else:
             times, values = zip(*history.since(datetime.datetime.now() - datetime.timedelta(seconds=int(time))))
+
+        times, values = __group(times, values)
 
         graph = pygal.Line(style=pygal.style.LightStyle)
         graph.title = items[item].name
