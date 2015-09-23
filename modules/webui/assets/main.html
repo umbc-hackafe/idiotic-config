@@ -7,7 +7,7 @@
 <form id="controls_form_{{ item.name }}" class="controls-form">
   <div>
     {% if item.enable_graph %}
-    <a class="graph_link" href="graph/{{ item.name }}">Graph</a>
+    <a class="graph_link" href="graph/{{ item.name }}.svg">Graph</a>
     {% endif %}
     <span id="label_{{ item.name }}">{{ item.desc }}</span>
     {% if item.state != None %}
