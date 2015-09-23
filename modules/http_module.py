@@ -5,7 +5,6 @@
    http://opensource.org/licenses/MIT
 """
 
-import aiohttp
 from aiohttp import request, get, post, put, head, delete
 import logging
 import asyncio
@@ -109,7 +108,7 @@ def bind_item(item, push=[], pull=[], **kwargs):
     of the item, and 'state', referring to the state of the item at
     the time of the command.
 
-    For 'push' settings, use None for all commands. <callback> will be
+    For 'push' settings, use None for all commands. <callback> will be 
     called with the request's results. For 'pull'
     settings, <frequency> may be an integral number of seconds or a
     schedule Job. <callback> will be called with the request's results,
