@@ -179,9 +179,9 @@ def _graph(item, *args, time=86400, offset=0, count=None, **kwargs):
         else:
             times, values = zip(*history.since(datetime.datetime.now() - datetime.timedelta(seconds=int(time))))
 
-        graph = pygal.Line(interpolate='cubic', style=pygal.style.LightStyle)
+        graph = pygal.Line(style=pygal.style.LightStyle)
         graph.title = items[item].name
-        graph.add("Value", values)
+        graph.add("Value", values, show_only_major_dots=True)
         graph.x_labels = (t.strftime("%H:%M:%S") for t in times)
         return graph.render().decode('UTF-8')
     else:
