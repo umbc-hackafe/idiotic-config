@@ -186,7 +186,7 @@ def __group(times, values, count=500, group=lambda v: sum(v)/len(v)):
 
     diff = (times[-1] - times[0]) / count
 
-    divisions = [count + i * diff for i in range(count)] + [times[-1]]
+    divisions = [times[0] + i * diff for i in range(count)] + [times[-1]]
 
     temp = []
 
