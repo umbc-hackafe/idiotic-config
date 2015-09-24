@@ -175,7 +175,7 @@ def __avg_time(datetimes):
     hours, minutes = divmod(minutes, 60)
     return datetime.datetime.combine(datetime.date(1900, 1, 1), datetime.time(hours, minutes, seconds))
 
-def __group(times, values, count=500, group=lambda v: sum(v)/len(v)):
+def __group(times, values, count=50, group=lambda v: sum(v)/len(v)):
     if len(times) != len(values):
         raise ValueError("times and values must have same length")
 
@@ -192,11 +192,11 @@ def __group(times, values, count=500, group=lambda v: sum(v)/len(v)):
 
     res = []
 
-    partitions = zip(divisions[0::2], divisions[1::2])
+    partitions = zip(divisions[0:], divisions[1:])
 
     i = 0
     for start, end in partitions:
-        while start <= times[i] <= end:
+        while i < len(times) and start <= times[i] <= end:
             temp.append((times[i], values[i]))
             i += 1
         else:
@@ -220,9 +220,9 @@ def _graph(item, *args, time=86400, offset=0, count=None, **kwargs):
 
         times, values = __group(times, values)
 
-        graph = pygal.Line(style=pygal.style.LightStyle)
+        graph = pygal.Line(style=pygal.style.LightStyle, x_label_rotation=-60)
         graph.title = items[item].name
-        graph.add("Value", values, show_only_major_dots=True)
+        graph.add("Value", values)
         graph.x_labels = (t.strftime("%H:%M:%S") for t in times)
         return graph.render().decode('UTF-8')
     else:
