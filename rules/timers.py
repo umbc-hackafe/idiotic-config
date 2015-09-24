@@ -22,11 +22,11 @@ def trash_reminder(evt):
 @bind(Schedule(scheduler.every().friday.at("8:00")))
 @bind(Command(items.garbage))
 def recycling_done(evt):
-    if reminders["recycling"]:
+    if reminders.get("recycling"):
         reminders["recycling"].remove()
 
 @bind(Schedule(scheduler.every().tuesday.at("8:00")))
 @bind(Command(items.garbage))
 def trash_done(evt):
-    if reminders["trash"]:
+    if reminders.get("trash"):
         reminders["trash"].remove()
