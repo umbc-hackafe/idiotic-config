@@ -17,6 +17,6 @@ Number("Office Humidity",
        #bindings={"http": {"pull": "dash:8081/temp"}},
        tags=("office", "humidity", "climate", "nyi"))
 
-Toggle("Office AC",
+Toggle("Office Air Conditioner",
        #bindings={"http": {"pull": "dash:8081/hum"}},
        tags=("office", "ac", "climate", "nyi"))

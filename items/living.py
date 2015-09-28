@@ -8,7 +8,7 @@ Toggle("Living Room Lamp",
 Toggle("Turtle Light",
        tags=("living_room", "light"),
        bindings={"x10": {"code": "a5"}})
-Toggle("Living Room AC",
+Toggle("Living Room Air Conditioner",
        tags=("living_room", "ac", "climate"),
        bindings={"modlet": {"device": "living",
                             "control": True}})

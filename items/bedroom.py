@@ -10,7 +10,7 @@ Toggle("Bedroom Mood Light",
 Toggle("Bedroom Fan",
        tags=("bedroom", "fan", "climate", "nyi"))
 
-Toggle("Bedroom AC",
+Toggle("Bedroom Air Conditioner",
        tags=("bedroom", "ac", "climate"),
        bindings={"modlet": {"device": "bedroom",
                             "control": True}})

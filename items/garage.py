@@ -27,7 +27,7 @@ Motor("Garage Projector Screen",
           ("stop", "thegreatandpowerfultrixie:8081/screen?action=stop")]}},
       tags=("garage",))
 
-Toggle("Garage AC",
+Toggle("Garage Air Conditioner",
        tags=("garage", "ac", "climate"),
        bindings={"modlet": {"device": "garage",
                             "control": True}})
