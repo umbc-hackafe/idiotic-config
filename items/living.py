@@ -22,6 +22,9 @@ Toggle("Alert Beacon",
 Toggle("Lava Lamp",
        tags=("living_room", "light"),
        bindings={"x10": {"code": "a12"}})
+Toggle("Black Light",
+       tags=("living_room", "light"),
+       bindings={"x10": {"code": "a14"}})
 
 Toggle("Living Room Projector",
        tags=("living_room", "media", "display"),
