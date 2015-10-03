@@ -45,7 +45,5 @@ def configure(config, api, assets):
         if item_type == 'light_bulb':
             item = WinkLight(label, device, tags=(item_type,"winkhub"))
 
-            item.on()
-
 def bind_item(item, id=None, name=None, field=None):
     pass
