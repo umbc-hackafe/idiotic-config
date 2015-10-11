@@ -163,6 +163,8 @@ def _binding(method_name, url, options, cb, event):
                state=getattr(event.item, "state", None))
     res = None
     try:
+        if not options:
+            options = {}
         res = yield from method(fmt_url, **options)
         if res.status == 200:
             if cb:
