@@ -1,28 +1,27 @@
 from idiotic.rule import bind, Command, Change, Schedule, augment, Delay, DeDup
 from idiotic.scene import Scene
+from idiotic.item import Motor
 from idiotic import items, scheduler, modules, scenes
 
 sign_placeholder = None
 
-class LivingRoomMedia(Scene):
-    control = (items.living_room_lamp, items.kitchen_table_light)
-    def entered(self):
-        global sign_placeholder
-        items.living_room_projector.on(source='living_room_media')
-        sign_placeholder = modules.sign.new_message('', priority=1, name='placeholder')
-        for item in self.control:
-            item.off()
-            item.disable()
+living_room_media = Scene("LivingRoomMedia",
+      active={"living_room_lamp": (False, True),
+              "kitchen_table_light": (False, True)})
 
-    def exited(self):
-        global sign_placeholder
-        for item in self.control:
-            item.enable()
-            item.on()
-        if sign_placeholder:
-            sign_placeholder.remove()
-            sign_placeholder = None
-        items.living_room_projector.off(source='living_room_media')
+@living_room_media.on_enter
+def do_sign_enter():
+    global sign_placeholder
+    items.living_room_projector.on(source='living_room_media')
+    sign_placeholder = modules.sign.new_message('', priority=1, name='placeholder')
+
+@living_room_media.on_exit
+def do_sign_exit():
+    global sign_placeholder
+    if sign_placeholder:
+        sign_placeholder.remove()
+        sign_placeholder = None
+    items.living_room_projector.off(source='living_room_media')
 
 @bind(Change(items.living_room_projector))
 def media_activate(evt):
@@ -34,18 +33,7 @@ def media_activate(evt):
     else:
         scenes.livingroommedia.exit()
 
-class GarageMedia(Scene):
-    prev_garage_lights_state = False
-    prev_garage_door_state = False
-
-    def entered(self):
-        prev_garage_lights_state = items.garage_lights.state
-        prev_garage_door_state = items.garage_door.state
-        items.garage_door_opener.off()
-        items.garage_projector_screen.forward()
-        items.garage_lights.off()
-
-    def exited(self):
-        items.garage_door.command("on" if prev_garage_door_state else "off")
-        items.garage_lights.command("on" if prev_garage_lights_state else "off")
-        items.garage_projector_screen.reverse()
+Scene("GarageMedia",
+      active={"garage_lights": False,
+              "garage_projector_screen": Motor.STOPPED_END,
+              "garage_door_opener": False})

@@ -2,16 +2,8 @@ from idiotic.rule import bind, Command, Change, Schedule, augment, Delay, DeDup
 from idiotic.scene import Scene
 from idiotic import items, scheduler, modules, scenes
 
-class Daylight(Scene):
-    def entered(self):
-        for item in items.with_tags(['nightlight']):
-            item.off()
-            item.disable()
-
-    def exited(self):
-        for item in items.with_tags(['nightlight']):
-            item.enable()
-            item.on()
+Scene("Daylight",
+      active={i.name: (False, True) for i in items.with_tags(['nightlight'])})
 
 mapping = [(items.kitchen_motion, items.kitchen_light, 600),
            (items.kitchen_motion, items.kitchen_table_light, 600),

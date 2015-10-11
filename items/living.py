@@ -39,15 +39,7 @@ Number("Living Room Humidity",
        bindings={"http": {"pull": (60, "luna:8081/hum", None, float)}},
        tags=("living_room", "humidity", "climate", "webui.show_sparkline"))
 
-class LivingRoomSleep(Scene):
-    control = (items.living_room_lamp, items.kitchen_table_light)
-    def entered(self):
-        items.living_room_projector.off()
-        for item in self.control:
-            item.off()
-            item.disable()
-
-    def exited(self):
-        for item in self.control:
-            item.enable()
-            item.on()
+Scene("LivingRoomSleep",
+      active={"living_room_projector": False,
+              "living_room_lamp": (False, True),
+              "kitchen_table_light": (False, True)})
