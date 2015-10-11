@@ -17,8 +17,8 @@ Toggle("Entertainment Room Motion",
         tags=("entertainment_room", "motion", "occupancy"))
 
 Number("Entertainment Room Temperature",
-       bindings={"http": {"pull": "vinyl:8081/temp"}},
+       bindings={"http": {"pull": (60, "vinyl:8081/temp", None, float)}},
        tags=("entertainment_room", "temperature", "climate"))
 Number("Entertainment Room Humidity",
-       bindings={"http": {"pull": "vinyl:8081/hum"}},
+       bindings={"http": {"pull": ("vinyl:8081/hum", None, float)}},
        tags=("entertainment_room", "humidity", "climate"))
