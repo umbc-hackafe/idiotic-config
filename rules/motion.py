@@ -3,7 +3,9 @@ from idiotic.scene import Scene
 from idiotic import items, scheduler, modules, scenes
 
 Scene("Daylight",
-      active={i.name: (False, True) for i in items.with_tags(['nightlight'])})
+      active={i.name: (False, True) for i in items.with_tags(['nightlight'])},
+      inactive={"outside_front_light": True,
+                "outside_side_light": True})
 
 mapping = [(items.kitchen_motion, items.kitchen_light, 600),
            (items.kitchen_motion, items.kitchen_table_light, 600),
