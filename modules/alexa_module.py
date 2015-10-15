@@ -11,7 +11,8 @@ def configure(config, api, assets):
     global SKILL
     SKILL = pyalexa.Skill(app_id=config["app_id"])
 
-    api.serve(SKILL.flask_target, '/', methods=['POST', 'GET'], raw_result=True)
+    api.serve(SKILL.flask_target, '/', methods=['POST', 'GET'], raw_result=True,
+              no_source=True)
 
 
     @SKILL.launch
