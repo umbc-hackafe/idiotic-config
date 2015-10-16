@@ -18,7 +18,7 @@ Toggle("Entertainment Room Motion",
 
 Number("Entertainment Room Temperature",
        bindings={"http": {"pull": (60, "vinyl:8081/temp", None, float)}},
-       tags=("entertainment_room", "temperature", "climate"))
+       tags=("entertainment_room", "temperature", "climate", "webui.show_sparkline"))
 Number("Entertainment Room Humidity",
        bindings={"http": {"pull": (60, "vinyl:8081/hum", None, float)}},
-       tags=("entertainment_room", "humidity", "climate"))
+       tags=("entertainment_room", "humidity", "climate", "webui.show_sparkline"))
