@@ -8,10 +8,10 @@ Toggle("Entertainment Room Air Conditioner",
        tags=("entertainment_room", "ac", "climate"),
        bindings={"modlet": {"device": "entertainment",
                             "control": True}})
-Toggle("Entertainment Room - Living Room Door",
+Toggle("Entertainment Room Living Room Door",
        tags=("entertainment_room", "living_room", "door", "occupancy", "nyi"))
 
-Toggle("Entertainment Room - Laundry Room Door",
+Toggle("Entertainment Room Laundry Room Door",
        tags=("entertainment_room", "laundry_room", "door", "occupancy"))
 Toggle("Entertainment Room Motion",
         tags=("entertainment_room", "motion", "occupancy"))
