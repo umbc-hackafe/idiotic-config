@@ -44,6 +44,23 @@ def bathroom_rule(evt):
         items.hallway_motion.off()
         items.bathroom_light.off()
 
+@bind(Command(items.garage_side_door))
+@augment(Delay(Command(items.garage_side_door, "on"),
+               period=1200))
+def garage_light_rule(evt):
+    if evt.command == "on":
+        items.garage_lights.off()
+    else:
+        items.garage_lights.on()
+
+@bind(Change(items.garage_door))
+def garage_light_thing(evt):
+    if evt.new == True:
+        items.garage_lights.off()
+    else:
+        if not scenes.daylight.active:
+            items.garage_lights.on()
+
 @bind(Schedule(scheduler.every().day.at("8:00")))
 def enter_sun_mode(evt):
     scenes.daylight.enter()
