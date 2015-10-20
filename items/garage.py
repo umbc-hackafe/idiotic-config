@@ -31,3 +31,6 @@ Toggle("Garage Air Conditioner",
        tags=("garage", "ac", "climate"),
        bindings={"modlet": {"device": "garage",
                             "control": True}})
+
+Toggle("Garage Side Door",
+       tags=("garage", "external_door"))
