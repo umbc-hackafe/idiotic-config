@@ -9,9 +9,8 @@ Toggle("Turtle Light",
        tags=("living_room", "light"),
        bindings={"x10": {"code": "a5"}})
 Toggle("Living Room Air Conditioner",
-       tags=("living_room", "ac", "climate"),
-       bindings={"modlet": {"device": "living",
-                            "control": True}})
+       tags=("living_room", "ac", "climate"))
+
 Toggle("Front Door",
        tags=("living_room", "exterior_door", "occupancy", "nyi"))
 Toggle("Living Room Motion",
@@ -27,7 +26,9 @@ Toggle("Black Light",
        bindings={"x10": {"code": "a14"}})
 Toggle("Disco Lights",
        tags=("living_room", "light"),
-       bindings={"x10": {"code": "a15"}})
+       bindings={"x10": {"code": "a15"},
+                 "modlet": {"device": "living",
+                            "control": True}})
 
 Toggle("Living Room Projector",
        tags=("living_room", "media", "display"),
