@@ -11,10 +11,7 @@ Toggle("Bedroom Fan",
        tags=("bedroom", "fan", "climate", "nyi"))
 
 Toggle("Bedroom Air Conditioner",
-       tags=("bedroom", "ac", "climate"),
-       bindings={"modlet": {"device": "bedroom",
-                            "control": True}})
-
+       tags=("bedroom", "ac", "climate"))
 Toggle("Bedroom Motion",
         tags=("bedroom", "motion", "occupancy", "nyi"))
 

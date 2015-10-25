@@ -13,6 +13,10 @@ Toggle("Kitchen Table Light",
 Toggle("Kitchen Stove Light",
        tags=("kitchen", "light"),
        bindings={"x10": {"code": "a7"}})
+Toggle("Coffee Maker",
+       tags=("kitchen", "food"),
+       bindings={"modlet": {"device": "bedroom",
+                            "control": True}})
 
 Toggle("Kitchen Door",
        tags=("kitchen", "exterior_door", "occupancy", "nyi"))
