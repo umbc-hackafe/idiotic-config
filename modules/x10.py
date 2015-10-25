@@ -46,7 +46,7 @@ def bind_item(item, code=None, actions=None,
     house = code[:1].lower()
     unit = code[1:]
     log.debug("binding {} to x10".format(item))
-    item.bind_on_command(functools.partial(_evt_bind, outgoing.copy(), house, unit))
+    item.bind_on_command(functools.partial(_evt_bind, outgoing.copy(), house, unit, kind="after"))
 
 def _evt_bind(cmd_dict, house, unit, event):
     _act(cmd_dict[event.command], house, unit)
