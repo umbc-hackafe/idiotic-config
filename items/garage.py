@@ -3,8 +3,7 @@ from idiotic import modules, scheduler
 
 Toggle("Garage Lights",
        bindings={"x10": {"code": "c2"}},
-       tags=("garage", "light"),
-       enforce_state=60)
+       tags=("garage", "light"))
 
 Toggle("Garage Counter Lights",
        bindings={"x10": {"code": "c3"}},
