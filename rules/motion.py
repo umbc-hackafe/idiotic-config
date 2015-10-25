@@ -55,6 +55,8 @@ def garage_light_rule(evt):
 
 @bind(Change(items.garage_door))
 def garage_light_thing(evt):
+    if evt.new == evt.old:
+        return
     if evt.new == True:
         items.garage_lights.off()
     else:
