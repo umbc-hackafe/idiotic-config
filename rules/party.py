@@ -17,6 +17,7 @@ party = Scene("Party",
               "kitchen_counter_light": True,
               "garage_counter_lights": True,
               "garage_purple_lights": True,
+              "garage_lights": (False, True),
       })
 
 @party.on_enter
