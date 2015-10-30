@@ -14,7 +14,10 @@ party = Scene("Party",
               "alert_beacon": True,
               "lava_lamp": True,
               "fog_machine": True,
-              "kitchen_counter_lights": True})
+              "kitchen_counter_light": True,
+              "garage_counter_lights": True,
+              "garage_purple_lights": True,
+      })
 
 @party.on_enter
 def party_start():
