@@ -53,7 +53,7 @@ def garage_light_rule(evt):
     else:
         items.garage_lights.on()
 
-@bind(Change(items.garage_door))
+#@bind(Change(items.garage_door))
 def garage_light_thing(evt):
     if evt.new == evt.old:
         return
