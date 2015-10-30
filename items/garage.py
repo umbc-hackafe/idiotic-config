@@ -6,7 +6,8 @@ Toggle("Garage Lights",
        tags=("garage", "light"))
 
 Toggle("Garage Counter Lights",
-       bindings={"x10": {"code": "c3"}},
+       bindings={"modlet": {"device": "garage",
+                            "control": True}},
        tags=("garage", "light"))
 
 Toggle("Garage Door Opener",
@@ -28,9 +29,7 @@ Motor("Garage Projector Screen",
       tags=("garage",))
 
 Toggle("Garage Air Conditioner",
-       tags=("garage", "ac", "climate"),
-       bindings={"modlet": {"device": "garage",
-                            "control": True}})
+       tags=("garage", "ac", "climate"))
 
 Toggle("Garage Side Door",
        tags=("garage", "external_door"))
