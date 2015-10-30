@@ -10,6 +10,11 @@ Toggle("Garage Counter Lights",
                             "control": True}},
        tags=("garage", "light"))
 
+Toggle("Garage Purple Lights",
+       bindings={"modlet": {"device": "entertainment",
+                            "control": True}},
+       tags=("garage", "light"))
+
 Toggle("Garage Door Opener",
        bindings={"http": {"push": [
            ("on", "thegreatandpowerfultrixie:8081/door?action=trigger"),

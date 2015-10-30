@@ -5,9 +5,7 @@ Toggle("Entertainment Room Light",
        bindings={"x10": {"code": "a13"}},
        tags=("entertainment_room", "light"))
 Toggle("Entertainment Room Air Conditioner",
-       tags=("entertainment_room", "ac", "climate"),
-       bindings={"modlet": {"device": "entertainment",
-                            "control": True}})
+       tags=("entertainment_room", "ac", "climate"))
 Toggle("Entertainment Room Living Room Door",
        tags=("entertainment_room", "living_room", "door", "occupancy", "nyi"))
 
