@@ -27,7 +27,9 @@ def party_start():
     requests.get("http://celestia.hackafe.net/clear")
     requests.post("http://celestia.hackafe.net/add_saved_animation/Rainbow")
     requests.get("http://thegreatandpowerfultrixie.hackafe.net/clear")
-    requests.post("http://thegreatandpowerfultrixie.hackafe.net/add_saved_animation/Rainbow")
+    requests.post("http://thegreatandpowerfultrixie.hackafe.net/add_saved_animation/RedStrobe")
+    requests.post("http://thegreatandpowerfultrixie.hackafe.net/add_saved_animation/GreenStrobe")
+    requests.post("http://thegreatandpowerfultrixie.hackafe.net/add_saved_animation/BlueStrobe")
 
 @party.on_exit
 def party_end():
