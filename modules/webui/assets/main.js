@@ -1,11 +1,10 @@
 function do_command(item, command, val) {
     var data = {};
-    data[item] = command;
 
     if (val != undefined) {
-	data["value"] = val;
+	data["val"] = val;
     }
-    $.get("/CMD", data);
+    $.get("/api/item/" + item + "/command/" + command, data);
 }
 
 function do_scene(scene, action) {
@@ -16,7 +15,7 @@ $(function() {
     $(".command").each(function() {
 	var elm = $(this);
 	elm.on(elm.data("event"), function() {
-	    if (elm.data("use-val") == "true") {
+	    if (elm.data("use-val")) {
 		do_command(elm.data("item"), elm.data("command"), elm.val());
 	    } else {
 		do_command(elm.data("item"), elm.data("command"));
