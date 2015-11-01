@@ -1,4 +1,4 @@
-from idiotic.item import Toggle
+from idiotic.item import Toggle, Number
 
 Toggle("Furnace",
        tags=("heat",),
@@ -6,3 +6,9 @@ Toggle("Furnace",
            ("on", "spike:8081/furnace?state=0"),
            ("off", "spike:8081/furnace?state=1")]}},
 )
+
+Number("Minimum Temperature",
+       tags=("heat",))
+
+Number("Maximum Temperature",
+       tags=("heat",))
