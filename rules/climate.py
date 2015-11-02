@@ -8,6 +8,11 @@ Group("Average Temperature",
       state=lambda ms: sum((m.state for m in ms if m.state is not None))/len(ms),
       members=[i for i in items.all() if "temperature" in i.tags and "nyi" not in i.tags])
 
+Group("Average Humidity",
+      tags=("humidity",),
+      state=lambda ms: sum((m.state for m in ms if m.state is not None))/len(ms),
+      members=[i for i in items.all() if "humidity" in i.tags and "nyi" not in i.tags])
+
 # Prevent furnace from turning on and of too quickly
 @bind(Command(items.furnace, "on"))
 def stop_furnace_flop(evt):
