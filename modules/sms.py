@@ -14,8 +14,6 @@ MODULE_NAME = "sms"
 
 log = logging.getLogger("module.sms")
 
-host = "localhost"
-
 class SMSReceivedEvent(event.BaseEvent):
     def __init__(self, sender, recipient, body, time):
         super().__init__()
@@ -24,12 +22,23 @@ class SMSReceivedEvent(event.BaseEvent):
         self.body = body
         self.timestamp = time
 
-def configure(config, api, assets):
-    global host
-    if "host" in config:
-        host = config["host"]
+    def __str__(self):
+        return "{}: SMS from {}: \"{}\"".format(
+            type(self).__name__,
+            self.sender,
+            self.body)
 
+    def __repr__(self):
+        return "{}: SMS from {} to {} at {}: \"{}\"".format(
+            type(self).__name__,
+            self.sender,
+            self.recipient,
+            self.timestamp,
+            self.body)
+
+def configure(config, api, assets):
     if "username" in config and "password" in config:
+        # TODO implement sending
         pass
 
     api.serve(receive, '/post_sms', methods=['POST'], raw_result=True,
