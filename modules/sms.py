@@ -36,4 +36,4 @@ def send(recipient, body):
     pass
 
 def receive(*args, json=None, **kwargs):
-    print(json)
+    log.debug(json)
