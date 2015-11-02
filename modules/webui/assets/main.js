@@ -29,4 +29,6 @@ $(function() {
 	    do_scene(elm.data("scene"), elm.data("action"));
 	});
     });
+
+    $("form").submit(function(){return false;});
 });
