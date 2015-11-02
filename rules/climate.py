@@ -4,7 +4,7 @@ from idiotic.scene import Scene
 from idiotic import items, scheduler, modules, scenes
 
 Group("Average Temperature",
-      tags=("temperature"),
+      tags=("temperature",),
       state=lambda ms: sum((m.state for m in ms if m.state is not None))/len(ms),
       members=[i for i in items.all() if "temperature" in i.tags and "nyi" not in i.tags])
 
