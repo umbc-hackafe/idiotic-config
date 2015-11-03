@@ -5,6 +5,6 @@ from idiotic import items, modules
 @bind(Event(type=modules.sms.SMSReceivedEvent))
 def on_sms(evt):
     items.alert_beacon.on()
-    modules.sign.new_message("{} -- {}".format(evt.body, evt.sender),
-                             effects=['scroll_x'], priority=10, lifetime=45)
+    modules.sign.new_message("{} - {}".format(evt.body, evt.sender),
+                             effects=['scroll'], priority=10, lifetime=45)
     Timer(30, items.alert_beacon.off).start()
