@@ -23,6 +23,19 @@ def configure(config, api, assets):
     def end(request):
         return request.response(end=True)
 
+    @SKILL.intent("GetState")
+    def get_state(request):
+        if not request.data().get("Item"):
+            return request.response(end=False, speech="Please specify an item")
+
+        name = request.data().get("Item")
+
+        try:
+            target = items[name]
+            return request.response(end=True, speech="{} is: {}".format(target.name, target.state))
+        except AttributeError:
+            return request.response(end=True, speech="{} does not have a state.".format(target.name))
+
     @SKILL.intent("SetSwitch")
     def set_switch(request):
         if not request.data().get("Item"):
