@@ -37,6 +37,8 @@ def configure(config, api, assets):
         try:
             target = items[name]
             return request.response(end=True, speech="{} is: {}".format(target.name, target.state))
+        except NameError:
+            return request.response(end=False, speech="Item {} not found.".format(name))
         except AttributeError:
             return request.response(end=True, speech="{} does not have a state.".format(target.name))
 
