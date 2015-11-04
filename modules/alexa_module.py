@@ -89,7 +89,14 @@ UTTERANCES = [
         "GetState", [
             ("Item", items.all)
         ], [
-            "about the {{{0.name}|Item}}"
+            "about the {{{0.name}|Item}}",
+            "about {{{0.name}|Item}}",
+            "what is the {{{0.name}|Item}}",
+            "what the {{{0.name}|Item}} is",
+            "what state the {{{0.name}|Item}} is",
+            "what state the {{{0.name}|Item}} is in",
+            "what state is the {{{0.name}|Item}} in",
+            "what state is the {{{0.name}|Item}} in",
         ]
     ),(
         "SetSwitch",
@@ -98,11 +105,15 @@ UTTERANCES = [
             ("NewStatus", lambda i: i.commands())
         ], [
             "Turn {{{0.name}|Item}} {{{1}|NewStatus}}",
+            "Turn {{{0.name}|Item}} to {{{1}|NewStatus}}",
             "Turn the {{{0.name}|Item}} {{{1}|NewStatus}}",
+            "Turn the {{{0.name}|Item}} to {{{1}|NewStatus}}",
             "Turn {{{1}|NewStatus}} {{{0.name}|Item}}",
             "Turn {{{1}|NewStatus}} the {{{0.name}|Item}}",
             "Set {{{0.name}|Item}} {{{1}|NewStatus}}",
+            "Set {{{0.name}|Item}} to {{{1}|NewStatus}}",
             "Set the {{{0.name}|Item}} {{{1}|NewStatus}}",
+            "Set the {{{0.name}|Item}} to {{{1}|NewStatus}}",
             "Set {{{1}|NewStatus}} {{{0.name}|Item}}",
             "Set {{{1}|NewStatus}} the {{{0.name}|Item}}",
         ]
