@@ -42,6 +42,27 @@ def configure(config, api, assets):
         except AttributeError:
             return request.response(end=True, speech="{} does not have a state.".format(target.name))
 
+    @SKILL.intent("SetState")
+    def get_state(request):
+        if not request.data().get("Item"):
+            return request.response(end=False, speech="Please specify an item")
+
+        if not request.data().get("NewState"):
+            return request.response(end=False, speech="Please specify a state")
+
+        name = request.data().get("Item")
+        state = request.data().get("NewState")
+
+        try:
+            target = items[name]
+
+            target.state = state
+            return request.response(end=True, speech="{} is now {}.".format(target.name, target.state))
+        except NameError:
+            return request.response(end=False, speech="Item {} not found.".format(name))
+        except:
+            return request.response(end=True, speech="Invalid state {}.".format(state))
+
     @SKILL.intent("SetSwitch")
     def set_switch(request):
         if not request.data().get("Item"):
