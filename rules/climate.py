@@ -10,12 +10,12 @@ def avg(l):
 
 Group("Average Temperature",
       tags=("temperature",),
-      state=lambda ms: avg([m.state for m in ms if m.state and (time.time() - m.history.last().time) < 1800]),
+      state=lambda ms: avg([m.state for m in ms if m.state and (time.time() - m.state_history.last().time) < 1800]),
       members=[i for i in items.all() if "temperature" in i.tags and "nyi" not in i.tags])
 
 Group("Average Humidity",
       tags=("humidity",),
-      state=lambda ms: avg([m.state for m in ms if m.state and (time.time() - m.history.last().time) < 1800]),
+      state=lambda ms: avg([m.state for m in ms if m.state and (time.time() - m.state_history.last().time) < 1800]),
       members=[i for i in items.all() if "humidity" in i.tags and "nyi" not in i.tags])
 
 # Prevent furnace from turning on and of too quickly
