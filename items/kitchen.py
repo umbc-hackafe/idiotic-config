@@ -17,6 +17,12 @@ Toggle("Coffee Maker",
        tags=("kitchen", "food"),
        bindings={"modlet": {"device": "bedroom",
                             "control": True}})
+Toggle("Kettle",
+       tags=("kitchen", "food"),
+       bindings={"http": {"push": [
+           ("on", "192.168.1.160/digital/2/1"),
+           ("off", "192.168.1.160/digital/2/0")
+           ]}})
 
 Toggle("Kitchen Door",
        tags=("kitchen", "exterior_door", "occupancy", "nyi"))
