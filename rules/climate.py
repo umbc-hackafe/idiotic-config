@@ -6,7 +6,7 @@ from idiotic import items, scheduler, modules, scenes
 import datetime
 
 def avg(l):
-    return sum(l)/len(l)
+    return len(l) and sum(l)/len(l)
 
 Group("Average Temperature",
       tags=("temperature",),
