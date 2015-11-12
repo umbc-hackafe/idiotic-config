@@ -1,4 +1,4 @@
-from idiotic.item import Toggle, Trigger, Number, Group
+from idiotic.item import Toggle, Trigger, Number, Group, Text
 from idiotic import modules, scheduler
 
 Toggle("Kitchen Light",
