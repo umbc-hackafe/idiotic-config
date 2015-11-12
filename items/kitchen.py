@@ -30,6 +30,9 @@ Number("Kettle Temperature",
            ("set", "kimiko.hackafe.net/teakettle/heat/{state}")
            ]}})
 
+Number("Kettle Current",
+       tags=("kitchen", "food"))
+
 Toggle("Kitchen Door",
        tags=("kitchen", "exterior_door", "occupancy", "nyi"))
 
