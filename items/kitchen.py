@@ -33,6 +33,11 @@ Number("Kettle Temperature",
 Number("Kettle Current",
        tags=("kitchen", "food"))
 
+Text("Kettle Status",
+     tags=("kitchen", "food"),
+     ignore_redundant=True,
+     bindings={"sign": {"state": {"message": "{state}", "effects": ["scroll"], "lifetime": 10}}})
+
 Toggle("Kitchen Door",
        tags=("kitchen", "exterior_door", "occupancy", "nyi"))
 
