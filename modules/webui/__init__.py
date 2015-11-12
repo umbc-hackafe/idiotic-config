@@ -8,7 +8,7 @@ import datetime
 import requests
 import functools
 from idiotic import dispatcher, event, items, scenes, utils
-from idiotic.item import Toggle, Trigger, Number, Motor
+from idiotic.item import Toggle, Trigger, Number, Motor, Text
 from idiotic.scene import Scene
 
 MODULE_NAME = "webui"
@@ -119,6 +119,9 @@ def _main_page(sections, *_, **__):
             if isinstance(item, Number):
                 item_dict["inputs"] = [{"command": "set",
                                         "type": "number"}]
+            elif isinstance(item, Text):
+                item_dict["inputs"] = [{"command": "set",
+                                        "type": "text"}]
             elif isinstance(item, Toggle):
                 item_dict["inputs"] = [{"command": "on",
                                         "type": "button"},
