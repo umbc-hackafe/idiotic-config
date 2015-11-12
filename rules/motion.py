@@ -9,7 +9,7 @@ Scene("Daylight",
 
 mapping = [(items.kitchen_motion, items.kitchen_light, 600),
            (items.kitchen_motion, items.kitchen_table_light, 600),
-           (items.living_room_motion, items.living_room_lamp, 300),
+           (items.living_room_motion, items.living_room_lamp, 900),
            (items.hallway_motion, items.hallway_light, 120),
            (items.laundry_room_motion, items.laundry_room_light, 180)]
 
