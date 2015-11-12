@@ -35,4 +35,4 @@ Toggle("Kitchen Door",
 
 Toggle("Kitchen Motion",
        tags=("kitchen", "motion", "occupancy"),
-       ignore_redundant=True))
+       ignore_redundant=True)
