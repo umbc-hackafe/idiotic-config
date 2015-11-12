@@ -20,8 +20,14 @@ Toggle("Coffee Maker",
 Toggle("Kettle",
        tags=("kitchen", "food"),
        bindings={"http": {"push": [
-           ("on", "192.168.1.160/digital/2/1"),
-           ("off", "192.168.1.160/digital/2/0")
+           ("on", "kimiko.hackafe.net/teakettle/hold/600"),
+           ("off", "kimiko.hackafe.net/teakettle/hold/1")
+           ]}})
+
+Number("Kettle Temperature",
+       tags=("kitchen", "food"),
+       bindings={"http": {"push": [
+           ("set", "kimiko.hackafe.net/teakettle/heat/{state}")
            ]}})
 
 Toggle("Kitchen Door",
@@ -29,4 +35,4 @@ Toggle("Kitchen Door",
 
 Toggle("Kitchen Motion",
        tags=("kitchen", "motion", "occupancy"),
-       ignore_redundant=True)
+       ignore_redundant=True))
