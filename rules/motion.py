@@ -7,6 +7,9 @@ Scene("Daylight",
       inactive={"outside_front_light": True,
                 "outside_side_light": True})
 
+Scene("Server Work",
+      active={"laundry_room_light": (True, True)})
+
 mapping = [(items.kitchen_motion, items.kitchen_light, 600),
            (items.kitchen_motion, items.kitchen_table_light, 600),
            (items.living_room_motion, items.living_room_lamp, 900),
