@@ -30,7 +30,6 @@ for sensor, light, period in mapping:
          cancel=Command(items.entertainment_room_laundry_room_door, "off")))
 def laundry_door(evt):
     items.laundry_room_light.command("on" if evt.command == "off" else "off")
-    items.entertainment_room_light.command("on" if evt.command == "off" else "off")
 
 @bind(Command(items.bathroom_door))
 @augment(Delay(Command(items.bathroom_door, "off"),
