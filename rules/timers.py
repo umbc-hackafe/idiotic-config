@@ -34,8 +34,8 @@ def trash_done(evt):
 
 @bind(Command(items.do_something))
 def do_a_thing(evt):
-    item = random.choice(items.all())
-    command = random.choice(item.commands())
+    item = random.choice(list(items.all()))
+    command = random.choice(list(item.commands()))
     try:
         getattr(item, command)()
         modules.sign.new_message("Did {} {}!".format(item.name, command), effects=["scroll"], lifetime=10, name="idiotic.dosomething")
