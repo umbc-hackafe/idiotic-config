@@ -38,8 +38,11 @@ def do_a_thing(evt):
     command = random.choice(item.commands())
     try:
         getattr(item, command)()
+        modules.sign.new_message("Did {} {}!".format(item.name, command), effects=["scroll"], lifetime=10, name="idiotic.dosomething")
     except:
         try:
-            getattr(item, command)(random.randint(0, 30))
+            arg = random.randint(0, 30)
+            getattr(item, command)(arg)
+            modules.sign.new_message("Did {} {}({})!".format(item.name, command, arg), effects=["scroll"], lifetime=10, name="idiotic.dosomething")
         except:
-            pass
+            modules.sign.new_message("Couldn't do anything :(", effects=["scroll"], lifetime=10, name="idiotic.dosomething")
