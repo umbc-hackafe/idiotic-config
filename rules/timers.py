@@ -1,5 +1,6 @@
 from idiotic.rule import bind, Command, Change, Schedule, augment, Delay, DeDup
 from idiotic import items, scheduler, modules, scenes
+import random
 
 @bind(Schedule(scheduler.every().day.at("7:30")))
 def turtle_light_on(evt):
@@ -30,3 +31,15 @@ def recycling_done(evt):
 def trash_done(evt):
     if reminders.get("trash"):
         reminders["trash"].remove()
+
+@bind(Command(items.do_something))
+def do_a_thing(evt):
+    item = random.choice(items.all())
+    command = random.choice(item.commands())
+    try:
+        getattr(item, command)()
+    except:
+        try:
+            getattr(item, command)(random.randint(0, 30))
+        except:
+            pass
