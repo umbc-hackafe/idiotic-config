@@ -30,6 +30,10 @@ Toggle("Disco Lights",
                  "modlet": {"device": "living",
                             "control": True}})
 
+Toggle("Luna",
+       tag=("interaction",),
+       bindings={"avaya": {"port": "15"}})
+
 Toggle("Living Room Projector",
        tags=("living_room", "media", "display"),
        bindings={"http": {"push": [
