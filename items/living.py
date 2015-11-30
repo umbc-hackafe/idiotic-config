@@ -31,7 +31,7 @@ Toggle("Disco Lights",
                             "control": True}})
 
 Toggle("Luna",
-       tag=("interaction",),
+       tags=("interaction",),
        bindings={"avaya": {"port": "15"}})
 
 Toggle("Living Room Projector",
