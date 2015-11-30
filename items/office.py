@@ -13,11 +13,11 @@ Toggle("Office Door",
 
 Number("Office Temperature",
        bindings={"http": {"pull": "pinkie:8081/temp"}},
-       tags=("office", "temperature", "climate"))
+       tags=("office", "temperature", "climate", "webui.show_sparkline"))
 
 Number("Office Humidity",
        bindings={"http": {"pull": "pinkie:8081/hum"}},
-       tags=("office", "humidity", "climate"))
+       tags=("office", "humidity", "climate", "webui.show_sparkline"))
 
 Toggle("Office Air Conditioner",
        tags=("office", "ac", "climate", "nyi"))
