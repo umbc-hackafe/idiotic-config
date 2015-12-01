@@ -21,13 +21,6 @@ def bind_item(item, port, actions=None):
 
     port:        The port number to control
     """
-
-    item.bind_on_command
-    modlet = device_table.get(device, {"id": device})
-
-    if not modlet.get("id"):
-        raise ValueError("A valid modlet name or ID must be specified.")
-
     if not actions:
         actions = defaultdict(None, {"off":"off", "on":"on"})
 
