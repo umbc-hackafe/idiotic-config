@@ -2,11 +2,6 @@ from idiotic.rule import bind, Command, Change, Schedule, augment, Delay, DeDup
 from idiotic.scene import Scene
 from idiotic import items, scheduler, modules, scenes
 
-Scene("Daylight",
-      active={i.name: (False, True) for i in items.with_tags(['nightlight'])},
-      inactive={"outside_front_light": True,
-                "outside_side_light": True})
-
 Scene("Server Work",
       active={"laundry_room_light": (True, True)})
 
@@ -64,11 +59,3 @@ def garage_light_thing(evt):
     else:
         if not scenes.daylight.active:
             items.garage_lights.on()
-
-@bind(Schedule(scheduler.every().day.at("8:00")))
-def enter_sun_mode(evt):
-    scenes.daylight.enter()
-
-@bind(Schedule(scheduler.every().day.at("19:00")))
-def leave_sun_mode(evt):
-    scenes.daylight.exit()
