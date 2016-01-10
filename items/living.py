@@ -29,6 +29,9 @@ Toggle("Disco Lights",
        bindings={"x10": {"code": "a15"},
                  "modlet": {"device": "living",
                             "control": True}})
+Toggle("Other Disco Lights",
+       tags=("living_room", "light"),
+       bindings={"x10": {"code": "a1"}})
 
 Toggle("Luna",
        tags=("interaction",),
