@@ -27,6 +27,7 @@ def party_start():
     messages["time"] = modules.sign.new_message( '      TIME', name='time', effects=['shake'], priority=.5)
     requests.get("http://celestia.hackafe.net/clear")
     requests.post("http://celestia.hackafe.net/add_saved_animation/Rainbow")
+    modules.chromecast.play_media("Audio", "idiotic:///awesome.wav")
     requests.get("http://thegreatandpowerfultrixie.hackafe.net/clear")
     requests.post("http://thegreatandpowerfultrixie.hackafe.net/add_saved_animation/RedStrobe")
     requests.post("http://thegreatandpowerfultrixie.hackafe.net/add_saved_animation/GreenStrobe")
@@ -40,3 +41,4 @@ def party_end():
         messages["time"].remove()
     requests.get("http://thegreatandpowerfultrixie.hackafe.net/clear")
     requests.get("http://celestia.hackafe.net/clear")
+    modules.chromecast.stop("Audio")
