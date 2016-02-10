@@ -1,39 +1,97 @@
 {% extends 'base.html' %}
 {% block controls %}
 
-{% for section in sections %}
+{%- for section in sections %}
 <h2>{{ section.title }}</h2>
-{% for item in section.item_list %}
+{%- for item in section.item_list %}
 <form id="controls_form_{{ item.name }}" class="controls-form">
-  <div>
-    {% if item.enable_graph %}
-    <a class="graph_link" href="graph/{{ item.name }}.svg">Graph</a>
-    {% endif %}
-    <span id="label_{{ item.name }}">{{ item.desc }}</span>
-    {% if item.state != None %}
-    <span data-item="{{ item.name }}" class="state" id="state_{{ item.name }}">{{ item.state }}</span>
-    {% endif %}
-    {% for input in item.inputs %}
-    {% if input.type == "text" %}
-    <input {% if item.disabled %}disabled="disabled"{% endif %} type="text" id="command_{{ item.name }}_{{ input.command }}" class="command" data-item="{{ item.name }}" data-command="{{ input.command }}"  data-use-val="true" data-event="change"{% if item.state != None %} value="{{ item.state }}"{% endif %}/>
-    {% elif input.type == "button" %}
-    <input {% if item.disabled %}disabled="disabled"{% endif %} type="button" id="command_{{ item.name }}_{{ input.command }}" class="command" data-item="{{ item.name }}" data-command="{{ input.command }}" data-use-val="false" data-event="click" value="{{ input.command|title }}"/>
-    {% elif input.type == "number" %}
-    <input {% if item.disabled %}disabled="disabled"{% endif %} type="number" id="command_{{ item.name }}_{{ input.command }}" class="command" data-item="{{ item.name }}" data-command="{{ input.command }}" data-use-val="true" data-event="change"{% if item.state != None %} value="{{ item.state }}"{% endif %}/>
-    {% elif input.type == "checkbox" %}
-    <input {% if item.disabled %}disabled="disabled"{% endif %} type="checkbox" id="command_{{ item.name }}_{{ input.command }}" class="command" data-item="{{ item.name }}" data-command="{{ input.command }}" data-use-val="true" data-event="click"/>
-    {% elif input.type == "scene" %}
-    <input type="button" id="scene_enter_{{ item.name }}" value="Enter" class="scene-control scene-enter" data-scene="{{ item.name }}" data-action="enter"/>
-    <input type="button" id="scene_exit_{{ item.name }}" value="Exit" class="scene-control scene-exit" data-scene="{{ item.name }}" data-action="exit"/>
-    {% endif %}
-    {% endfor %}
-    {% if item.show_disable %}
-    <label>Disabled <input type="checkbox" id="disable_{{ item.name }}" class="disable" data-item="{{ item.name }}" value="true"{% if item.disabled %}checked="checked"{% endif %}/>
-    </label>
-    {% endif %}
-    {% if item.show_sparkline %}
-    <embed type="image/svg+xml" src="sparkline/{{ item.name }}.svg"/>
-    {% endif %}
+  <div class="row">
+    <div class="col s2 m1">
+    {%- if item.enable_graph %}
+      <a class="graph_link" href="graph/{{ item.name }}.svg">Graph</a>
+    {%- endif %}
+    </div>
+    <div class="col s4 m3">
+      <span id="label_{{ item.name }}">{{ item.desc }}</span>
+    </div>
+    <div class="col s2 m1">
+      {%- if item.state != None %}
+      <span data-item="{{ item.name }}" class="state" id="state_{{ item.name }}">{{ item.state }}</span>
+      {%- endif %}
+      <span>&nbsp;</span>
+    </div>
+    <div class="col s6 m7">
+    {%- for input in item.inputs %}
+      {%- if input.type == "text" %}
+        <input {% if item.disabled %}disabled="disabled"{% endif %}
+               type="text"
+               id="command_{{ item.name }}_{{ input.command }}"
+               class="command" data-item="{{ item.name }}"
+               data-command="{{ input.command }}"
+               data-use-val="true"
+               data-event="change"
+               {%- if item.state != None %}value="{{ item.state }}"{% endif %}
+               />
+      {%- elif input.type == "button" %}
+        <input {% if item.disabled %}disabled="disabled"{% endif %}
+               type="button"
+               id="command_{{ item.name }}_{{ input.command }}"
+               class="command btn waves-light"
+               data-item="{{ item.name }}"
+               data-command="{{ input.command }}"
+               data-use-val="false"
+               data-event="click"
+               value="{{ input.command|title }}"
+               />
+      {%- elif input.type == "number" %}
+        <input {% if item.disabled %}disabled="disabled"{% endif %}
+               type="number"
+               id="command_{{ item.name }}_{{ input.command }}"
+               class="command"
+               data-item="{{ item.name }}"
+               data-command="{{ input.command }}"
+               data-use-val="true"
+               data-event="change"
+               {%- if item.state != None %} value="{{ item.state }}"{% endif %}
+               />
+      {%- elif input.type == "checkbox" %}
+        <input {% if item.disabled %}disabled="disabled"{% endif %}
+               type="checkbox"
+               id="command_{{ item.name }}_{{ input.command }}"
+               class="command"
+               data-item="{{ item.name }}"
+               data-command="{{ input.command }}"
+               data-use-val="true"
+               data-event="click"/>
+      {%- elif input.type == "scene" %}
+        <input type="button"
+               id="scene_enter_{{ item.name }}"
+               value="Enter"
+               class="scene-control scene-enter btn waves-light"
+               data-scene="{{ item.name }}"
+               data-action="enter"/>
+        <input type="button"
+               id="scene_exit_{{ item.name }}"
+               value="Exit"
+               class="scene-control scene-exit btn waves-light"
+               data-scene="{{ item.name }}"
+               data-action="exit"/>
+      {%- endif %}
+    {%- endfor %}
+    </div>
+    {%- if item.show_disable %}
+      <input type="checkbox"
+             id="disable_{{ item.name }}"
+             class="disable"
+             data-item="{{ item.name }}"
+             value="true"
+             {% if item.disabled %}checked="checked"{% endif %}
+             />
+      <label for="disable_{{ item.name }}">Disabled</label>
+    {%- endif %}
+    {%- if item.show_sparkline %}
+      <embed type="image/svg+xml" src="sparkline/{{ item.name }}.svg"/>
+    {%- endif %}
   </div>
 </form>
 {% endfor %}
