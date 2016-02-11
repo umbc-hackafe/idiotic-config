@@ -1,14 +1,19 @@
+function do_api(url, data) {
+    console.log('API REQUEST ' + url);
+    $.get(url, data);
+}
+
 function do_command(item, command, val) {
     var data = {};
 
     if (val != undefined) {
-	data["val"] = val;
+	  data["val"] = val;
     }
-    $.get("/api/item/" + item + "/command/" + command, data);
+    do_api("/api/item/" + item + "/command/" + command, data);
 }
 
 function do_scene(scene, action) {
-    $.get("/api/scene/" + scene + "/command/" + (action?action:""));
+    do_api("/api/scene/" + scene + "/command/" + (action?action:""));
 }
 
 $(function() {
