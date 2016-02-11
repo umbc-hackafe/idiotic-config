@@ -64,18 +64,19 @@
                data-use-val="true"
                data-event="click"/>
       {%- elif input.type == "scene" %}
-        <input type="button"
-               id="scene_enter_{{ item.name }}"
-               value="Enter"
-               class="scene-control scene-enter btn waves-light"
-               data-scene="{{ item.name }}"
-               data-action="enter"/>
-        <input type="button"
-               id="scene_exit_{{ item.name }}"
-               value="Exit"
-               class="scene-control scene-exit btn waves-light"
-               data-scene="{{ item.name }}"
-               data-action="exit"/>
+        <div class="switch">
+          <label>
+            Exit
+            <input type="checkbox"
+                   id="scene_enter_{{ item.name }}"
+                   class="scene-control scene-enter btn waves-light"
+                   data-scene="{{ item.name }}"
+                   data-action="{{ "exit" if item.state else "enter" }}"
+                   {% if item.state %}checked=""{% endif %}/>
+            <span class="lever"></span>
+            Enter
+          </label>
+        </div>
       {%- endif %}
     {%- endfor %}
     </div>

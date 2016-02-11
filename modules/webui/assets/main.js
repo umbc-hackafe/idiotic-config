@@ -29,10 +29,16 @@ $(function() {
     });
 
     $(".scene-control").each(function() {
-	var elm = $(this);
-	elm.click(function(evt) {
-	    do_scene(elm.data("scene"), elm.data("action"));
-	});
+	    var elm = $(this);
+	    elm.click(function(evt) {
+            if(elm.data("action") == "enter") {
+	            do_scene(elm.data("scene"), "enter");
+                elm.data("action", "exit");
+            } else {
+                do_scene(elm.data("scene"), "exit");
+                elm.data("action", "enter");
+            }
+	    });
     });
 
     $("form").submit(function(){return false;});
