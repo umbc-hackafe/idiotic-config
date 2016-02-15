@@ -11,8 +11,8 @@
       <a class="graph_link" href="graph/{{ item.name }}.svg">Graph</a>
     {%- endif %}
     </div>
-    <div class="col s8 m2">
-      <span id="label_{{ item.name }}">{{ item.desc }}</span>
+    <div class="col s8 m3">
+      <span id="label_{{ item.name }}" class="truncate">{{ item.desc }}</span>
     </div>
     <div class="col s2 m1">
       {%- if item.state != None %}
