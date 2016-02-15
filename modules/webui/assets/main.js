@@ -16,6 +16,14 @@ function do_scene(scene, action) {
     do_api("/api/scene/" + scene + "/command/" + (action?action:""));
 }
 
+function do_disable(item, disable) {
+  if(disable) {
+    do_api("/api/item/" + item + "/disable");
+  } else {
+    do_api("/api/item/" + item + "/enable");
+  }
+}
+
 $(function() {
     $(".command").each(function() {
 	var elm = $(this);
@@ -39,6 +47,13 @@ $(function() {
                 elm.data("action", "enter");
             }
 	    });
+    });
+
+    $(".disable").each(function() {
+      var elm = $(this);
+      elm.click(function(evt) {
+        do_disable(elm.data("item"), elm.prop("checked"));
+      });
     });
 
     $("form").submit(function(){return false;});

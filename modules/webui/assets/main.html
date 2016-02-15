@@ -11,7 +11,7 @@
       <a class="graph_link" href="graph/{{ item.name }}.svg">Graph</a>
     {%- endif %}
     </div>
-    <div class="col s4 m3">
+    <div class="col s3 m2">
       <span id="label_{{ item.name }}">{{ item.desc }}</span>
     </div>
     <div class="col s2 m1">
@@ -80,16 +80,18 @@
       {%- endif %}
     {%- endfor %}
     </div>
-    {%- if item.show_disable %}
-      <input type="checkbox"
-             id="disable_{{ item.name }}"
-             class="disable"
-             data-item="{{ item.name }}"
-             value="true"
-             {% if item.disabled %}checked="checked"{% endif %}
-             />
-      <label for="disable_{{ item.name }}">Disabled</label>
-    {%- endif %}
+    <div class="col s2 m1">
+      {%- if item.show_disable %}
+        <input type="checkbox"
+               id="disable_{{ item.name }}"
+               class="disable filled-in"
+               data-item="{{ item.name }}"
+               value="true"
+               {% if item.disabled %}checked="checked"{% endif %}
+               />
+        <label for="disable_{{ item.name }}">Disable</label>
+      {%- endif %}
+    </div>
     {%- if item.show_sparkline %}
       <embed type="image/svg+xml" src="sparkline/{{ item.name }}.svg"/>
     {%- endif %}
