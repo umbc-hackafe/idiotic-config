@@ -6,21 +6,29 @@
 {%- for item in section.item_list %}
 <form id="controls_form_{{ item.name }}" class="controls-form">
   <div class="row">
+    <div class="col s1">
+      {%- if item.state != None %}
+        <i id="state_{{ item.name }}" class="tiny material-icons cyan-text text-darken-2">
+          {%- if item.state %}
+          radio_button_checked
+          {%- else %}
+          radio_button_unchecked
+          {%- endif %}
+        </i>
+      {%- else %}
+        {# This else statement is needed to maintain spacing. #}
+        &nbsp;
+      {%- endif %}
+    </div>
     <div class="col s2 m1">
     {%- if item.enable_graph %}
       <a class="graph_link" href="graph/{{ item.name }}.svg">Graph</a>
     {%- endif %}
     </div>
-    <div class="col s8 m3">
+    <div class="col s9 m3">
       <span id="label_{{ item.name }}" class="truncate">{{ item.desc }}</span>
     </div>
-    <div class="col s2 m1">
-      {%- if item.state != None %}
-      <span data-item="{{ item.name }}" class="state" id="state_{{ item.name }}">{{ item.state }}</span>
-      {%- endif %}
-      <span>&nbsp;</span>
-    </div>
-    <div class="col s12 m7">
+    <div class="col s12 m6">
     {%- for input in item.inputs %}
       {%- if input.type == "text" %}
         <input {% if item.disabled %}disabled="disabled"{% endif %}
