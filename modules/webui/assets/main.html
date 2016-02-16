@@ -1,7 +1,19 @@
 {% extends 'base.html' %}
+
+{% block toc %}
+<h5>Sections</h5>
+<ul class="section table-of-contents" style="white-space: nowrap;">
+  {%- for section in sections %}
+  <li><a href="#{{section.title | replace(" ", "_") | lower}}">{{section.title}}</a></li>
+  {%- endfor %}
+</ul>
+{% endblock %}
+
+
 {% block controls %}
 
 {%- for section in sections %}
+<div id="{{section.title | replace(" ", "_") | lower}}" class="scrollspy">
 <h2>{{ section.title }}</h2>
 {%- for item in section.item_list %}
 <form id="controls_form_{{ item.name }}" class="controls-form">
@@ -110,5 +122,6 @@
   </div>
 </form>
 {% endfor %}
+</div>
 {% endfor %}
 {% endblock %}

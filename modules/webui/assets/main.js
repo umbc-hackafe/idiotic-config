@@ -25,6 +25,9 @@ function do_disable(item, disable) {
 }
 
 $(function() {
+    $("#toc").pushpin({top: $("#page-top").offset().top });
+    $(".scrollspy").scrollSpy();
+
     $(".command").each(function() {
 	var elm = $(this);
 	elm.on(elm.data("event"), function() {
