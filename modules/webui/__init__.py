@@ -7,6 +7,7 @@ import logging
 import datetime
 import requests
 import functools
+from flask import Response, request
 from idiotic import dispatcher, event, items, scenes, utils
 from idiotic.item import Toggle, Trigger, Number, Motor, Text
 from idiotic.scene import Scene
@@ -49,9 +50,9 @@ def configure(config, api, assets):
     asset_path = assets
     env = jinja2.Environment(loader=jinja2.FileSystemLoader(asset_path))
 
-    api.serve(_main_js, '/main.js', content_type="text/javascript")
-    api.serve(_sparkline, '/sparkline/<item>.svg', content_type="image/svg+xml")
-    api.serve(_graph, '/graph/<item>.svg', content_type="image/svg+xml", get_args=True)
+    api.add_url_rule('/main.js', '_main_js', _main_js)
+    api.add_url_rule('/sparkline/<item>.svg', '_sparkline', _sparkline)
+    api.add_url_rule('/graph/<item>.svg', '_graph', _graph)
 
     traverse(api, "/", config)
 
@@ -68,8 +69,7 @@ def traverse(api, path, tree):
         sections = [{k: tree[k] for k in tree
                      if k in SECT_INCLUDE }]
 
-    api.serve(functools.partial(_main_page, sections),
-              path, content_type="text/html")
+    api.add_url_rule(path, path.replace('/', '_'), functools.partial(_main_page, sections))
 
     for key, val in tree.get("subpages", {}):
         traverse(api, utils.join_url(path, key), val)
@@ -147,10 +147,10 @@ def _main_page(sections, *_, **__):
             sect["item_list"].append(item_dict)
         args["sections"].append(dict(sect))
 
-    return env.get_template('main.html').render(**args)
+    return Response(env.get_template('main.html').render(**args), mimetype='text/html')
 
 def _main_js(*_, **__):
-    return env.get_template('main.js').render()
+    return Response(env.get_template('main.js').render(), mimetype='text/javascript')
 
 def __empty_svg():
     return """<?xml version="1.0" encoding="UTF-8" standalone="no"?> <svg
@@ -167,9 +167,9 @@ def _sparkline(item, *args, **kwargs):
 
         graph = pygal.Line(interpolate='cubic', style=pygal.style.LightStyle)
         graph.add("Last 10", values)
-        return graph.render_sparkline(height=25).decode('UTF-8')
+        return Response(graph.render_sparkline(height=25).decode('UTF-8'), mimetype='image/svg+xml')
     else:
-        return __empty_svg()
+        return Response(__empty_svg(), mimetype='image/svg+xml')
 
 def __avg_time(datetimes):
     total = sum(dt.hour * 3600 + dt.minute * 60 + dt.second for dt in datetimes)
@@ -210,11 +210,17 @@ def __group(times, values, count=50, group=lambda v: sum(v)/len(v)):
 
     return zip(*res)
 
-def _graph(item, *args, time=86400, offset=0, count=None, **kwargs):
+def _graph(item, *_, **kwargs):
+    args = utils.single_args(request.args)
+
+    time = args.get('time', 86400)
+    offset = args.get('offset', 0)
+    count = args.get('count', None)
+
     if USE_GRAPHS:
         history = items[item].state_history
         if not history:
-            return __empty_svg()
+            return Response(__empty_svg(), mimetype='image/svg+xml')
 
         if count:
             times, values = zip(*history.last(min(10, len(history))))
@@ -227,9 +233,9 @@ def _graph(item, *args, time=86400, offset=0, count=None, **kwargs):
         graph.title = items[item].name
         graph.add("Value", values)
         graph.x_labels = (t.strftime("%H:%M:%S") for t in times)
-        return graph.render().decode('UTF-8')
+        return Response(graph.render().decode('UTF-8'), mimetype='image/svg+xml')
     else:
-        return __empty_svg()
+        return Response(__empty_svg(), mimetype='image/svg+xml')
 
 def _include_item(item, include_tags, exclude_tags, include_items, exclude_items):
     return ((not include_tags or set(item.tags) & include_tags) or
