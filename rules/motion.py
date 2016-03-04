@@ -5,11 +5,14 @@ from idiotic import items, scheduler, modules, scenes
 Scene("Server Work",
       active={"laundry_room_light": (True, True)})
 
-mapping = [(items.kitchen_motion, items.kitchen_light, 600),
-           (items.kitchen_motion, items.kitchen_table_light, 600),
-           (items.living_room_motion, items.living_room_lamp, 900),
-           (items.hallway_motion, items.hallway_light, 120),
-           (items.laundry_room_motion, items.laundry_room_light, 180)]
+mapping = [
+    (items.kitchen_motion, items.kitchen_light, 600),
+    (items.kitchen_motion, items.kitchen_table_light, 600),
+    (items.living_room_motion, items.living_room_lamp, 900),
+    (items.hallway_motion, items.hallway_light, 120),
+    (items.laundry_room_motion, items.laundry_room_light, 180),
+    (items.entertainment_room_motion, items.entertainment_room_light, 300),
+]
 
 # This might not actually work with triggers rather than toggles for sensors
 # at the very least, it's not very elegant otherwise...
