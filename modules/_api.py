@@ -4,7 +4,7 @@
 
 import logging
 from idiotic import items, scenes
-from idiotic.utils import jsonified
+from idiotic.utils import jsonified, single_args
 from flask import request
 
 MODULE_NAME = "api"
