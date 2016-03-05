@@ -5,6 +5,9 @@ from idiotic import items, scheduler, modules, scenes
 Scene("Server Work",
       active={"laundry_room_light": (True, True)})
 
+Scene("Entertainment Room Sleep",
+      active={"entertainment_room_light": (False, True)})
+
 mapping = [
     (items.kitchen_motion, items.kitchen_light, 600),
     (items.kitchen_motion, items.kitchen_table_light, 600),
