@@ -1,11 +1,14 @@
 from idiotic.item import command, BaseItem
 import functools
+import logging
 import wink
 
 auth = None
 w = None
 
 MODULE_NAME = "wink"
+
+LOG = logging.getLogger("module.wink")
 
 class WinkItem(BaseItem):
     def __init__(self, name, wink_item, *args, **kwargs):
@@ -35,15 +38,22 @@ def configure(config, api, assets):
     global w
     w = wink.Wink(auth, save_auth=False)
 
-    for device in w.device_list():
+    devices = w.device_list()
+    LOG.debug("Found {} devices from wink API:".format(len(devices)))
+    for device in devices:
         if device.data.get("name"):
             label = device.data.get("name")
         else:
             label = device.id
+
         item_type = device.device_type()
+        LOG.debug("  {} is type '{}'".format(label, item_type))
 
         if item_type == 'light_bulb':
+            LOG.debug("Adding {} as WinkLight".format(label))
             item = WinkLight(label, device, tags=(item_type,"winkhub"))
+        else:
+            LOG.debug("{} is an unsupported type, skipping :(".format(label))
 
 def bind_item(item, id=None, name=None, field=None):
     pass
