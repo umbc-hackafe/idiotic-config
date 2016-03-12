@@ -1,9 +1,11 @@
 from idiotic.item import Toggle, Trigger, Number, Group
-from idiotic import modules, scheduler
+from idiotic import items, modules, scheduler
 
-Toggle("Hallway Light",
-       tags=("hallway", "light", "nightlight"),
-       bindings={"x10": {"code": "b2"}})
+Group("Hallway Light",
+      tags=("hallway", "light", "nightlight"),
+      commands=False,
+      command_send=True,
+      members=[items.hall_light_1, items.hall_light_2])
 
 Toggle("Hallway Motion",
         tags=("hallway", "motion", "occupancy"))
