@@ -9,7 +9,7 @@ from aiohttp import request, get, post, put, head, delete
 import logging
 import asyncio
 import functools
-from idiotic import dispatcher, event, scheduler
+from idiotic import event
 
 MODULE_NAME = "http"
 

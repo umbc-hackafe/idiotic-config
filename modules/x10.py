@@ -6,7 +6,7 @@ import logging
 import requests
 import functools
 from collections import defaultdict
-from idiotic import dispatcher, event
+from idiotic import event
 
 MODULE_NAME = "x10"
 

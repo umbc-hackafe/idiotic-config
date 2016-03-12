@@ -1,5 +1,4 @@
 from idiotic.item import Toggle, Trigger, Number, Group, Motor
-from idiotic import modules, scheduler
 
 Toggle("Garage Lights",
        bindings={"x10": {"code": "c8"}},

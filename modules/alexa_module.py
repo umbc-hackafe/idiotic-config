@@ -1,7 +1,6 @@
 import logging
 import pyalexa
 import itertools
-from idiotic import dispatcher, event, items, scenes
 
 MODULE_NAME = "alexa"
 VERSION = "2"
@@ -108,7 +107,7 @@ def configure(config, api, assets):
 UTTERANCES = [
     (
         "GetState", [
-            ("Item", items.all)
+            ("Item", lambda: items.all())
         ], [
             "about the {{{0.name}|Item}}",
             "about {{{0.name}|Item}}",
@@ -122,7 +121,7 @@ UTTERANCES = [
     ),(
         "SetSwitch",
         [
-            ("Item", items.all),
+            ("Item", lambda: items.all()),
             ("NewStatus", lambda i: i.commands())
         ], [
             "Turn {{{0.name}|Item}} {{{1}|NewStatus}}",
@@ -141,7 +140,7 @@ UTTERANCES = [
     ),(
         "SceneChange",
         [
-            ("Scene", scenes.all),
+            ("Scene", lambda: scenes.all()),
             ("Action", lambda _: SCENE_ENTER_COMMANDS + SCENE_EXIT_COMMANDS)
         ], [
             "{{{1}|Action}} {{{0.name}|Scene}}",

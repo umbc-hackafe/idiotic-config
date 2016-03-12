@@ -1,4 +1,4 @@
-import idiotic
+from idiotic import utils
 
 def configure(config, api, assets):
     api.serve(cmd, '/CMD', get_args="get")
@@ -13,7 +13,7 @@ def cmd(get, source=None):
             if k.startswith('__'):
                 continue
             try:
-                item = idiotic.items[k]
+                item = items[k]
                 cmd = v
                 break
             except:
@@ -31,9 +31,9 @@ def cmd(get, source=None):
 
 def state(item_name, data="", source=None):
     if item_name:
-        item_name = idiotic.utils.mangle_name(item_name)
+        item_name = utils.mangle_name(item_name)
         try:
-            item = idiotic.items[item_name]
+            item = items[item_name]
             if data:
                 item._set_state_from_context(data, source=source)
                 item.state = data

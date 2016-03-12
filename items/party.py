@@ -1,6 +1,5 @@
 from idiotic.item import Toggle, Trigger, Number, Group
 from idiotic.scene import Scene
-from idiotic import modules, scheduler, items
 
 Toggle("Fog Machine",
        tags=("garage",),

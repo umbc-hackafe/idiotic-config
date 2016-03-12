@@ -1,5 +1,4 @@
 from idiotic.item import Toggle, Trigger, Number, Group
-from idiotic import modules, scheduler
 
 Toggle("Laundry Room Light",
        tags=("laundry_room", "light"),

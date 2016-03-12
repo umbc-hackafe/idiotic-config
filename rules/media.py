@@ -1,7 +1,7 @@
 from idiotic.rule import bind, Command, Change, Schedule, augment, Delay, DeDup
 from idiotic.scene import Scene
 from idiotic.item import Motor
-from idiotic import items, scheduler, modules, scenes
+from idiotic import instance as c
 
 sign_placeholder = None
 
@@ -12,7 +12,7 @@ living_room_media = Scene("LivingRoomMedia",
 @living_room_media.on_enter
 def do_sign_enter():
     global sign_placeholder
-    items.living_room_projector.on(source='living_room_media')
+    c.items.living_room_projector.on(source='living_room_media')
     sign_placeholder = modules.sign.new_message('', priority=1, name='placeholder')
 
 @living_room_media.on_exit
@@ -21,9 +21,9 @@ def do_sign_exit():
     if sign_placeholder:
         sign_placeholder.remove()
         sign_placeholder = None
-    items.living_room_projector.off(source='living_room_media')
+    c.items.living_room_projector.off(source='living_room_media')
 
-@bind(Change(items.living_room_projector))
+@bind(Change(c.items.living_room_projector))
 def media_activate(evt):
     if evt.source == 'living_room_media':
         return

@@ -1,6 +1,5 @@
 from idiotic.rule import bind, Command, Change, Schedule, augment, Delay, DeDup
 from idiotic.scene import Scene
-from idiotic import items, scheduler, modules, scenes
 import requests
 
 messages = {}

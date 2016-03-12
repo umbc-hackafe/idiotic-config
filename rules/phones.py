@@ -1,8 +1,8 @@
 from idiotic.rule import bind, Event
 from idiotic.timer import Timer
-from idiotic import items, modules
+from idiotic import instance as c
 
-@bind(Event(type=modules.sms.SMSReceivedEvent))
+@bind(Event(type=c.modules.sms.SMSReceivedEvent))
 def on_sms(evt):
     items.alert_beacon.on()
     modules.sign.new_message("{} - {}".format(evt.body, evt.sender),
