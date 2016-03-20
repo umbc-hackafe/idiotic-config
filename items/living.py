@@ -49,7 +49,15 @@ Number("Living Room Humidity",
        bindings={"http": {"pull": (60, "luna:8081/hum", None, float)}},
        tags=("living_room", "humidity", "climate", "webui.show_sparkline"))
 
-Scene("LivingRoomSleep",
+livingroomsleep = Scene("LivingRoomSleep",
       active={"living_room_projector": False,
               "living_room_lamp": (False, True),
               "kitchen_table_light": (False, True)})
+
+@livingroomsleep.on_enter
+def do_enter():
+    requests.post("http://celestia.hackafe.net/add_saved_animation/Off")
+
+@livingroomsleep.on_exit
+def do_exit():
+    requests.post("http://celestia.hackafe.net/add_saved_animation/clear")

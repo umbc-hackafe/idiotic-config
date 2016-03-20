@@ -18,10 +18,12 @@ class WinkItem(BaseItem):
 class WinkLight(WinkItem):
     @command
     def on(self):
+        LOG.debug("Turning on {}".format(self))
         self.wink_item.turn_on()
 
     @command
     def off(self):
+        LOG.debug("Turning off {}".format(self))
         self.wink_item.turn_off()
 
 def configure(config, api, assets):
