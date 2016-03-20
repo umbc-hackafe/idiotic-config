@@ -40,6 +40,7 @@ def item_command(name, command, *_, **kwargs):
     try:
         item = items[name]
         item.command(command, **args)
+        return dict(item=item)
     except:
         raise ValueError("Item '{}' does not exist!".format(name))
 
