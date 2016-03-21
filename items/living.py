@@ -49,7 +49,3 @@ Number("Living Room Humidity",
        bindings={"http": {"pull": (60, "luna:8081/hum", None, float)}},
        tags=("living_room", "humidity", "climate", "webui.show_sparkline"))
 
-Scene("LivingRoomSleep",
-      active={"living_room_projector": False,
-              "living_room_lamp": (False, True),
-              "kitchen_table_light": (False, True)})

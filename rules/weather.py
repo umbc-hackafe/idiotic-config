@@ -2,10 +2,7 @@ from idiotic.rule import bind, Command, Change, Schedule, augment, Delay, DeDup
 from idiotic.scene import Scene
 from idiotic import instance as c
 
-Scene("Daylight",
-      active={i.name: (False, True) for i in c.items.with_tags(['nightlight'])},
-      inactive={"outside_front_light": True,
-                "outside_side_light": True})
+Scene("Daylight")
 
 MIN_DAY_BRIGHTNESS = 50
 MAX_NIGHT_BRIGHTNESS = 40
