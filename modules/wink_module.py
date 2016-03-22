@@ -1,4 +1,4 @@
-from idiotic.item import command, BaseItem
+from idiotic.item import Dimmer
 import functools
 import logging
 import wink
@@ -10,20 +10,6 @@ MODULE_NAME = "wink"
 
 LOG = logging.getLogger("module.wink")
 
-class WinkItem(BaseItem):
-    def __init__(self, name, wink_item, *args, **kwargs):
-        super().__init__(name, *args, **kwargs)
-        self.wink_item = wink_item
-
-class WinkLight(WinkItem):
-    @command
-    def on(self):
-        self.wink_item.turn_on()
-
-    @command
-    def off(self):
-        self.wink_item.turn_off()
-
 def configure(config, api, assets):
     base_conf = {"base_url": "https://winkapi.quirky.com",
                  "client_id": "quirky_wink_android_app",
@@ -31,8 +17,6 @@ def configure(config, api, assets):
     base_conf.update(config)
 
     global auth
-    print(dir(wink))
-    print(wink.auth)
     auth = wink.auth(**base_conf)
 
     global w
@@ -51,9 +35,18 @@ def configure(config, api, assets):
 
         if item_type == 'light_bulb':
             LOG.debug("Adding {} as WinkLight".format(label))
-            item = WinkLight(label, device, tags=(item_type,"winkhub"))
+            item = Dimmer(label, tags=(item_type, "winkhub"))
+            item.bind_on_command(functools.partial(dimmer_command, device))
         else:
             LOG.debug("{} is an unsupported type, skipping :(".format(label))
+
+def dimmer_command(device, evt):
+    if evt.command == 'set':
+        device.set_brightness(float(evt.kwargs['val']))
+    elif evt.command == 'on':
+        device.turn_on()
+    elif evt.command == 'off':
+        device.turn_off()
 
 def bind_item(item, id=None, name=None, field=None):
     pass
