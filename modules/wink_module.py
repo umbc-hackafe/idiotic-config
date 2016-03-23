@@ -42,7 +42,7 @@ def configure(config, api, assets):
 
 def dimmer_command(device, evt):
     if evt.command == 'set':
-        device.set_brightness(float(evt.kwargs['val']))
+        device.set_brightness(float(evt.args[0]))
     elif evt.command == 'on':
         device.turn_on()
     elif evt.command == 'off':
