@@ -17,12 +17,12 @@ def brightness_change(evt):
     elif evt.old > MAX_NIGHT_BRIGHTNESS > evt.new:
         scenes.daylight.exit()
 
-@bind(Schedule(scheduler.every().day.at("8:00")))
+@bind(Schedule(c.scheduler.every().day.at("8:00")))
 def enter_sun_mode(evt):
     if items.brightness.state >= MIN_DAY_BRIGHTNESS:
         scenes.daylight.enter()
 
-@bind(Schedule(scheduler.every().day.at("19:00")))
+@bind(Schedule(c.scheduler.every().day.at("19:00")))
 def leave_sun_mode(evt):
     if items.brightness.state <= MAX_NIGHT_BRIGHTNESS:
         scenes.daylight.exit()
