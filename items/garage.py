@@ -18,7 +18,8 @@ Toggle("Garage Door Opener",
        bindings={"http": {"push": [
            ("on", "thegreatandpowerfultrixie:8081/door?action=trigger"),
            ("off", "thegreatandpowerfultrixie:8081/door?action=close")]}},
-       tags=("garage", "external_door"))
+       tags=("garage", "external_door"),
+       aliases={"open": "on", "close": "off"})
 
 Toggle("Garage Door",
        bindings={"http": {"pull": (15, "thegreatandpowerfultrixie:8081/door?action=get", None, lambda s: s.startswith("OPEN"))}},
