@@ -1,5 +1,6 @@
 from idiotic.item import Toggle, Trigger, Number, Group
 from idiotic.scene import Scene
+from idiotic import instance as c
 
 Toggle("Living Room Lamp",
        tags=("living_room", "light", "nightlight"),
@@ -18,8 +19,7 @@ Toggle("Alert Beacon",
        tags=("living_room", "light", "notification"),
        bindings={"x10": {"code": "a11"}})
 Toggle("Lava Lamp",
-       tags=("living_room", "light"),
-       bindings={"x10": {"code": "a12"}})
+       tags=("living_room", "light"))
 Toggle("Black Light",
        tags=("living_room", "light"),
        bindings={"x10": {"code": "a14"}})
@@ -31,6 +31,18 @@ Toggle("Disco Lights",
 Toggle("Other Disco Lights",
        tags=("living_room", "light"),
        bindings={"x10": {"code": "a1"}})
+Toggle("Corner Light",
+       tags=("living_room", "light"),
+       bindings={"x10": {"code": "a12"}})
+
+c.items.lamp_blue.tags.update(('living_room', 'light'))
+c.items.lamp_dark_blue.update(('living_room', 'light'))
+c.items.record_light.update(('living_room', 'light'))
+
+Group("Living Room Lights",
+      tags=("living_room", "light"),
+      command_send=True,
+      members=c.items.with_tags({'light', 'living_room'}))
 
 Toggle("Luna",
        tags=("interaction",),
