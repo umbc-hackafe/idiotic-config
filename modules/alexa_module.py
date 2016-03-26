@@ -122,7 +122,7 @@ UTTERANCES = [
         "SetSwitch",
         [
             ("Item", lambda: items.all()),
-            ("NewStatus", lambda i: i.commands())
+            ("NewStatus", lambda i: list(i.commands().keys()) + list(i.aliases.keys()))
         ], [
             "Turn {{{0.name}|Item}} {{{1}|NewStatus}}",
             "Turn {{{0.name}|Item}} to {{{1}|NewStatus}}",
@@ -136,6 +136,8 @@ UTTERANCES = [
             "Set the {{{0.name}|Item}} to {{{1}|NewStatus}}",
             "Set {{{1}|NewStatus}} {{{0.name}|Item}}",
             "Set {{{1}|NewStatus}} the {{{0.name}|Item}}",
+            "{{{1}|NewStatus}} the {{{0.name}|Item}}",
+            "{{{1}|NewStatus}} {{{0.name}|Item}}",
         ]
     ),(
         "SceneChange",
