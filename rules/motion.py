@@ -55,7 +55,7 @@ Rule(CommandReceivedCondition(c.items.laundry_room_motion, 180, 'on') |
      SceneAction(c.scenes.laundry_room_occupied))
 
 # Enter BathroomOccupied when the door is closed
-Rule(CommandReceivedCondition(c.items.bathroom_door, 6, 'on'),
+Rule(StateIsCondition(c.items.bathroom_door, True, since=6),
      SceneAction(c.scenes.bathroom_occupied))
 
 # Enter LivingRoomMedia when the projector is on
