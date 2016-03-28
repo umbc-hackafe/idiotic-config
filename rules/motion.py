@@ -44,14 +44,16 @@ Rule(CommandReceivedCondition(c.items.living_room_motion, 900, 'on'),
 #   - Entertainment room motion sensor was activated within 3 minutes
 # Do:
 #   Enter scene EntertainmentRoomOcupied
-Rule(CommandReceivedCondition(c.items.living_room_motion, 180, 'on') |
-     CommandReceivedCondition(c.items.entertainment_room_laundry_room_door, 180),
+Rule(CommandReceivedCondition(c.items.living_room_motion, 180, 'on'),
+# NYI
+#     StateIsCondition(c.items.entertainment_room_laundry_room_door, False, since=180),
      SceneAction(c.scenes.entertainment_room_occupied))
 
 # Enter LaundryRoomOccupied on motion or door change
-Rule(CommandReceivedCondition(c.items.laundry_room_motion, 180, 'on') |
-     CommandReceivedCondition(c.items.entertainment_room_laundry_room_door, 180) |
-     CommandReceivedCondition(c.items.laundry_room_door, 180),
+Rule(CommandReceivedCondition(c.items.laundry_room_motion, 180, 'on'),
+# NYI
+#     StateIsCondition(c.items.entertainment_room_laundry_room_door, False, since=180) |
+#     StateIsCondition(c.items.laundry_room_door, False, since=180),
      SceneAction(c.scenes.laundry_room_occupied))
 
 # Enter BathroomOccupied when the door is closed
@@ -101,3 +103,17 @@ Rule(SceneCondition(c.scenes.living_room_occupied) &
 # Turn on bathroom light when bathroom occupied is active
 Rule(SceneCondition(c.scenes.bathroom_occupied),
      StateAction(c.items.bathroom_light, True, False))
+
+# When:
+#  - The entertainment room is occupied
+#  - We are not sleeping
+#  - It is not daylight
+Rule(SceneCondition(c.scenes.entertainment_room_occupied) &
+     ~SceneCondition(c.scenes.entertainment_room_sleep) &
+     ~SceneCondition(c.scenes.daylight),
+     StateAction(c.items.entertainment_room_light))
+
+# When the laundry room is occupied,
+# turn on the light
+Rule(SceneCondition(c.scenes.laundry_room_occupied),
+     StateAction(c.items.laundry_room_light))
