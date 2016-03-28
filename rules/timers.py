@@ -10,28 +10,6 @@ def turtle_light_on(evt):
 def turtle_light_off(evt):
     c.items.turtle_light.off()
 
-reminders = {}
-
-@bind(Schedule(c.scheduler.every().thursday.at("18:00")))
-def recycling_reminder(evt):
-    reminders["recycling"] = modules.sign.new_message("RECYCLING", effects=["bounce_x", "shake"])
-
-@bind(Schedule(c.scheduler.every().monday.at("18:00")))
-def trash_reminder(evt):
-    reminders["trash"] = modules.sign.new_message("TRASH", effects=["bounce_x", "shake"])
-
-@bind(Schedule(c.scheduler.every().friday.at("8:00")))
-@bind(Command(c.items.garbage))
-def recycling_done(evt):
-    if reminders.get("recycling"):
-        reminders["recycling"].remove()
-
-@bind(Schedule(c.scheduler.every().tuesday.at("8:00")))
-@bind(Command(c.items.garbage))
-def trash_done(evt):
-    if reminders.get("trash"):
-        reminders["trash"].remove()
-
 @bind(Command(c.items.do_something))
 def do_a_thing(evt):
     item = random.choice(list(c.items.all()))
