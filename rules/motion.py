@@ -2,11 +2,12 @@ from idiotic.rule import bind, Command, Change, Schedule, augment, Delay, DeDup
 from idiotic.declare import Rule, StateIsCondition, StateBetweenCondition, ItemLambdaCondition, CommandReceivedCondition, CommandAction, SceneAction, SceneCondition, StateAction
 from idiotic.scene import Scene
 from idiotic.timer import Timer
-from idiotic.modutils import require_rules
+from idiotic.modutils import require_rules, require_items
 from idiotic import instance as c
 import functools
 
 require_rules('weather')
+require_items('living')
 
 Scene("Entertainment Room Sleep")
 Scene("Living Room Sleep")
