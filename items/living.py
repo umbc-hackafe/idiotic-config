@@ -36,8 +36,8 @@ Toggle("Corner Light",
        bindings={"x10": {"code": "a12"}})
 
 c.items.lamp_blue.tags.update(('living_room', 'light'))
-c.items.lamp_dark_blue.update(('living_room', 'light'))
-c.items.record_light.update(('living_room', 'light'))
+c.items.lamp_dark_blue.tags.update(('living_room', 'light'))
+c.items.record_light.tags.update(('living_room', 'light'))
 
 Group("Living Room Lights",
       tags=("living_room", "light"),
