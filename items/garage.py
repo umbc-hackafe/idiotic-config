@@ -5,8 +5,6 @@ Toggle("Garage Lights",
        tags=("garage", "light"))
 
 Toggle("Garage Counter Lights",
-       bindings={"modlet": {"device": "garage",
-                            "control": True}},
        tags=("garage", "light"))
 
 Toggle("Garage Purple Lights",
