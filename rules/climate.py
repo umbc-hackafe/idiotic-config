@@ -27,8 +27,8 @@ def stop_furnace_flop(evt):
 @bind(Change(c.items.minimum_temperature))
 @bind(Change(c.items.maximum_temperature))
 def temp_change(evt):
-    current = c.items.average_temperature.state
-    if current < c.items.minimum_temperature.state:
+    current = float(c.items.average_temperature.state)
+    if current < float(c.items.minimum_temperature.state):
         c.items.furnace.on()
-    elif current > c.items.maximum_temperature.state:
+    elif current > float(c.items.maximum_temperature.state):
         c.items.furnace.off()
