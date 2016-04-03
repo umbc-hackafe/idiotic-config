@@ -45,7 +45,7 @@ Rule(CommandReceivedCondition(c.items.living_room_motion, 900, 'on'),
 #   - Entertainment room motion sensor was activated within 3 minutes
 # Do:
 #   Enter scene EntertainmentRoomOcupied
-Rule(CommandReceivedCondition(c.items.living_room_motion, 180, 'on'),
+Rule(CommandReceivedCondition(c.items.entertainment_room_motion, 180, 'on'),
 # NYI
 #     StateIsCondition(c.items.entertainment_room_laundry_room_door, False, since=180),
      SceneAction(c.scenes.entertainment_room_occupied))
