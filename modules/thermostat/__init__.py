@@ -39,26 +39,27 @@ class Thermostat(BaseItem):
             sum = 0
             for temp in self.temps:
                 sum += temp.state_history.closest(val.time).state*self.weights[self.name+"-temp-"+temp.name].state
-            history.append({'time':val.time.timestamp(), 'temp':sum})
+            history.append({'time':float(val.time.timestamp()), 'temp':float(sum)})
         if self.algorithm == "pid":
             chill, heat = pid(history, self.setpoint.state, self.variance)
         elif self.algorithm == "pd":
             chill, heat = pd(history, self.setpoint.state, self.variance)
         else:
             chill, heat = simple(history, self.setpoint.state, self.variance)
-            LOG.info("AC set to {ac} and heat set to {heat}".format(ac=chill, heat=heat))
-            for i in self.heaters:
-                if heat:
-                    i.on()
-                else:
-                    i.off()
-            for i in self.chillers:
-                if chill:
-                    i.on()
-                else:
-                    i.off()
+        LOG.info("AC set to {ac} and heat set to {heat}".format(ac=chill, heat=heat))
+        for i in self.heaters:
+            if heat:
+                i.on()
+            else:
+                i.off()
+        for i in self.chillers:
+            if chill:
+                i.on()
+            else:
+                i.off()
                 
-        LOG.info("Updated: {item} to {state}".format(item=evt.item.name, state=evt.new))
+        if evt:
+            LOG.info("Updated: {item} to {state}".format(item=evt.item.name, state=evt.new))
 
     @command
     def set(self, val: float):

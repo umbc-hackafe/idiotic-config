@@ -10,6 +10,8 @@ def simple(logdata, setpoint, diff):
   return action
 
 def pd(logdata, setpoint, diff):
+  if len(logdata) < 2:
+      return False, False
   pterm = 0.5
   dterm = 0.5
   recent = logdata[-1]
@@ -29,6 +31,8 @@ def pd(logdata, setpoint, diff):
   return action
 
 def pid(logdata, setpoint, diff):
+  if len(logdata) < 2:
+      return False, False
   pterm = 0.5
   iterm = 0.1
   dterm = 0.5
