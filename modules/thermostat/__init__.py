@@ -53,13 +53,19 @@ class Thermostat(BaseItem):
             for temp in self.temps:
                 closest = temp.state_history.closest(val.time)
                 weight = self.weights[self.name+"-temp-"+temp.name].state
-                if not closest:
-                    length += -1
-                else:
-                    if -0.1 < closest.state < 0.1:
-                        length += -1
+                if closest:
+                    if type(closest.state) is float:
+                        if closest.state:
+                            sum += closest.state*weight
+                        else:
+                            length += -1
+                            LOG.info("State was zero. Not likely, but possible.")
                     else:
-                        sum += closest.state*weight
+                        length += -1
+                        LOG.info("State was not a float. What?!?")
+                else:
+                    length += -1
+                    LOG.info("No history found for {name}".format(name=val.name))
             history.append({'time':float(val.time.timestamp()), 'temp':float(sum/length)})
         for i in self.temps:
             LOG.debug("{name}: {last}".format(name=i.name, last=i.state_history.last()))
