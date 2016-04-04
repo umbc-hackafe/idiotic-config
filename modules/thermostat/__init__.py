@@ -15,7 +15,6 @@ class Thermostat(BaseItem):
         self.heaters = heaters
         self.temps = temps
         self.humidities = humidities
-        self.setpoint = Number(self.name+"-setpoint")
         self.variance = 1
         self.algorithm = algorithm
         self.memory = memory
@@ -38,14 +37,14 @@ class Thermostat(BaseItem):
                 i.off()
             return
             
-        if self.setpoint.state is None:
-            self.setpoint.state = 25
+        if not type(self.state) is float:
+            self.state = 23
         for i in self.temps.keys():
             vals = i.state_history.last(self.memory)
             if len(vals) > 0:
                 break
         if not vals:
-            LOG.info("Not temperature data available!")
+            LOG.info("No temperature data available!")
             return
         history = []
         for val in vals:
@@ -59,12 +58,14 @@ class Thermostat(BaseItem):
                 else:
                     length += -1
             history.append({'time':float(val.time.timestamp()), 'temp':float(sum/length)})
+        for i in self.temps:
+            LOG.debug("{name}: {last}".format(name=i.name, last=i.state_history.last()))
         if self.algorithm == "pid":
-            chill, heat = pid(history, self.setpoint.state, self.variance)
+            chill, heat = pid(history, self.state, self.variance)
         elif self.algorithm == "pd":
-            chill, heat = pd(history, self.setpoint.state, self.variance)
+            chill, heat = pd(history, self.state, self.variance)
         else:
-            chill, heat = simple(history, self.setpoint.state, self.variance)
+            chill, heat = simple(history, self.state, self.variance)
         LOG.debug("AC set to {ac} and heat set to {heat}".format(ac=chill, heat=heat))
         for i in self.heaters:
             if heat:
@@ -82,5 +83,5 @@ class Thermostat(BaseItem):
 
     @command
     def set(self, val: float):
-        self.setpoint.state = val
+        self.state = val
         self.update()
