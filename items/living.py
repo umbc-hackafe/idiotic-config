@@ -8,7 +8,8 @@ Toggle("Living Room Lamp",
 Toggle("Turtle Light",
        tags=("living_room", "light"),
        bindings={"x10": {"code": "a5"}})
-Toggle("Living Room Air Conditioner",
+
+livingRoomAC = Toggle("Living Room Air Conditioner",
        bindings={"modlet": {"device": "garage",
                             "control": True}},
        tags=("living_room", "ac", "climate"))
@@ -37,9 +38,9 @@ Toggle("Corner Light",
        tags=("living_room", "light"),
        bindings={"x10": {"code": "a12"}})
 
-c.items.lamp_blue.tags.update(('living_room', 'light'))
-c.items.lamp_dark_blue.tags.update(('living_room', 'light'))
-c.items.record_light.tags.update(('living_room', 'light'))
+#c.items.lamp_blue.tags.update(('living_room', 'light'))
+#c.items.lamp_dark_blue.tags.update(('living_room', 'light'))
+#c.items.record_light.tags.update(('living_room', 'light'))
 
 Group("Living Room Lights",
       tags=("living_room", "light"),
@@ -56,10 +57,24 @@ Toggle("Living Room Projector",
            ("on", "luna:8081/projector_on"),
            ("off", "luna:8081/projector_off")]}})
 
-Number("Living Room Temperature",
+livingRoomTemp = Number("Living Room Temperature",
        bindings={"http": {"pull": (60, "luna:8081/temp", None, float)}},
        tags=("living_room", "temperature", "climate", "webui.show_sparkline"))
-Number("Living Room Humidity",
+livingRoomHumid = Number("Living Room Humidity",
        bindings={"http": {"pull": (60, "luna:8081/hum", None, float)}},
        tags=("living_room", "humidity", "climate", "webui.show_sparkline"))
+
+c.modules.thermostat.Thermostat("Living Room AC",
+       tags=("webui.show_disable",
+             "heat",),
+       chillers=[
+           livingRoomAC,
+       ],
+       temps={
+                livingRoomTemp: 1.0,
+           },
+       humidities={
+                livingRoomHumid: 1.0,
+           },
+     )
 
