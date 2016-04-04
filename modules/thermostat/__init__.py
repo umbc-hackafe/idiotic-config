@@ -56,7 +56,7 @@ class Thermostat(BaseItem):
                 if not closest:
                     length += -1
                 else:
-                    if -0.1 < closest < 0.1:
+                    if -0.1 < closest.state < 0.1:
                         length += -1
                     else:
                         sum += closest.state*weight
