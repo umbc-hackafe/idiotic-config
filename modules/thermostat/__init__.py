@@ -69,7 +69,7 @@ class Thermostat(BaseItem):
             if length > 0:
                 history.append({'time':float(val.time.timestamp()), 'temp':float(sum/length)})
             else:
-                LOG.info("Not enough temperature data to make a decision for {name}".format(name=self.name)
+                LOG.info("Not enough temperature data to make a decision for {name}".format(name=self.name))
                 for i in self.heaters:
                     i.off()
                 for i in self.chillers:
