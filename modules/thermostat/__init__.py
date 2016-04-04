@@ -36,6 +36,7 @@ class Thermostat(BaseItem):
                 i.off()
             for i in self.chillers:
                 i.off()
+            return
             
         if self.setpoint.state is None:
             self.setpoint.state = 25
