@@ -31,6 +31,7 @@ def pd(logdata, setpoint, diff):
   return action
 
 def pid(logdata, setpoint, diff):
+  setpoint = float(setpoint)
   if len(logdata) < 2:
       return False, False
   pterm = 0.5
