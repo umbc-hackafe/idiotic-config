@@ -1,8 +1,10 @@
 from idiotic.item import Toggle, Trigger, Number, Group
 
-people = [("Dylan", ["dylanphone",]),
-          ("Mark", ["markphone",]),
-          ("Sasha", ["sashaphone",])]
+people = [("Dylan", ["dylanchromebook", "dylancell", ]),
+          ("Mark", ["dom", "dom-wired",]),
+          ("Sasha", ["mosaic",]),
+          ("Jerry", ["jerry", "jerryphone",]
+         ]
 
 for name, devices in people:
     Toggle(name + " Presence",
