@@ -53,10 +53,13 @@ class Thermostat(BaseItem):
             for temp in self.temps:
                 closest = temp.state_history.closest(val.time)
                 weight = self.weights[self.name+"-temp-"+temp.name].state
-                if closest:
-                    sum += closest.state*weight
-                else:
+                if not closest:
                     length += -1
+                else:
+                    if -0.1 < closest < 0.1:
+                        length += -1
+                    else:
+                        sum += closest.state*weight
             history.append({'time':float(val.time.timestamp()), 'temp':float(sum/length)})
         for i in self.temps:
             LOG.debug("{name}: {last}".format(name=i.name, last=i.state_history.last()))
