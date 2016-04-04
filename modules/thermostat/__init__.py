@@ -31,6 +31,12 @@ class Thermostat(BaseItem):
             self.weights[self.name+"-humid-"+humid.name].state = self.humidities[humid]
 
     def update(self, evt=None):
+        if not self.enabled:
+            for i in self.heaters:
+                i.off()
+            for i in self.chillers:
+                i.off()
+            
         if self.setpoint.state is None:
             self.setpoint.state = 25
         for i in self.temps.keys():
