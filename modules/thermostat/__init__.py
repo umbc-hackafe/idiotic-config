@@ -59,17 +59,17 @@ class Thermostat(BaseItem):
                             sum += closest.state*weight
                         else:
                             length += -1
-                            LOG.info("State was zero. Not likely, but possible.")
+                            LOG.info("State of {name} was zero. Not likely, but possible.".format(name=temp.name))
                     else:
                         length += -1
-                        LOG.info("State was not a float. What?!?")
+                        LOG.info("State of {name} was not a float. What?!?".format(name=temp.name))
                 else:
                     length += -1
                     LOG.info("No history found for {name}".format(name=temp.name))
             if length > 0:
                 history.append({'time':float(val.time.timestamp()), 'temp':float(sum/length)})
             else:
-                LOG.info("Not enough temperature data to make a decision")
+                LOG.info("Not enough temperature data to make a decision for {name}".format(name=self.name)
                 for i in self.heaters:
                     i.off()
                 for i in self.chillers:
