@@ -1,13 +1,12 @@
 from idiotic.item import Toggle, Trigger, Number, Group
 
-people = [("Dylan", "dylan-gs5"),
-          ("Mark", "tsubasa"),
-          ("Noah", "noah-laptop"),
-          ("Sasha", "sasha-phone")]
+people = [("Dylan", ["dylanphone",]),
+          ("Mark", ["markphone",]),
+          ("Sasha", ["sashaphone",])]
 
-for name, device in people:
+for name, devices in people:
     Toggle(name + " Presence",
            bindings={"network": {"action": "ping",
-                                 "host": device,
+                                 "hosts": devices,
                                  "interval": 60}},
            tags=("presence", "presence_" + name.lower()))

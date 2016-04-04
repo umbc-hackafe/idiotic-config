@@ -2,41 +2,46 @@
 """
 from idiotic.timer import Timer
 import logging
-LOG = logging.getLogger("module.network")
+import subprocess
 import time
 import os
 
+LOG = logging.getLogger("module.network")
+
 MODULE_NAME = "network"
 
-hosts = []
+checks = []
 checkTimer = None
 
 def _refresh(now=False):
     global checkTimer
     ctime = int(time.time())
-    for host in hosts:
-        if now or ((ctime % host['interval']) == 0):
-            if host['action'] == 'ping':
-                if os.system("ping -c 3 " + host['host']):
-                    host['item'].off()
+    for check in checks:
+        if now or ((ctime % check['interval']) == 0):
+            if check['action'] == 'ping':
+                for host in check['hosts']:
+                    with open(os.devnull, 'w') as FNULL:
+                        if not subprocess.call(["ping", "-c", "3", host], stdout=FNULL, stderr=subprocess.STDOUT):
+                            check['item'].on()
+                            break
                 else:
-                    host['item'].on()
+                    check['item'].off()
             else:
                 LOG.info("Unknown action {action}".format(action=action))
     checkTimer.reschedule()
 
-def bind_item(item, action="ping", host="localhost", interval=60):
+def bind_item(item, action="ping", hosts=["localhost"], interval=60):
     LOG.info("Binding {name} to ping".format(name=item.name))
-    global checkTimer
-    if not checkTimer:
-        LOG.info("Starting network update timer")
-        checkTimer = Timer(1, _refresh)
-        _refresh(now=True)
-    hosts.append({
+    checks.append({
             "action": action,
-            "host": host,
+            "hosts": hosts,
             "interval": interval,
             "item": item,
         },
     )
 
+    global checkTimer
+    if not checkTimer:
+        LOG.info("Starting network update timer")
+        checkTimer = Timer(1, _refresh)
+        _refresh(now=True)
