@@ -59,7 +59,7 @@ class Thermostat(BaseItem):
                             sum += closest.state*weight
                         else:
                             length += -1
-                            LOG.info("State of {name} was zero. Not likely, but possible.".format(name=temp.name))
+                            LOG.debug("State of {name} was zero. Not likely, but possible.".format(name=temp.name))
                     else:
                         length += -1
                         LOG.info("State of {name} was not a float. What?!?".format(name=temp.name))
