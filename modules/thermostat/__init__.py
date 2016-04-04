@@ -65,8 +65,16 @@ class Thermostat(BaseItem):
                         LOG.info("State was not a float. What?!?")
                 else:
                     length += -1
-                    LOG.info("No history found for {name}".format(name=val.name))
-            history.append({'time':float(val.time.timestamp()), 'temp':float(sum/length)})
+                    LOG.info("No history found for {name}".format(name=temp.name))
+            if length > 0:
+                history.append({'time':float(val.time.timestamp()), 'temp':float(sum/length)})
+            else:
+                LOG.info("Not enough temperature data to make a decision")
+                for i in self.heaters:
+                    i.off()
+                for i in self.chillers:
+                    i.off()
+                return                
         for i in self.temps:
             LOG.debug("{name}: {last}".format(name=i.name, last=i.state_history.last()))
         if self.algorithm == "pid":
