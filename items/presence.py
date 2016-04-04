@@ -3,7 +3,7 @@ from idiotic.item import Toggle, Trigger, Number, Group
 people = [("Dylan", ["dylanchromebook", "dylancell", ]),
           ("Mark", ["dom", "dom-wired",]),
           ("Sasha", ["mosaic",]),
-          ("Jerry", ["jerry", "jerryphone",]
+          ("Jerry", ["jerry", "jerryphone",]),
          ]
 
 for name, devices in people:
