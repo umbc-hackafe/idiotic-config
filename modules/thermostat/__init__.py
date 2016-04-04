@@ -46,7 +46,7 @@ class Thermostat(BaseItem):
             chill, heat = pd(history, self.setpoint.state, self.variance)
         else:
             chill, heat = simple(history, self.setpoint.state, self.variance)
-        LOG.info("AC set to {ac} and heat set to {heat}".format(ac=chill, heat=heat))
+        LOG.debug("AC set to {ac} and heat set to {heat}".format(ac=chill, heat=heat))
         for i in self.heaters:
             if heat:
                 i.on()
@@ -59,7 +59,7 @@ class Thermostat(BaseItem):
                 i.off()
                 
         if evt:
-            LOG.info("Updated: {item} to {state}".format(item=evt.item.name, state=evt.new))
+            LOG.debug("Updated: {item} to {state}".format(item=evt.item.name, state=evt.new))
 
     @command
     def set(self, val: float):
