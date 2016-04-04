@@ -33,13 +33,25 @@ class Thermostat(BaseItem):
     def update(self, evt=None):
         if self.setpoint.state is None:
             self.setpoint.state = 25
-        vals = list(self.temps.keys())[0].state_history.last(self.memory)
+        for i in self.temps.keys():
+            vals = i.state_history.last(self.memory)
+            if len(vals) > 0:
+                break
+        if not vals:
+            LOG.info("Not temperature data available!")
+            return
         history = []
         for val in vals:
             sum = 0
+            length = len(self.temps)
             for temp in self.temps:
-                sum += temp.state_history.closest(val.time).state*self.weights[self.name+"-temp-"+temp.name].state
-            history.append({'time':float(val.time.timestamp()), 'temp':float(sum)})
+                closest = temp.state_history.closest(val.time)
+                weight = self.weights[self.name+"-temp-"+temp.name].state
+                if closest:
+                    sum += closest.state*weight
+                else:
+                    length += -1
+            history.append({'time':float(val.time.timestamp()), 'temp':float(sum/length)})
         if self.algorithm == "pid":
             chill, heat = pid(history, self.setpoint.state, self.variance)
         elif self.algorithm == "pd":
