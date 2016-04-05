@@ -100,5 +100,5 @@ class Thermostat(BaseItem):
 
     @command
     def set(self, val: float):
-        self.state = val
+        self.state = float(val)
         self.update()
