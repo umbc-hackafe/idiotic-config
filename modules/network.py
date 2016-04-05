@@ -19,7 +19,7 @@ def _refresh():
     global refreshThread
     refreshThread = threading.Thread(target=__refresh)
     refreshThread.isDaemon = True
-    refreshThread.run()
+    refreshThread.start()
 
 def __refresh():
     global checkTimer
