@@ -24,16 +24,13 @@ def bind_item(item, port, actions=None):
     if not actions:
         actions = defaultdict(None, {"off":False, "on":True})
 
-        item.bind_on_command(functools.partial(_control_bind, actions.copy(),
-                                               port), kind="after")
+    item.bind_on_command(functools.partial(_control_bind, actions.copy(),
+                                           port), kind="after")
 
 def _control_bind(cmd_dict, port, event):
     if event.command in cmd_dict:
         action = cmd_dict[event.command]
-        if action == "on":
-            _poe_set(port, True)
-        elif action == "off":
-            _poe_set(port, False)
+        _poe_set(port, action)
 
 def _poe_set(port, val):
     res = requests.post(
