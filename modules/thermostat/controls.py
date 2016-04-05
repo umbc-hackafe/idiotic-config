@@ -34,9 +34,9 @@ def pid(logdata, setpoint, diff):
   setpoint = float(setpoint)
   if len(logdata) < 2:
       return False, False
-  pterm = 0.5
+  pterm = 1.0
   iterm = 0.1
-  dterm = 0.5
+  dterm = 10.0
   recent = logdata[-1]
   secondrecent = logdata[-2]
   timediff = recent['time'] - secondrecent['time']
