@@ -22,7 +22,7 @@ def bind_item(item, port, actions=None):
     port:        The port number to control
     """
     if not actions:
-        actions = defaultdict(None, {"off":"off", "on":"on"})
+        actions = defaultdict(None, {"off":False, "on":True})
 
         item.bind_on_command(functools.partial(_control_bind, actions.copy(),
                                                port), kind="after")
