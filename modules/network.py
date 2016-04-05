@@ -5,6 +5,7 @@ import logging
 import subprocess
 import time
 import os
+import threading
 
 LOG = logging.getLogger("module.network")
 
@@ -12,12 +13,19 @@ MODULE_NAME = "network"
 
 checks = []
 checkTimer = None
+refreshThread = None
 
-def _refresh(now=False):
+def _refresh():
+    global refreshThread
+    refreshThread = threading.Thread(target=__refresh)
+    refreshThread.isDaemon = True
+    refreshThread.run()
+
+def __refresh():
     global checkTimer
     ctime = int(time.time())
     for check in checks:
-        if now or ((ctime % check['interval']) == 0):
+        if (ctime % check['interval']) == 0:
             if check['action'] == 'ping':
                 for host in check['hosts']:
                     with open(os.devnull, 'w') as FNULL:
@@ -44,4 +52,4 @@ def bind_item(item, action="ping", hosts=["localhost"], interval=60):
     if not checkTimer:
         LOG.info("Starting network update timer")
         checkTimer = Timer(1, _refresh)
-        _refresh(now=True)
+        _refresh()
