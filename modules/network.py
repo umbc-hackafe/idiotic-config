@@ -29,7 +29,7 @@ def __refresh():
             if check['action'] == 'ping':
                 for host in check['hosts']:
                     with open(os.devnull, 'w') as FNULL:
-                        if not subprocess.call(["ping", "-c", "3", host], stdout=FNULL, stderr=subprocess.STDOUT):
+                        if not subprocess.call(["ping", "-c", "3", "-i", "0.01", host], stdout=FNULL, stderr=subprocess.STDOUT):
                             check['item'].on()
                             break
                 else:
