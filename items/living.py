@@ -51,6 +51,10 @@ Toggle("Luna",
        tags=("interaction",),
        bindings={"avaya": {"port": "15"}})
 
+Toggle("Living Room Camera",
+       tags=("interaction",),
+       bindings={"avaya": {"port": "48"}})
+
 Toggle("Living Room Projector",
        tags=("living_room", "media", "display"),
        bindings={"http": {"push": [
