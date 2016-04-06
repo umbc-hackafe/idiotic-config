@@ -10,16 +10,14 @@ Toggle("Garage Counter Lights",
 Toggle("Garage Purple Lights",
        tags=("garage", "light", "nyi"))
 
-Toggle("Garage Door Opener",
-       bindings={"http": {"push": [
-           ("on", "thegreatandpowerfultrixie:8081/door?action=trigger"),
-           ("off", "thegreatandpowerfultrixie:8081/door?action=close")]}},
+Toggle("Garage Door",
+       bindings={"http": {
+           "pull": (15, "thegreatandpowerfultrixie:8081/door?action=get", None, lambda s: s.startswith("OPEN")),
+           "push": [
+               ("on", "thegreatandpowerfultrixie:8081/door?action=trigger"),
+               ("off", "thegreatandpowerfultrixie:8081/door?action=close")]}},
        tags=("garage", "external_door"),
        aliases={"open": "on", "close": "off"})
-
-Toggle("Garage Door",
-       bindings={"http": {"pull": (15, "thegreatandpowerfultrixie:8081/door?action=get", None, lambda s: s.startswith("OPEN"))}},
-       tags=("garage", "external_door"))
 
 Motor("Garage Projector Screen",
       constrained=True,
@@ -27,6 +25,7 @@ Motor("Garage Projector Screen",
           ("forward", "thegreatandpowerfultrixie:8081/screen?action=down"),
           ("reverse", "thegreatandpowerfultrixie:8081/screen?action=up"),
           ("stop", "thegreatandpowerfultrixie:8081/screen?action=stop")]}},
+      aliases={"down": "forward", "up": "reverse"},
       tags=("garage",))
 
 Toggle("Garage Air Conditioner",
