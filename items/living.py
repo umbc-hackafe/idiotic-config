@@ -19,24 +19,23 @@ Toggle("Front Door",
 Toggle("Living Room Motion",
         tags=("living_room", "motion", "occupancy"))
 Toggle("Alert Beacon",
-       tags=("living_room", "light", "notification"),
-       bindings={"x10": {"code": "a11"}})
+       tags=("living_room", "light", "notification", "nyi"))
 Toggle("Lava Lamp",
-       tags=("living_room", "light"))
+       tags=("living_room", "light", "nyi"))
 Toggle("Black Light",
-       tags=("living_room", "light"),
-       bindings={"x10": {"code": "a14"}})
+       tags=("living_room", "light", "nyi"))
 Toggle("Disco Lights",
-       tags=("living_room", "light"),
-       bindings={"x10": {"code": "a15"},
-                 "modlet": {"device": "living",
-                            "control": True}})
+       tags=("living_room", "light", "nyi"))
 Toggle("Other Disco Lights",
-       tags=("living_room", "light"),
-       bindings={"x10": {"code": "a1"}})
-Toggle("Corner Light",
-       tags=("living_room", "light"),
-       bindings={"x10": {"code": "a12"}})
+       tags=("living_room", "light", "nyi"))
+
+for item in [c.items.lamp_blue,
+             c.items.lamp_white,
+             c.items.lamp_green,
+             c.items.lamp_grellow,
+             c.items.lamp_dark_blue]:
+    c.items.living_room_lamp.add(item)
+    item.tags.update(('living_room', 'light'))
 
 #c.items.lamp_blue.tags.update(('living_room', 'light'))
 #c.items.lamp_dark_blue.tags.update(('living_room', 'light'))

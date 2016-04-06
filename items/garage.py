@@ -5,12 +5,10 @@ Toggle("Garage Lights",
        tags=("garage", "light"))
 
 Toggle("Garage Counter Lights",
-       tags=("garage", "light"))
+       tags=("garage", "light", "nyi"))
 
 Toggle("Garage Purple Lights",
-       bindings={"modlet": {"device": "entertainment",
-                            "control": True}},
-       tags=("garage", "light"))
+       tags=("garage", "light", "nyi"))
 
 Toggle("Garage Door Opener",
        bindings={"http": {"push": [
@@ -32,7 +30,7 @@ Motor("Garage Projector Screen",
       tags=("garage",))
 
 Toggle("Garage Air Conditioner",
-       tags=("garage", "ac", "climate"))
+       tags=("garage", "ac", "climate", "nyi"))
 
 Toggle("Garage Side Door",
        tags=("garage", "external_door"))
