@@ -2,9 +2,11 @@ from idiotic.item import Toggle, Trigger, Number, Group
 from idiotic.scene import Scene
 from idiotic import instance as c
 
-Toggle("Living Room Lamp",
-       tags=("living_room", "light", "nightlight"),
-       bindings={"x10": {"code": "a6"}})
+Group("Living Room Lamp",
+      tags=("living_room", "light", "nightlight"),
+      commands=False,
+      command_send=True)
+
 Toggle("Turtle Light",
        tags=("living_room", "light"),
        bindings={"x10": {"code": "a5"}})
@@ -37,9 +39,8 @@ for item in [c.items.lamp_blue,
     c.items.living_room_lamp.add(item)
     item.tags.update(('living_room', 'light'))
 
-#c.items.lamp_blue.tags.update(('living_room', 'light'))
-#c.items.lamp_dark_blue.tags.update(('living_room', 'light'))
-#c.items.record_light.tags.update(('living_room', 'light'))
+c.items.corner_light.tags.update(('living_room', 'light'))
+c.items.record_light.tags.update(('living_room', 'light'))
 
 Group("Living Room Lights",
       tags=("living_room", "light"),
