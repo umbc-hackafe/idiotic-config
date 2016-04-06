@@ -9,7 +9,7 @@ MODULE_NAME = "thermostat"
 LOG = logging.getLogger("module.thermostat")
 
 class Thermostat(BaseItem):
-    def __init__(self, *args, chillers=[], heaters=[], temps={}, humidities={}, algorithm="pid", memory=1000, **kwargs):
+    def __init__(self, *args, chillers=[], heaters=[], temps={}, humidities={}, algorithm="pid", memory=100, **kwargs):
         super().__init__(*args, **kwargs)
         self.chillers = chillers
         self.heaters = heaters

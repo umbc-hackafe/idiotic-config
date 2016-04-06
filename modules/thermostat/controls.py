@@ -35,7 +35,7 @@ def pid(logdata, setpoint, diff):
   if len(logdata) < 2:
       return False, False
   pterm = 1.0
-  iterm = 0.1
+  iterm = 0.5
   dterm = 10.0
   recent = logdata[-1]
   secondrecent = logdata[-2]
