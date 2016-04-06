@@ -1,4 +1,7 @@
 from idiotic.item import Toggle, Trigger, Number, Group
+from idiotic import instance as c
+
+c.items.dylan_desk.tags.update(('bedroom', 'light'))
 
 Toggle("Bedroom Light",
        bindings={"http": {"push": "rarity:8081/downlight"}},
