@@ -1,7 +1,10 @@
 from idiotic.item import Toggle, Trigger, Number, Group
 
 Toggle("Bedroom Light",
-       tags=("bedroom", "light", "nyi"))
+       bindings={"http": {"push": "rarity:8081/downlight"}},
+       tags=("bedroom", "light"),
+       disable_commands=("on", "off"),
+       ignore_redundant=True)
 
 Toggle("Bedroom Mood Light",
        tags=("bedroom", "light", "nyi"))
@@ -10,7 +13,9 @@ Toggle("Bedroom Fan",
        tags=("bedroom", "fan", "climate", "nyi"))
 
 Toggle("Bedroom Air Conditioner",
-       tags=("bedroom", "ac", "climate"))
+       tags=("bedroom", "ac", "climate"),
+       bindings={"modlet": {"device": "bedroom",
+                            "control": True}})
 Toggle("Bedroom Motion",
         tags=("bedroom", "motion", "occupancy", "nyi"))
 
