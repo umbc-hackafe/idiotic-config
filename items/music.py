@@ -6,7 +6,7 @@ Toggle("Music Room Light",
 
 c.items.sasha_floor_lamp.tags.update(("music_room", "light"))
 
-Toggle("Music Room Motion",
+Trigger("Music Room Motion",
         tags=("music_room", "motion", "occupancy", "nyi"))
 
 Toggle("Music Room Door",

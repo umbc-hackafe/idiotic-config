@@ -31,13 +31,13 @@ Scene("Office Occupied")
 #   - Kitchen motion sensor was activated within 1 minute
 # Do:
 #   Enter scene KitchenOccupied
-Rule(CommandReceivedCondition(c.items.kitchen_motion, 600, 'on') |
+Rule(CommandReceivedCondition(c.items.kitchen_motion, 600, 'trigger') |
      CommandReceivedCondition(c.items.kitchen_door, 60, 'on'),
      SceneAction(c.scenes.kitchen_occupied))
 
 # When the living room motion sensor was activated within 15 minutes:
 # Enter scene LivingRoomOccupied
-Rule(CommandReceivedCondition(c.items.living_room_motion, 900, 'on'),
+Rule(CommandReceivedCondition(c.items.living_room_motion, 900, 'trigger'),
      SceneAction(c.scenes.living_room_occupied))
 
 # When any of:
@@ -45,13 +45,13 @@ Rule(CommandReceivedCondition(c.items.living_room_motion, 900, 'on'),
 #   - Entertainment room motion sensor was activated within 3 minutes
 # Do:
 #   Enter scene EntertainmentRoomOcupied
-Rule(CommandReceivedCondition(c.items.entertainment_room_motion, 180, 'on'),
+Rule(CommandReceivedCondition(c.items.entertainment_room_motion, 180, 'trigger'),
 # NYI
 #     StateIsCondition(c.items.entertainment_room_laundry_room_door, False, since=180),
      SceneAction(c.scenes.entertainment_room_occupied))
 
 # Enter LaundryRoomOccupied on motion or door change
-Rule(CommandReceivedCondition(c.items.laundry_room_motion, 180, 'on'),
+Rule(CommandReceivedCondition(c.items.laundry_room_motion, 180, 'trigger'),
 # NYI
 #     StateIsCondition(c.items.entertainment_room_laundry_room_door, False, since=180) |
 #     StateIsCondition(c.items.laundry_room_door, False, since=180),

@@ -4,7 +4,7 @@ Toggle("Office Light",
        bindings={"x10": {"code": "b4"}},
        tags=("office", "light"))
 
-Toggle("Office Motion",
+Trigger("Office Motion",
         tags=("office", "motion", "occupancy"))
 
 Toggle("Office Door",

@@ -7,7 +7,7 @@ Group("Hallway Light",
       command_send=True,
       members=[c.items.hall_light_1, c.items.hall_light_2])
 
-Toggle("Hallway Motion",
+Trigger("Hallway Motion",
         tags=("hallway", "motion", "occupancy"))
 
 Number("Hallway Temperature",

@@ -19,7 +19,7 @@ Toggle("Bedroom Air Conditioner",
        tags=("bedroom", "ac", "climate"),
        bindings={"modlet": {"device": "bedroom",
                             "control": True}})
-Toggle("Bedroom Motion",
+Trigger("Bedroom Motion",
         tags=("bedroom", "motion", "occupancy", "nyi"))
 
 Toggle("Bedroom Door",

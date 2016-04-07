@@ -18,7 +18,7 @@ livingRoomAC = Toggle("Living Room Air Conditioner",
 
 Toggle("Front Door",
        tags=("living_room", "exterior_door", "occupancy", "nyi"))
-Toggle("Living Room Motion",
+Trigger("Living Room Motion",
         tags=("living_room", "motion", "occupancy"))
 Toggle("Alert Beacon",
        tags=("living_room", "light", "notification", "nyi"))

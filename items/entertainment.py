@@ -10,7 +10,7 @@ Toggle("Entertainment Room Living Room Door",
 
 Toggle("Entertainment Room Laundry Room Door",
        tags=("entertainment_room", "laundry_room", "door", "occupancy"))
-Toggle("Entertainment Room Motion",
+Trigger("Entertainment Room Motion",
         tags=("entertainment_room", "motion", "occupancy"))
 
 Number("Entertainment Room Temperature",

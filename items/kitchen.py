@@ -38,6 +38,6 @@ Text("Kettle Status",
 Toggle("Kitchen Door",
        tags=("kitchen", "exterior_door", "occupancy", "nyi"))
 
-Toggle("Kitchen Motion",
+Trigger("Kitchen Motion",
        tags=("kitchen", "motion", "occupancy"),
        ignore_redundant=True)
