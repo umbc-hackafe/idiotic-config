@@ -10,7 +10,8 @@ Toggle("Bedroom Fan",
 Toggle("Bedroom AC",
        tags=("bedroom", "climate"))
 
-Trigger("Bedroom Motion", "webui.readonly")
+Trigger("Bedroom Motion",
+        tags=("webui.readonly",))
 
 Toggle("Bedroom Door",
         tags=("bedroom", "webui.readonly"))
