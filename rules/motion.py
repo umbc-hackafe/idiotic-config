@@ -56,7 +56,7 @@ Rule(
     SceneCondition(c.scenes.living_room_occupied) &
      ~SceneCondition(c.scenes.daytime) &
      ~SceneCondition(c.scenes.theater),
-     StateAction(c.items.living_room_light, True, False))
+     StateAction(c.items.living_room_lamp, True, False))
 
 # When:
 #  - The kitchen is occupied
