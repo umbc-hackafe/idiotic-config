@@ -2,7 +2,10 @@ from idiotic.item import Toggle
 from idiotic import instance as c
 from idiotic.modutils import require_items
 
-require_items("living", "bedroom", "office", "kitchen")
+require_items("living")
+require_items("bedroom")
+require_items("office")
+require_items("kitchen")
 
 Toggle("Furnace",
        tags=("heat", "webui.show_disable")
