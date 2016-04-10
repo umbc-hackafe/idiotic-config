@@ -12,5 +12,5 @@ Trigger("Kitchen Motion",
 Number("Kitchen Temperature",
        tags=("kitchen", "temperature", "climate", "webui.readonly", "webui.show_sparkline"))
 
-Number("Living Room Humidity",
+Number("Kitchen Humidity",
        tags=("kitchen", "humidity", "climate", "webui.readonly", "webui.show_sparkline"))
