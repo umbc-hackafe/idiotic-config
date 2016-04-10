@@ -90,7 +90,7 @@ def configure(config, api, assets):
         if not request.data().get("Action"):
             return request.response(end=False, speech="Please specify 'enter' or 'exit'")
 
-        name = request.data().get("Scene").lower().replace(' ', '')
+        name = request.data().get("Scene")
         action = request.data().get("Action").lower()
 
         try:
