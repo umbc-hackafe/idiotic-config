@@ -1,20 +1,14 @@
-from idiotic.item import Toggle, Number
+from idiotic.item import Toggle
 from idiotic import instance as c
 from idiotic.modutils import require_items
 
-require_items('living')
-require_items('office')
-require_items('bedroom')
-require_items('music')
-require_items('entertainment')
-require_items('hall')
+require_items("living", "bedroom", "office", "kitchen")
 
 Toggle("Furnace",
-       tags=("heat", "webui.show_disable"),
-       bindings={"x10": {"code": "d1"}}
+       tags=("heat", "webui.show_disable")
       )
 
-c.modules.thermostat.Thermostat("Boiler",
+c.modules.thermostat.Thermostat("Thermostat",
        tags=("webui.show_disable",
              "heat",),
        heaters=[
@@ -24,17 +18,13 @@ c.modules.thermostat.Thermostat("Boiler",
                 c.items.living_room_temperature: 1,
                 c.items.office_temperature: 1,
                 c.items.bedroom_temperature: 1,
-                c.items.music_room_temperature: 1,
-                c.items.entertainment_room_temperature: 1,
-                c.items.hallway_temperature: 1,
+                c.items.kitchen_temperature: 1,
            },
        humidities={
                 c.items.living_room_humidity: 0.16,
                 c.items.office_humidity: 0.16,
                 c.items.bedroom_humidity: 0.16,
-                c.items.music_room_humidity: 0.16,
-                c.items.entertainment_room_humidity: 0.16,
-                c.items.hallway_humidity: 0.16,
+                c.items.kitchen_humidity: 0.16,
            },
      )
 

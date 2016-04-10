@@ -8,3 +8,9 @@ Toggle("Kitchen Door",
 
 Trigger("Kitchen Motion",
        tags=("kitchen", "motion", "occupancy", "webui.readonly"))
+
+Number("Kitchen Temperature",
+       tags=("kitchen", "temperature", "climate", "webui.readonly", "webui.show_sparkline"))
+
+Number("Living Room Humidity",
+       tags=("kitchen", "humidity", "climate", "webui.readonly", "webui.show_sparkline"))
