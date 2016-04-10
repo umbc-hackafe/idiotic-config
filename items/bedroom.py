@@ -1,34 +1,22 @@
 from idiotic.item import Toggle, Trigger, Number, Group
 from idiotic import instance as c
 
-c.items.dylan_desk.tags.update(('bedroom', 'light'))
-
 Toggle("Bedroom Light",
-       bindings={"http": {"push": "rarity:8081/downlight"}},
-       tags=("bedroom", "light"),
-       disable_commands=("on", "off"),
-       ignore_redundant=True)
-
-Toggle("Bedroom Mood Light",
-       tags=("bedroom", "light", "nyi"))
+       tags=("bedroom", "light"))
 
 Toggle("Bedroom Fan",
-       tags=("bedroom", "fan", "climate", "nyi"))
+       tags=("bedroom", "fan"))
 
-Toggle("Bedroom Air Conditioner",
-       tags=("bedroom", "ac", "climate"),
-       bindings={"modlet": {"device": "bedroom",
-                            "control": True}})
-Trigger("Bedroom Motion",
-        tags=("bedroom", "motion", "occupancy", "nyi"))
+Toggle("Bedroom AC",
+       tags=("bedroom", "climate"))
+
+Trigger("Bedroom Motion", "webui.readonly")
 
 Toggle("Bedroom Door",
-        tags=("bedroom", "hallway", "door", "occupancy", "nyi"))
+        tags=("bedroom", "webui.readonly"))
 
 Number("Bedroom Temperature",
-       bindings={"http": {"pull": (60, "rarity:8081/temp", None, float)}},
-       tags=("bedroom", "temperature", "climate", "webui.show_sparkline"))
+       tags=("bedroom", "temperature", "webui.readonly", "webui.show_sparkline"))
 
 Number("Bedroom Humidity",
-       bindings={"http": {"pull": (60, "rarity:8081/hum", None, float)}},
-       tags=("bedroom", "humidity", "climate", "webui.show_sparkline"))
+       tags=("bedroom", "humidity", "webui.readonly" "webui.show_sparkline"))
