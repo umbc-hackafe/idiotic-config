@@ -41,46 +41,46 @@ Rule(CommandReceivedCondition(c.items.bedroom_motion, 60, 'trigger'),
 Rule(CommandReceivedCondition(c.items.office_motion, 60, 'trigger'),
      SceneAction(c.scenes.office_occupied))
 
-# Turn on the kitchen light when it's occupied and not daylight
+# Turn on the kitchen light when it's occupied and not daytime
 Rule(SceneCondition(c.scenes.kitchen_occupied) &
      ~SceneCondition(c.scenes.daytime),
      StateAction(c.items.kitchen_light, True, False))
 
 # When:
 #  - The living room is occuped
-#  - It is not daylight
+#  - It is not daytime
 #  - We are not watching a movie
 # Do:
 #   Turn on the living room light
 Rule(
     SceneCondition(c.scenes.living_room_occupied) &
-     ~SceneCondition(c.scenes.daylight) &
+     ~SceneCondition(c.scenes.daytime) &
      ~SceneCondition(c.scenes.theater),
      StateAction(c.items.living_room_light, True, False))
 
 # When:
 #  - The kitchen is occupied
-#  - It is not daylight
+#  - It is not daytime
 # Do:
 #   Turn on the kitchen light
 Rule(SceneCondition(c.scenes.kitchen_occupied) &
-     ~SceneCondition(c.scenes.daylight),
+     ~SceneCondition(c.scenes.daytime),
      StateAction(c.items.kitchen_light, True, False))
 
 # When:
 #  - The bedroom room is occupied
 #  - We are not sleeping
-#  - It is not daylight
+#  - It is not daytime
 Rule(SceneCondition(c.scenes.bedroom_occupied) &
      ~SceneCondition(c.scenes.sleep) &
-     ~SceneCondition(c.scenes.daylight),
+     ~SceneCondition(c.scenes.daytime),
      StateAction(c.items.bedroom_light, True, False))
 
 # When:
 #  - The office is occupied
-#  - It is not daylight
+#  - It is not daytime
 # When the laundry room is occupied,
 # turn on the light
 Rule(SceneCondition(c.scenes.office_occupied) &
-     ~SceneCondition(c.scenes.daylight),
+     ~SceneCondition(c.scenes.daytime),
      StateAction(c.items.office_light, True, False))
