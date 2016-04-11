@@ -54,9 +54,9 @@ def configure(config, api, assets):
     elif mode == "board":
         gpio.setmode(gpio.BOARD)
 
-    api.serve(output_high, '/output/<pin>/high')
-    api.serve(output_low, '/output/<pin>/low')
-    api.serve(read, '/input/<pin>')
+    api.add_url_rule('/output/<pin>/high', 'output_high', output_high)
+    api.add_url_rule('/output/<pin>/low', 'output_low', output_low)
+    api.add_url_rule('/input/<pin>', 'read', read)
 
 def bind_item(item, **config):
     if "input" in config:
