@@ -14,9 +14,9 @@ Toggle("Buzzer",
        tags=("output",),
        bindings={"gpio": {"output": {
            "pin": 11,
-           "default": "low",
+           "default": "high",
            "command": {
-               "mapping": {"on": "high", "off": "low"}
+               "mapping": {"on": "low", "off": "high"}
            }
        }}})
 
