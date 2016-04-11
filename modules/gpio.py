@@ -141,9 +141,9 @@ def command_binder(item, pin, config, evt):
 
     do_output(item, pin, out, kind, delay, evt)
 
-def do_output(item, pin, state, kind, delay, evt):
+def do_output(item, pin, out, kind, delay, evt):
     if kind == "constant":
-        gpio.output(pin, convert_state(out))        
+        gpio.output(pin, convert_state(out))
     elif kind == "button_high":
         # The button is active when high
         # Default low, and swap to high for {delay} to trigger
@@ -180,10 +180,10 @@ def bind_output(item, config):
         gpio.output(pin, default)
 
     if "state" in config:
-        item.bind_on_change(functools.partial(state_binder, pin, config["state"]), kind="after")
+        item.bind_on_change(functools.partial(state_binder, item, pin, config["state"]), kind="after")
 
     if "command" in config:
-        item.bind_on_command(functools.partial(command_binder, pin, config["command"]), kind="after")
+        item.bind_on_command(functools.partial(command_binder, item, pin, config["command"]), kind="after")
 
 def bind_pwm(item, config):
     raise NotImplementedError("PWM outputs are not implemented, sorry!")
