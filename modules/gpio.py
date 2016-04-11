@@ -3,6 +3,7 @@ import time
 import functools
 import RPi.GPIO as gpio
 
+MODULE_NAME = "gpio"
 SETUP_PINS = set()
 
 def convert_state(state):
@@ -18,7 +19,7 @@ def convert_pull(state):
     elif state in ("up", "high"):
         return gpio.PUD_UP
     else:
-        return gpio.PUD_NONE
+        return None
 
 def convert_edge(state):
     if state in ("rising", "rise"):
@@ -51,7 +52,7 @@ def configure(config, api, assets):
     if mode == "bcm":
         gpio.setmode(gpio.BCM)
     elif mode == "board":
-        gpio.setode(gpio.BOARD)
+        gpio.setmode(gpio.BOARD)
 
     api.serve(output_high, '/output/<pin>/high')
     api.serve(output_low, '/output/<pin>/low')
@@ -90,28 +91,33 @@ def command_callback(item, pin, mapping, edge):
 def bind_input(item, config):
     try:
         pin = config["pin"]
-
-        pud = convert_pull(config.get("pull", None))
-        edge = convert_edge(config.get("edge", None))
-        debounce = config.get("debounce", None)
-
-        gpio.setup(pin, gpio.IN, pull_up_down=pud)
-        SETUP_PINS.add(pin)
-
-        if "state" in config:
-            GPIO.add_event_detect(pin, edge, bouncetime=debounce,
-                                  callback=functools.partial(
-                                      state_callback, item, pin,
-                                      config["state"], edge))
-
-        if "command" in config:
-            GPIO.add_event_detect(pin, edge, bouncetime=debounce,
-                                  callback=functools.partial(
-                                      command_callback, item, pin,
-                                      config["command"], edge))
     except TypeError:
-        for part in config:
-            bind_input(item, part)
+        try:
+            for part in config:
+                bind_input(item, part)
+        except:
+            raise ValueError("Invalid arguments")
+        finally:
+            return
+
+    pud = convert_pull(config.get("pull", None))
+    edge = convert_edge(config.get("edge", None))
+    debounce = config.get("debounce", 100)
+
+    gpio.setup(pin, gpio.IN, pull_up_down=pud)
+    SETUP_PINS.add(pin)
+
+    if "state" in config:
+        gpio.add_event_detect(pin, edge, bouncetime=debounce,
+                              callback=functools.partial(
+                                  state_callback, item, pin,
+                                  config["state"], edge))
+
+    if "command" in config:
+        gpio.add_event_detect(pin, edge, bouncetime=debounce,
+                              callback=functools.partial(
+                                  command_callback, item, pin,
+                                  config["command"], edge))
 
 def state_binder(item, pin, config, evt):
     if "mapping" in config:
@@ -156,23 +162,28 @@ def do_output(item, pin, state, kind, delay, evt):
 def bind_output(item, config):
     try:
         pin = config["pin"]
-
-        default = convert_state(item.get("default", "low"))
-
-        gpio.setup(pin, gpio.OUT, default)
-        SETUP_PINS.add(pin)
-
-        if default is not None:
-            gpio.output(pin, default)
-
-        if "state" in config:
-            item.bind_on_change(functools.partial(state_binder, pin, config["state"]), kind="after")
-
-        if "command" in config:
-            item.bind_on_command(functools.partial(command_binder, pin, config["command"]), kind="after")
     except TypeError:
-        for part in config:
-            bind_output(item, part)
+        try:
+            for part in config:
+                bind_output(item, part)
+        except:
+            raise ValueError("Invalid arguments")
+        finally:
+            return
+
+    default = convert_state(config.get("default", "low"))
+
+    gpio.setup(pin, gpio.OUT)
+    SETUP_PINS.add(pin)
+
+    if default is not None:
+        gpio.output(pin, default)
+
+    if "state" in config:
+        item.bind_on_change(functools.partial(state_binder, pin, config["state"]), kind="after")
+
+    if "command" in config:
+        item.bind_on_command(functools.partial(command_binder, pin, config["command"]), kind="after")
 
 def bind_pwm(item, config):
-    raise NotImplementedError("PWM outputs are not implemented, sorry!"
+    raise NotImplementedError("PWM outputs are not implemented, sorry!")
