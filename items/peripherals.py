@@ -1,6 +1,7 @@
 from idiotic.item import Toggle, Trigger, Number, Group, Text
 
 Toggle("Switch",
+       tags=("input",),
        bindings={"gpio": {"input": {
            "pin": 16,
            "edge": "both",
@@ -10,6 +11,7 @@ Toggle("Switch",
        }}})
 
 Toggle("Buzzer",
+       tags=("output",),
        bindings={"gpio": {"output": {
            "pin": 11,
            "default": "low",
@@ -19,6 +21,7 @@ Toggle("Buzzer",
        }}})
 
 Toggle("LED",
+       tags=("output",),
        bindings={"gpio": {"output": {
            "pin": 13,
            "default": "low",
