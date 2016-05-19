@@ -1,6 +1,14 @@
 from idiotic.item import Toggle, Trigger, Number, Group
 from idiotic import instance as c
 
+Dimmer("Hall Light 1",
+       bindings={"wink": {}},
+       tags=("hallway", "light"))
+
+Dimmer("Hall Light 2",
+       bindings={"wink": {}},
+       tags=("hallway", "light"))
+
 Group("Hallway Light",
       tags=("hallway", "light", "nightlight"),
       commands=False,
