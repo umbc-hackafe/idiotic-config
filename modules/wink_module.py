@@ -63,10 +63,10 @@ def toggle_command(device, evt):
         device.turn_off()
 
 def bind_dimmer(item, target, mapping):
-    item.bind_on_command(functools.partial(dimmer_command, device))
+    item.bind_on_command(functools.partial(dimmer_command, target))
 
 def bind_toggle(item, target, mapping):
-    item.bind_on_command(functools.partial(toggle_command, device))
+    item.bind_on_command(functools.partial(toggle_command, target))
 
 def bind_item(item, id=None, name=None, type=None, mapping=None):
     if not id and not name:
