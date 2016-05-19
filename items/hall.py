@@ -1,4 +1,4 @@
-from idiotic.item import Toggle, Trigger, Number, Group
+from idiotic.item import Toggle, Trigger, Number, Group, Dimmer
 from idiotic import instance as c
 
 Dimmer("Hall Light 1",
