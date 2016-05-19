@@ -39,7 +39,7 @@ def configure(config, api, assets):
         item_type = device.device_type()
         LOG.debug("  {} is type '{}', id={}".format(label, item_type, device.id))
 
-        if config["automatic_items"]:
+        if config.get("automatic_items", False):
             LOG.debug("  Auto-creating items...")
             if item_type == 'light_bulb':
                 LOG.debug("Adding {} as WinkLight".format(label))
