@@ -1,7 +1,9 @@
 from idiotic.item import Toggle, Trigger, Number, Group
 from idiotic import instance as c
 
-c.items.dylan_desk.tags.update(('bedroom', 'light'))
+Dimmer("Bedroom Desk Lamp",
+       bindings={"wink": {"name": "Dylan Desk"}},
+       tags=("bedroom", "light", "alexa.exclude_iot"))
 
 Toggle("Bedroom Light",
        bindings={"http": {"push": "rarity:8081/downlight"}},

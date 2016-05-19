@@ -31,16 +31,11 @@ Toggle("Disco Lights",
 Toggle("Other Disco Lights",
        tags=("living_room", "light", "nyi"))
 
-for item in [c.items.lamp_blue,
-             c.items.lamp_white,
-             c.items.lamp_green,
-             c.items.lamp_grellow,
-             c.items.lamp_dark_blue]:
-    c.items.living_room_lamp.add(item)
-    item.tags.update(('living_room', 'light'))
-
-c.items.corner_light.tags.update(('living_room', 'light'))
-c.items.record_light.tags.update(('living_room', 'light'))
+for name in ["Lamp Blue", "Lamp White", "Lamp Green", "Lamp Grellow", "Lamp Dark Blue",
+             "Corner Light", "Record Light"]:
+    Dimmer(name,
+           bindings={"wink": {}},
+           tags=('living_room', 'light', 'alexa.iot_exclude'))
 
 Group("Living Room Lights",
       tags=("living_room", "light"),

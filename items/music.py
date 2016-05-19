@@ -4,7 +4,9 @@ from idiotic import instance as c
 Toggle("Music Room Light",
        tags=("music_room", "light", "nyi"))
 
-c.items.sasha_floor_lamp.tags.update(("music_room", "light"))
+Dimmer("Music Room Lamp",
+       bindings={"wink": {"name": "Sasha Floor Lamp"}},
+       tags=("music_room", "light"))
 
 Trigger("Music Room Motion",
         tags=("music_room", "motion", "occupancy", "nyi"))
