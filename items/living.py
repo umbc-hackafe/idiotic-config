@@ -58,10 +58,12 @@ Toggle("Living Room Projector",
 
 Number("Living Room Temperature",
        bindings={"http": {"pull": (60, "luna:8081/temp", None, float)}},
-       tags=("living_room", "temperature", "climate", "webui.show_sparkline"))
+       tags=("living_room", "temperature", "climate", "webui.show_sparkline",
+           "webui.readonly"))
 Number("Living Room Humidity",
        bindings={"http": {"pull": (60, "luna:8081/hum", None, float)}},
-       tags=("living_room", "humidity", "climate", "webui.show_sparkline"))
+       tags=("living_room", "humidity", "climate", "webui.show_sparkline",
+           "webui.readonly"))
 
 c.modules.thermostat.Thermostat("Living Room AC",
        tags=("webui.show_disable",

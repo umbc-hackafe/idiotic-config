@@ -20,7 +20,9 @@ Trigger("Hallway Motion",
 
 Number("Hallway Temperature",
        bindings={"http": {"pull": (60, "scootaloo:8081/temp", None, float)}},
-       tags=("hallway", "temperature", "climate", "webui.show_sparkline"))
+       tags=("hallway", "temperature", "climate", "webui.show_sparkline",
+           "webui.readonly"))
 Number("Hallway Humidity",
        bindings={"http": {"pull": (60, "scootaloo:8081/hum", None, float)}},
-       tags=("hallway", "humidity", "climate", "webui.show_sparkline"))
+       tags=("hallway", "humidity", "climate", "webui.show_sparkline",
+           "webui.readonly"))
