@@ -24,8 +24,21 @@ Number("Office Humidity",
        tags=("office", "humidity", "climate", "webui.show_sparkline",
            "webui.readonly"))
 
+Dimmer("Office Lamp 1",
+       bindings={"wink": {"id": 1541981}},
+       tags=("office", "light"))
+
+Dimmer("Office Lamp 2",
+       bindings={"wink": {"id": 1541998}},
+       tags=("office", "light"))
+
 Toggle("Office Air Conditioner",
        tags=("office", "ac", "climate", "nyi"))
+
+Group("Office Lights",
+      tags=("office"),
+      command_send=True,
+      members=c.items.with_tags({'light', 'office'}))
 
 c.modules.thermostat.Thermostat(
     "Office Thermostat",
