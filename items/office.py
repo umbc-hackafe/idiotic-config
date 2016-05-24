@@ -26,3 +26,12 @@ Number("Office Humidity",
 
 Toggle("Office Air Conditioner",
        tags=("office", "ac", "climate", "nyi"))
+
+c.modules.thermostat.Thermostat(
+    "Office Thermostat",
+    display=display_unit("C"),
+    tags=("webui.show_disable", "heat, "nyi"),
+    chillers=[c.items.office_air_conditioner],
+    temps={c.items.office_temperature: 1.0},
+    humidities={c.items.office_humidity: 1.0}
+)

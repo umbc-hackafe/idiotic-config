@@ -26,3 +26,15 @@ Number("Music Room Humidity",
        bindings={"http": {"pull": "cheerilee:8081/hum"}},
        tags=("music_room", "humidity", "climate", "webui.show_sparkline",
            "webui.readonly"))
+
+Toggle("Music Room Air Conditioner",
+       tags=("music_room", "ac", "climate", "nyi"))
+
+c.modules.thermostat.Thermostat(
+    "Music Room Thermostat",
+    display=display_unit("C"),
+    tags=("webui.show_disable", "heat", "nyi"),
+    chillers=[c.items.music_room_air_conditioner],
+    temps={c.items.music_room_temperature: 1.0},
+    humidities={c.items.music_room_humidity: 1.0}
+)

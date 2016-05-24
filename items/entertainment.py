@@ -23,3 +23,12 @@ Number("Entertainment Room Humidity",
        bindings={"http": {"pull": (60, "vinyl:8081/hum", None, float)}},
        tags=("entertainment_room", "humidity", "climate",
            "webui.show_sparkline", "webui.readonly"))
+
+c.modules.thermostat.Thermostat(
+    "Entertainment Room Thermostat",
+    display=display_unit("C"),
+    tags=("webui.show_disable", "heat"),
+    chillers=[c.items.entertainment_room_air_conditioner],
+    temps={c.items.entertainment_room_temperature: 1.0},
+    humidities={c.items.entertainment_room_humidity: 1.0}
+)

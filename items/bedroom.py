@@ -38,3 +38,12 @@ Number("Bedroom Humidity",
        bindings={"http": {"pull": (60, "rarity:8081/hum", None, float)}},
        tags=("bedroom", "humidity", "climate", "webui.show_sparkline",
            "webui.readonly"))
+
+c.modules.thermostat.Thermostat(
+    "Bedroom Thermostat",
+    display=display_unit("C"),
+    tags=("webui.show_disable", "heat"),
+    chillers=[c.items.bedroom_air_conditioner],
+    temps={c.items.bedroom_temperature: 1.0},
+    humidities={c.items.bedroom_humidity: 1.0}
+)
