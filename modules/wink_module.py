@@ -1,6 +1,7 @@
 from idiotic.item import Dimmer, Toggle
 import functools
 import logging
+import asyncio
 import wink
 
 auth = None
@@ -48,19 +49,23 @@ def configure(config, api, assets):
             else:
                 LOG.debug("{} is an unsupported type, skipping :(".format(label))
 
+@asyncio.coroutine
 def dimmer_command(device, evt):
+    loop = asyncio.get_event_loop()
     if evt.command == 'set':
-        device.set_brightness(float(evt.args[0]))
+        yield from loop.run_in_executor(None, device.set_brightness, float(evt.args[0]))
     elif evt.command == 'on':
-        device.turn_on()
+        yield from loop.run_in_executor(None, device.turn_on)
     elif evt.command == 'off':
-        device.turn_off()
+        yield from loop.run_in_executor(None, device.turn_off)
 
+@asyncio.coroutine
 def toggle_command(device, evt):
+    loop = asyncio.get_event_loop()
     if evt.command == 'on':
-        device.turn_on()
+        yield from loop.run_in_executor(device.turn_on)
     elif evt.command == 'off':
-        device.turn_off()
+        yield from loop.run_in_executor(device.turn_off)
 
 def bind_dimmer(item, target, mapping):
     item.bind_on_command(functools.partial(dimmer_command, target))
