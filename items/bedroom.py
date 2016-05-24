@@ -14,8 +14,8 @@ Toggle("Bedroom Mood Light",
        tags=("bedroom", "light", "nyi"))
 
 Toggle("Bedroom Fan",
-       bindings={"http": {"push": {"on": "rarity:8081/high",
-                                   "off": "rarity:8081/fanoff"}}},
+       bindings={"http": {"push": [("on": "rarity:8081/high"),
+                                   ("off": "rarity:8081/fanoff")]}},
        tags=("bedroom", "fan", "climate"))
 
 Toggle("Bedroom Air Conditioner",
