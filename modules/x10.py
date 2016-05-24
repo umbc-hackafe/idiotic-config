@@ -2,6 +2,8 @@
 
 """
 
+import asyncio
+import aiohttp
 import logging
 import requests
 import functools
@@ -48,9 +50,11 @@ def bind_item(item, code=None, actions=None,
     log.debug("binding {} to x10".format(item))
     item.bind_on_command(functools.partial(_evt_bind, outgoing.copy(), house, unit), kind="after")
 
+@asyncio.coroutine
 def _evt_bind(cmd_dict, house, unit, event):
-    _act(cmd_dict[event.command], house, unit)
+    yield from _act(cmd_dict[event.command], house, unit)
 
+@asyncio.coroutine
 def _act(act, house, unit):
     log.debug("Issuing command {}{} {}".format(house, unit, act))
     if act.lower() not in ('on', 'off', 'bright', 'dim'):
@@ -62,7 +66,8 @@ def _act(act, house, unit):
 
     log.debug("Making request")
 
-    requests.get("http://{}/{}/{}/{}".format(host, act.lower(), house.lower(), unit))
+    res = yield from aiohttp.get("http://{}/{}/{}/{}".format(host, act.lower(), house.lower(), unit))
+    res.close()
 
 def on(house, unit):
     _act("on", house, unit)
