@@ -8,7 +8,6 @@ Dimmer("Bedroom Desk Lamp",
 Toggle("Bedroom Light",
        bindings={"http": {"push": "rarity:8081/downlight"}},
        tags=("bedroom", "light"),
-       disable_commands=("on", "off"),
        ignore_redundant=True)
 
 Toggle("Bedroom Mood Light",
