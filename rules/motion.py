@@ -118,3 +118,11 @@ Rule(SceneCondition(c.scenes.entertainment_room_occupied) &
 # turn on the light
 Rule(SceneCondition(c.scenes.laundry_room_occupied),
      StateAction(c.items.laundry_room_light, True, False))
+
+# When:
+#  - The bedroom is occupied
+#  - We are not sleeping
+# Turn on the light
+Rule(SceneCondition(c.scenes.bedroom_occupied) &
+     ~SceneCondition(c.scenes.bedroom_sleep),
+     StateAction(c.items.bedroom_light, True, False))
