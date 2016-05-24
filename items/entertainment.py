@@ -1,4 +1,4 @@
-from idiotic.item import Toggle, Trigger, Number, Group
+from idiotic.item import Toggle, Trigger, Number, Group, display_unit
 
 Toggle("Entertainment Room Light",
        bindings={"x10": {"code": "a13"}},
@@ -14,10 +14,12 @@ Trigger("Entertainment Room Motion",
         tags=("entertainment_room", "motion", "occupancy"))
 
 Number("Entertainment Room Temperature",
+       display=display_unit("C"),
        bindings={"http": {"pull": (60, "vinyl:8081/temp", None, float)}},
        tags=("entertainment_room", "temperature", "climate",
            "webui.show_sparkline", "webui.readonly"))
 Number("Entertainment Room Humidity",
+       display=Number.DisplayWholePercent,
        bindings={"http": {"pull": (60, "vinyl:8081/hum", None, float)}},
        tags=("entertainment_room", "humidity", "climate",
            "webui.show_sparkline", "webui.readonly"))

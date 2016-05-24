@@ -11,6 +11,7 @@ Toggle("Garage Purple Lights",
        tags=("garage", "light", "nyi"))
 
 Toggle("Garage Door",
+       display=Toggle.DisplayOpenClosed,
        bindings={"http": {
            "pull": (15, "thegreatandpowerfultrixie:8081/door?action=get", None, lambda s: s.startswith("OPEN")),
            "push": [
@@ -20,6 +21,7 @@ Toggle("Garage Door",
        aliases={"open": "on", "close": "off"})
 
 Motor("Garage Projector Screen",
+      display=Motor.DisplayDownUp,
       constrained=True,
       bindings={"http": {"push": [
           ("forward", "thegreatandpowerfultrixie:8081/screen?action=down"),
@@ -32,4 +34,5 @@ Toggle("Garage Air Conditioner",
        tags=("garage", "ac", "climate", "nyi"))
 
 Toggle("Garage Side Door",
+       display=Toggle.DisplayClosedOpen,
        tags=("garage", "external_door"))

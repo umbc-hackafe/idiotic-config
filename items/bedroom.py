@@ -1,4 +1,4 @@
-from idiotic.item import Toggle, Trigger, Number, Group, Dimmer
+from idiotic.item import Toggle, Trigger, Number, Group, Dimmer, display_unit
 from idiotic import instance as c
 
 Dimmer("Bedroom Desk Lamp",
@@ -28,11 +28,13 @@ Toggle("Bedroom Door",
         tags=("bedroom", "hallway", "door", "occupancy", "nyi"))
 
 Number("Bedroom Temperature",
+       display=display_unit("C"),
        bindings={"http": {"pull": (60, "rarity:8081/temp", None, float)}},
        tags=("bedroom", "temperature", "climate", "webui.show_sparkline",
            "webui.readonly"))
 
 Number("Bedroom Humidity",
+       display=Number.DisplayWholePercent,
        bindings={"http": {"pull": (60, "rarity:8081/hum", None, float)}},
        tags=("bedroom", "humidity", "climate", "webui.show_sparkline",
            "webui.readonly"))

@@ -8,4 +8,5 @@ Trigger("Laundry Room Motion",
         tags=("laundry_room", "motion", "occupancy"))
 
 Toggle("Laundry Room Door",
+       display=Toggle.DisplayOpenClosed,
        tags=("laundry_room", "exterior_door", "occupancy", "nyi"))

@@ -1,4 +1,4 @@
-from idiotic.item import Toggle, Trigger, Number, Group, Text
+from idiotic.item import Toggle, Trigger, Number, Group, Text, display_unit
 
 Toggle("Kitchen Light",
        tags=("kitchen", "light", "nightlight"),
@@ -22,6 +22,7 @@ Toggle("Kettle",
            ]}})
 
 Number("Kettle Temperature",
+       display=display_unit("C"),
        tags=("kitchen", "food", "nyi"),
        bindings={"http": {"push": [
            ("set", "kimiko.hackafe.net/teakettle/heat/{state}")
@@ -36,6 +37,7 @@ Text("Kettle Status",
      bindings={"sign": {"state": {"message": "{state}", "effects": ["scroll"], "lifetime": 10}}})
 
 Toggle("Kitchen Door",
+       display=Toggle.DisplayOpenClosed,
        tags=("kitchen", "exterior_door", "occupancy", "nyi"))
 
 Trigger("Kitchen Motion",
