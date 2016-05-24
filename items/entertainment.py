@@ -1,4 +1,5 @@
 from idiotic.item import Toggle, Trigger, Number, Group, display_unit
+from idiotic import instance as c
 
 Toggle("Entertainment Room Light",
        bindings={"x10": {"code": "a13"}},
