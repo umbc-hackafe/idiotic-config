@@ -33,7 +33,9 @@ Dimmer("Office Lamp 2",
        tags=("office", "light"))
 
 Toggle("Office Air Conditioner",
-       tags=("office", "ac", "climate", "nyi"))
+       tags=("bedroom", "ac", "climate"),
+       bindings={"modlet": {"device": "office",
+                            "control": True}})
 
 Group("Office Lights",
       tags=("office"),
