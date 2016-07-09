@@ -4,7 +4,7 @@ from idiotic import instance as c
 
 Scene("Daylight")
 
-MIN_DAY_BRIGHTNESS = 50
+MIN_DAY_BRIGHTNESS = 65
 MAX_NIGHT_BRIGHTNESS = 40
 
 @bind(Change(c.items.brightness))
