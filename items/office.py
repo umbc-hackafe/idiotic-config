@@ -25,12 +25,10 @@ Number("Office Humidity",
            "webui.readonly"))
 
 Dimmer("Office Lamp 1",
-       bindings={"wink": {"id": 1541981}},
-       tags=("office", "light"))
+       tags=("office", "light", "nyi"))
 
 Dimmer("Office Lamp 2",
-       bindings={"wink": {"id": 1541998}},
-       tags=("office", "light"))
+       tags=("office", "light", "nyi"))
 
 Toggle("Office Air Conditioner",
        tags=("bedroom", "ac", "climate"),
