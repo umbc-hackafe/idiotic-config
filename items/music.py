@@ -1,12 +1,20 @@
 from idiotic.item import Toggle, Trigger, Number, Group, Dimmer, display_unit
 from idiotic import instance as c
 
-c.items.music_overhead_lamp_1.tags.update(("music_room", "light"))
-c.items.music_overhead_lamp_2.tags.update(("music_room", "light"))
-c.items.music_overhead_lamp_3.tags.update(("music_room", "light"))
-c.items.music_desk_lamp.tags.update(("music_room", "light"))
+Dimmer("Music Overhead Lamp 1",
+       bindings={"wink": {"name": "Music Overhead Lamp 1"}},
+       tags=("music_room", "light", "alexa.exclude_iot"))
+
+Dimmer("Music Overhead Lamp 2",
+       bindings={"wink": {"name": "Music Overhead Lamp 2"}},
+       tags=("music_room", "light", "alexa.exclude_iot"))
+
+Dimmer("Music Overhead Lamp 3",
+       bindings={"wink": {"name": "Music Overhead Lamp 3"}},
+       tags=("music_room", "light", "alexa.exclude_iot"))
 
 Dimmer("Music Room Lamp",
+       bindings={"wink": {"name": "Music Desk Lamp"}},
        tags=("music_room", "light"))
 
 Group("Music Room Lights",
