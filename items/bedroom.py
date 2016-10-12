@@ -2,7 +2,7 @@ from idiotic.item import Toggle, Trigger, Number, Group, Dimmer, display_unit
 from idiotic import instance as c
 
 Dimmer("Bedroom Desk Lamp",
-       bindings={"wink": {"name": "Dylan Desk"}},
+       bindings={"wink": {"name": "Dylan Desk Lamp"}},
        tags=("bedroom", "light", "alexa.exclude_iot"))
 
 Toggle("Bedroom Light",
